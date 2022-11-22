@@ -20,3 +20,6 @@ Talvez seja necessario fechar o VS Code e abrir de novo para o terminal integrad
 - Instale os packages que a extensão pedir que estão faltando.
 - Nao deixe mostrar o dialog toda vez para cada instalação, deixe instalar todos packages de uma vez conforme a extensão precisar.
 - Teste o PDF
+
+- Usado a configuração `latex-workshop.latex.autoClean.run: OnBuilt` da extensão do VS Code que remove os arquivos auxiliares 
+que são gerados após o build.
