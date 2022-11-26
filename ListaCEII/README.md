@@ -1,3 +1,5 @@
-## Observações
+## Dúvidas e Pendências
 
-- Estudar como separar o arquivo LaTeX em vários menores e sair incluindo eles, se não vai ficar um arquivo gigante e impossível de dar manutenção.
+- Problema P9.69: porque i_GND é igual a zero? Não seria igual a corrente na malha 2?
+O solucionário do Nilsson considerou ela nula, porque?
+

@@ -35,20 +35,23 @@ Começamos pela malha 1:
 
 \[ R_1i_1 - \frac{j}{\omega C}(i_1 - i_2) = V_g \]
 
-\[ i_1\left(R_1 - \frac{j}{\omega C}\right) + i_2\left(- \frac{j}{\omega C}\right) = V_g \]
+\[ i_1\left(R_1 - \frac{j}{\omega C}\right) + i_2\left(\frac{j}{\omega C}\right) = V_g \]
 
 Agora vamos para a malha 2:
 
 \[ \frac{1}{j\omega C}(i_2 - i_1) + R_2i_2 = 0 \]
 
-\[ i_1\left(- \frac{j}{\omega C}\right) + i_2\left(R_2 + \frac{j}{\omega C}\right) = 0 \]
+\[ i_1\left(\frac{j}{\omega C}\right) + i_2\left(R_2 - \frac{j}{\omega C}\right) = 0 \]
 
 Com as duas equações de malha, temos o sistema linear
 
+\begingroup
+\renewcommand*{\arraystretch}{3}
+
 \begin{equation}\label{eq:9.69.3}
     \begin{bmatrix}
-        R_1 - \frac{j}{\omega C} & - \frac{j}{\omega C} \\
-        - \frac{j}{\omega C} & R_2 + \frac{j}{\omega C}
+        R_1 - \frac{j}{\omega C} & \frac{j}{\omega C}     \\
+        \frac{j}{\omega C}     & R_2 - \frac{j}{\omega C}
     \end{bmatrix}
     \begin{bmatrix}
         i_1 \\
@@ -60,6 +63,101 @@ Com as duas equações de malha, temos o sistema linear
         0
     \end{bmatrix}
 \end{equation}
+\endgroup
+
+
+Substituindo os valores, temos
+
+\begingroup
+\renewcommand*{\arraystretch}{3}
+
+\[
+    \begin{bmatrix}
+        400 - j400 & 400       \\
+        400      & 400 - j400
+    \end{bmatrix}
+    \begin{bmatrix}
+        i_1 \\
+        i_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \frac{5000}{\sqrt{2}} \\
+        0
+    \end{bmatrix}
+\]
+
+\[
+    \begin{bmatrix}
+        400 - j400 (400 + j400) & 400    (400 + j400)    \\
+        400      & 400 - j400
+    \end{bmatrix}
+    \begin{bmatrix}
+        i_1 \\
+        i_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \frac{5000}{\sqrt{2}} (400 + j400) \\
+        0
+    \end{bmatrix}
+\]
+
+\[
+    \begin{bmatrix}
+        320000 & 400    (400 + j400)    \\
+        400      & 400 - j400
+    \end{bmatrix}
+    \begin{bmatrix}
+        i_1 \\
+        i_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \frac{5000}{\sqrt{2}} (400 + j400) \\
+        0
+    \end{bmatrix}
+\]
+
+\[
+    \begin{bmatrix}
+        320000 & - 400    (400 + j400)    \\
+        0      & 400 - j400 + \frac{400(400 + j400)}{-800}
+    \end{bmatrix}
+    \begin{bmatrix}
+        i_1 \\
+        i_2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \frac{5000}{\sqrt{2}} (400 + j400) \\
+        0 + \frac{\frac{5000}{\sqrt{2}} (400 + j400)}{-800}
+    \end{bmatrix}
+\]
+
+\endgroup
+
+Resolvendo, temos
+
+\[ i_2 = \frac{\frac{\frac{5000}{\sqrt{2}} (400 + j400)}{-800}}{400 - j400 + \frac{- 400(400 + j400)}{-800}} \]
+
+\[ i_2 = \frac{\frac{5000}{\sqrt{2}} (400 + j400)}{-320000 + j320000 - 400(400 + j400)} \]
+
+\[ i_2 = \frac{1414200 + j1414200}{-480000 + j160000} \]
+
+\[ i_2 = \frac{2\cdot10^6\phase{45^{\circ}}}{505964\phase{161.57^{\circ}}} \]
+
+\begin{equation}\label{eq:9.69.4}
+    i_2 = i_{GND} = 3,95\phase{-116,57^{\circ}} \; \textrm{A}
+\end{equation}
+
+
+    
+
+
+
+
+
 
 
 
