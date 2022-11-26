@@ -1,5 +1,8 @@
 \section*{Problema P9.37}
 
+\renewcommand*\thesection{9.37}
+\numberwithin{equation}{section}
+
 \begin{center}
     \includegraphics[scale=1.0]{P9.37.jpg}
 \end{center}
@@ -48,17 +51,17 @@ Agora é possível epxressar uma função para o ângulo de fase \( \phi \) de \
 
 \[ \phi = \tan^{-1}\left(\frac{\frac{B}{A^2 + B^2}}{\frac{R_1(A^2 + B^2) - A}{A^2 + B^2}}\right) \]
 
-\begin{equation}\label{eq:9.37-1}\tag{9.37-1}
+\begin{equation}\label{eq:9.37.1}
     \phi = \tan^{-1}\left(\frac{B}{R_1(A^2 + B^2) - A}\right)
 \end{equation}
 
 Uma vez calculado $Z_{in}$, podemos expressar a relação entre $V_g$ e $I_o$ através de
 
-\begin{equation}\label{eq:9.37-2}\tag{9.37-2}
+\begin{equation}\label{eq:9.37.2}
     V_g = Z_{in} \cdot I_g
 \end{equation}
 
-Para que (\ref{eq:9.37-2}) seja satisfeita com $V_g$ e $I_o$ em fase, temos que o ângulo de fase de $Z_{in}$ deve ser nulo. Portanto, usando (\ref{eq:9.37-2}), temos
+Para que (\ref{eq:9.37.2}) seja satisfeita com $V_g$ e $I_o$ em fase, temos que o ângulo de fase de $Z_{in}$ deve ser nulo. Portanto, usando (\ref{eq:9.37.1}), temos
 
 \[ \phi = \tan^{-1}\left(\frac{B}{R_1(A^2 + B^2) - A}\right) = 0 \]
 
@@ -87,7 +90,7 @@ Para solucionar a equação de 3° grau, vamos substituir os valores
 
 Usando $\omega = 2\pi f$, a frequência $f$ em Hertz da fonte de tensão deve ser
 
-\begin{equation}\label{eq:9.37-3}\tag{9.37-3}
+\begin{equation}\label{eq:9.37.3}
     f = \frac{1}{2\pi}\frac{R_2}{L}
 \end{equation}
 

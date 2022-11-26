@@ -1,9 +1,11 @@
 \section*{Problema P9.50}
 
+\renewcommand*\thesection{9.50}
+\numberwithin{equation}{section}
+
 \begin{center}
     \includegraphics[scale=1.0]{P9.50.jpg}
 \end{center}
-
 
 Em um circuito equivalente norton, temos
 
@@ -13,18 +15,18 @@ Vamos começar calculando a tensão de Thevenin \(V_{th}\) entre os terminais \(
 
 Expressando as variáveis de controle em função dos elementos do circuito, obtemos
 
-\begin{equation}\label{eq:9.50-1}\tag{9.50-1}
+\begin{equation}\label{eq:9.50.1}
     V_{2} = V_B
 \end{equation}
 
-\begin{equation}\label{eq:9.50-2}\tag{9.50-2}
+\begin{equation}\label{eq:9.50.2}
     I_{\phi} = \frac{5V - V_A}{200 \;\Omega}
 \end{equation}
 
 Feito isso, aplicamos análise nodal dos nós essenciais \( A \) e \( B \).
 Começamos pelo nó \( A \). Obtemos de imediato que
 
-\begin{equation}\label{eq:9.50-3}\tag{9.50-3}
+\begin{equation}\label{eq:9.50.3}
     V_{A} = \frac{V_2}{5} = \frac{V_B}{5}
 \end{equation}
 
@@ -32,7 +34,7 @@ Agora vamos para o nó \( B \).
 
 \[ \frac{V_B - V_A}{-j50 \;\Omega} + 88I_{\phi} + \frac{V_B - 0}{10 \;\Omega} = 0 \]
 
-Usando (\ref{eq:9.50-2}) e (\ref{eq:9.50-3}), temos
+Usando (\ref{eq:9.50.2}) e (\ref{eq:9.50.3}), temos
 
 \[ \frac{V_B - \frac{V_B}{5}}{-j50 \;\Omega} + 88\frac{5V - \frac{V_B}{5}}{200 \;\Omega} + \frac{V_B}{10 \;\Omega} = 0 \]
 
@@ -42,19 +44,19 @@ Isolando \( V_{B} \), temos
 
 \[ V_B = - \frac{2.2}{\frac{1}{-j50} - \frac{1}{-j250} - \frac{88}{1000} + \frac{1}{10}}\]
 
-\begin{equation}\label{eq:9.50-4}\tag{9.50-4}
+\begin{equation}\label{eq:9.50.4}
     V_{B} = - 66 + j88 V = 110\phase{126.86^{\circ}} V
 \end{equation}
 
-Usando (\ref{eq:9.50-3}), obtemos
+Usando (\ref{eq:9.50.3}), obtemos
 
-\begin{equation}\label{eq:9.50-5}\tag{9.50-5}
+\begin{equation}\label{eq:9.50.5}
     V_{A} = 22\phase{126.86^{\circ}} V
 \end{equation}
 
 Assim, obtemos que a tensão de Thevenin é dada por
 
-\begin{equation}\label{eq:9.50-6}\tag{9.50-6}
+\begin{equation}\label{eq:9.50.6}
     V_{th} = V_{ab} = V_B = 110\phase{126.86^{\circ}} V
 \end{equation}
 
@@ -62,11 +64,11 @@ Agora calculamos a corrente de curo-circuito \( I_{sc}\).
 Curto circuitamos os terminais \( a \) e \( b \), e novamente expressamos as variáveis de controle em função dos elementos
 do circuito.
 
-\begin{equation}\label{eq:9.50-7}\tag{9.50-7}
+\begin{equation}\label{eq:9.50.7}
     V_{2} = 0 V
 \end{equation}
 
-\begin{equation}\label{eq:9.50-8}\tag{9.50-8}
+\begin{equation}\label{eq:9.50.8}
     I_{\phi} = \frac{5V - V_A}{200 \;\Omega}
 \end{equation}
 
@@ -91,13 +93,13 @@ Substituindo e isolando  \(I_{sc}\),
 
 \[ 0 + 88\frac{5V}{200 \;\Omega} + I_{sc} = 0 \]
 
-\begin{equation}\label{eq:9.50-9}\tag{9.50-9}
+\begin{equation}\label{eq:9.50.9}
     I_{sc} = - 2.2 \; A = 2.2\phase{180^{\circ}} \; A
 \end{equation}
 
-Usando (\ref{eq:9.50-9}) e (\ref{eq:9.50-6}), obtemos a resistência de Thevenin \( R_{th} \).
+Usando (\ref{eq:9.50.9}) e (\ref{eq:9.50.6}), obtemos a resistência de Thevenin \( R_{th} \).
 
-\begin{equation}\label{eq:9.50-10}\tag{9.50-10}
+\begin{equation}\label{eq:9.50.10}
     R_{th} = \frac{V_{th}}{I_{sc}} = \frac{110\phase{126.86^{\circ}}}{2.2\phase{180^{\circ}}} = 50\phase{-53.14^{\circ}} \Omega
 \end{equation}
 

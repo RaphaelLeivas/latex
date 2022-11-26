@@ -1,4 +1,8 @@
+
 \section*{Problema P9.77}
+
+\renewcommand*\thesection{9.77}
+\numberwithin{equation}{section}
 
 \begin{center}
     \includegraphics[scale=1.0]{P9.77.jpg}
@@ -9,19 +13,19 @@
 O valor de \(i(t)\) depende da impedância \(Z_{in}\) vista pela fonte \(V_{g}\).
 Sabemos que \(Z_{in}\) é expressa por
 
-\begin{equation}\label{eq:9.77-1}\tag{9.77-1}
+\begin{equation}\label{eq:9.77.1}
     Z_{in} = Z_{11} + Z_{r}
 \end{equation}
 
 Além disso, sabemos que a impedância refletida \(Z_{r}\) é dada por
 
-\begin{equation}\label{eq:9.77-2}\tag{9.77-2}
+\begin{equation}\label{eq:9.77.2}
     Z_{r} = \frac{\omega^2M^2}{Z_{22}}
 \end{equation}
 
-Substituindo (\ref{eq:9.77-2}) em (\ref{eq:9.77-1}), temos
+Substituindo (\ref{eq:9.77.2}) em (\ref{eq:9.77.1}), temos
 
-\begin{equation}\label{eq:9.77-3}\tag{9.77-3}
+\begin{equation}\label{eq:9.77.3}
     Z_{in} = Z_{11} + \frac{\omega^2M^2}{Z_{22}}
 \end{equation}
 
@@ -32,13 +36,13 @@ Onde
     \item \(M\): Indutância mútua.
 \end{itemize}
 
-Expandindo os termos de (\ref{eq:9.77-3}), temos
+Expandindo os termos de (\ref{eq:9.77.3}), temos
 
-\begin{equation}\label{eq:9.77-4}\tag{9.77-4}
+\begin{equation}\label{eq:9.77.4}
     Z_{in} = R_s + R_1 + j \omega L_1 + \frac{\omega^2(k\sqrt{L_1L_2})^2}{j\omega L_2 + R_2 + R_L + \frac{1}{j\omega C}}
 \end{equation}
 
-Vamos reescrever (\ref{eq:9.77-4}) de modo a isolar a parte real da parte complexa.
+Vamos reescrever (\ref{eq:9.77.4}) de modo a isolar a parte real da parte complexa.
 
 \[ Z_{in} = R_s + R_1 + j \omega L_1 + \frac{\omega^2k^2L_1L_2}{j\omega L_2 + R_2 + R_L - \frac{j}{\omega C}} \]
 
@@ -48,23 +52,23 @@ Vamos reescrever (\ref{eq:9.77-4}) de modo a isolar a parte real da parte comple
 
 \[ Z_{in} = R_s + R_1 + j \omega L_1 + \frac{(\omega^2k^2L_1L_2)(R_2 + R_L) - j(\omega^2k^2L_1L_2)(\omega L_2 - \frac{1}{\omega C})}{(R_2 + R_L)^2 + (\omega L_2 - \frac{1}{\omega C})^2} \]
 
-\begin{equation}\label{eq:9.77-5}\tag{9.77-5}
+\begin{equation}\label{eq:9.77.5}
     Z_{in} = R_s + R_1 + \frac{(\omega^2k^2L_1L_2)(R_2 + R_L)}{(R_2 + R_L)^2 + (\omega L_2 - \frac{1}{\omega C})^2} + j \left(\omega L_1 - \frac{(\omega^2k^2L_1L_2)(\omega L_2 - \frac{1}{\omega C})}{(R_2 + R_L)^2 + (\omega L_2 - \frac{1}{\omega C})^2}\right)
 \end{equation}
 
-A partir de (\ref{eq:9.77-5}) podemos determinar o módulo de \(Z_{in}\).
+A partir de (\ref{eq:9.77.5}) podemos determinar o módulo de \(Z_{in}\).
 
-\begin{equation}\label{eq:9.77-6}\tag{9.77-6}
+\begin{equation}\label{eq:9.77.6}
     |Z_{in}|(k) = \sqrt{\left(R_s + R_1 + \frac{(\omega^2k^2L_1L_2)(R_2 + R_L)}{(R_2 + R_L)^2 + (\omega L_2 - \frac{1}{\omega C})^2}\right)^2 + \left(\omega L_1 - \frac{(\omega^2k^2L_1L_2)(\omega L_2 - \frac{1}{\omega C})}{(R_2 + R_L)^2 + (\omega L_2 - \frac{1}{\omega C})^2}\right)^2}
 \end{equation}
 
-A expressão (\ref{eq:9.77-6}) expressa o módulo de \(Z_{in}\) como uma função do coeficiente \(k\). O valor máximo de \(i(t)\) ocorre quando \(Z_{in}(k)\) aitinge seu valor mínimo, ou seja, quando
+A expressão (\ref{eq:9.77.6}) expressa o módulo de \(Z_{in}\) como uma função do coeficiente \(k\). O valor máximo de \(i(t)\) ocorre quando \(Z_{in}(k)\) aitinge seu valor mínimo, ou seja, quando
 
-\begin{equation}\label{eq:9.77-7}\tag{9.77-7}
+\begin{equation}\label{eq:9.77.7}
     \frac{d}{dk}|Z_{in}|(k) = 0
 \end{equation}
 
-Vamos diferenciar (\ref{eq:9.77-6}) com respeito a \(k\). Antes disso, vamos adotar uma notação para reduzir o tamanho da expressão.
+Vamos diferenciar (\ref{eq:9.77.6}) com respeito a \(k\). Antes disso, vamos adotar uma notação para reduzir o tamanho da expressão.
 Sejam
 
 \[ 
@@ -73,19 +77,19 @@ Sejam
     B = \frac{(\omega^2L_1L_2)(\omega L_2 - \frac{1}{\omega C})}{(R_2 + R_L)^2 + (\omega L_2 - \frac{1}{\omega C})^2}
 \]
 
-Note que  \(A\) e \(B\) não dependem de \(k\). Assim, podemos reescrever (\ref{eq:9.77-6}) como
+Note que  \(A\) e \(B\) não dependem de \(k\). Assim, podemos reescrever (\ref{eq:9.77.6}) como
 
-\begin{equation}\label{eq:9.77-8}\tag{9.77-8}
+\begin{equation}\label{eq:9.77.8}
     |Z_{in}|(k) = \sqrt{\left(R_s + R_1 + A k^2\right)^2 + \left(\omega L_1 - B k^2\right)^2}
 \end{equation}
 
-Diferenciando (\ref{eq:9.77-8}) com respeito a \(k\), temos
+Diferenciando (\ref{eq:9.77.8}) com respeito a \(k\), temos
 
-\begin{equation}\label{eq:9.77-9}\tag{9.77-9}
+\begin{equation}\label{eq:9.77.9}
     \frac{d}{dk}|Z_{in}|(k) = \frac{1}{2}\frac{2(R_s + R_1 + A k^2)(2Ak) + 2(\omega L_1 - B k^2)(2Bk)}{\sqrt{\left(R_s + R_1 + A k^2\right)^2 + \left(\omega L_1 - B k^2\right)^2}}
 \end{equation}
 
-Para que (\ref{eq:9.77-9}) seja igual a zero, temos
+Para que (\ref{eq:9.77.9}) seja igual a zero, temos
 
 \[ 2(R_s + R_1 + A k^2)(2Ak) + 2(\omega L_1 - B k^2)(-2Bk) = 0 \]
 
@@ -109,7 +113,7 @@ Substituindo os valores todos, temos
 
 \subsection*{(b)}
 
-Conhecido o valor de \(k = 0.3536\), podemos calcular o valor da impedância vista pela fonte através de (\ref{eq:9.77-4}), obtendo
+Conhecido o valor de \(k = 0.3536\), podemos calcular o valor da impedância vista pela fonte através de (\ref{eq:9.77.4}), obtendo
 
 \[ Z_{in} = 224 + j168 \; \Omega \]
 
