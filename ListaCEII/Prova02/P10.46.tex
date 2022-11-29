@@ -1,0 +1,65 @@
+
+\section*{Problema P10.46}
+
+\renewcommand*\thesection{10.46}
+\numberwithin{equation}{section}
+
+\begin{center}
+    \includegraphics[scale=1.0]{P10.46.jpg}
+\end{center}
+
+\subsection*{(a)}
+
+Aplicamos teorema de Thevenin nos terminais $a$ e $b$ mostrados na figura. \\
+Começamos calculando a tensão de Thevenin $V_{th}$, abrindo os terminais $a$ e $b$. Nesse caso, temos apenas a malha à esquerda
+do nó essencial (A). Assim, aplicando análise de malhas nessa malha, temos
+
+\[ -300 + 500I + j300I + j200I = 0 \]
+
+\[ I(500 + j300 + j200) = 300 \]
+
+\[ I = \frac{300}{500 + j500} = 0,3 + j0,3 \;\textrm{A} = 424,25\phase{45^{\circ}} \;\textrm{mA}\]
+
+Assim, a tensão $V_A = V_a$ é dada por   
+
+\[ V_a = j200 \cdot I = 200\phase{90^{\circ}} \;\Omega \cdot 424,25\phase{45^{\circ}} \;\textrm{mA}\]
+
+\[ V_a = V_{ab} = V_{th} = 84,85\phase{135^{\circ}} \;\textrm{V}\]
+
+Agora curto-circuitamos os terminais $a$ e $b$ para achar a corrente $I_{sc}$. Nesse caso, aplicamos análise nodal no nó
+essencial (A), obtendo
+
+\[ \frac{V_A - 300}{500 + j300} + \frac{V_A}{j200} + \frac{V_A}{200 - j480} = 0 \]
+
+\[ V_A\left(\frac{1}{500 + j300} + \frac{1}{j200} + \frac{1}{200 - j480}\right) = \frac{300}{500 + j300} \]
+
+\[ V_A = \frac{\frac{300}{500 + j300}}{\frac{1}{500 + j300} + \frac{1}{j200} + \frac{1}{200 - j480}} \]
+
+\[ V_A = \frac{0,4412 - j0,2647}{0,00221 - j0,00410} \]
+
+\[ V_A = 110,46\phase{30,71^{\circ}} \;\textrm{V} \]
+
+Assim, temos a corrente de curto-circuito dada por
+
+\[ I_{sc} = \frac{V_A}{300 - j480} = \frac{110,46\phase{30,71^{\circ}}}{300 - j480} = 195,15\phase{88,70^{\circ}}\;\textrm{mA} \]
+
+Conhecido $V_{th}$ e $I_{sc}$, temos a impedância de Thevenin dada por
+
+\[ Z_{th} = \frac{V_{th}}{I_{sc}} = 434,79,88\phase{46,3^{\circ}} =  \]
+
+
+
+
+
+
+
+\[ \boxed{P_{abs} = 5435,43 \;\textrm{W} = P_{V_g}} \]
+
+
+
+
+
+
+
+
+
