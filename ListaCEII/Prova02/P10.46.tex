@@ -41,25 +41,45 @@ essencial (A), obtendo
 
 Assim, temos a corrente de curto-circuito dada por
 
-\[ I_{sc} = \frac{V_A}{300 - j480} = \frac{110,46\phase{30,71^{\circ}}}{300 - j480} = 195,15\phase{88,70^{\circ}}\;\textrm{mA} \]
+\[ I_{sc} = \frac{V_A}{200 - j480} = \frac{110,46\phase{30,71^{\circ}}}{200 - j480} = 212,42\phase{98,09^{\circ}}\;\textrm{mA} \]
 
 Conhecido $V_{th}$ e $I_{sc}$, temos a impedância de Thevenin dada por
 
-\[ Z_{th} = \frac{V_{th}}{I_{sc}} = 434,79,88\phase{46,3^{\circ}} =  \]
+\[ Z_{th} = \frac{V_{th}}{I_{sc}} = 399,5\phase{36,91^{\circ}} \;\Omega \]
 
+Para que tenhamos a máxima transferência de potência, precisamos que
 
+\[ R = (Z_{th})^* \]
 
+Contudo, como a resistência $R$ é puramente real, temos que a condição de máxima potência é
 
+\[ R = |(Z_{th})^*| \]
 
+Portanto, 
 
+\[ \boxed{R = 399,5 \;\Omega} \]
 
-\[ \boxed{P_{abs} = 5435,43 \;\textrm{W} = P_{V_g}} \]
+\subsection*{(b)}
 
+Usando o circuito equivalente Thevenin, sabemos que a corrente que passa pelo resistor $R$ é
 
+\[ I_R = \frac{V_{th}}{R + Z_{th}} \]
 
+\[ I_R = \frac{84,85\phase{135^{\circ}}}{399,5 + 319,43 + j239,92} = \frac{84,85\phase{135^{\circ}}}{718,93 + j239,92} \]
 
+\[ I_R = 111,95\phase{116,54^{\circ}} \;\textrm{mA} \]
 
+Assim, a potência $P_R$ no resistor de carga é
 
+\[ P_R = R \cdot |I_{R}|^2 \]
+
+\[ \boxed{P_R = 5 \;\textrm{W}} \]
+
+\subsection*{(c)}
+
+O resistor com valor comercial mais próximo do valor calculado de $R = 399,5 \;\Omega$ é o resistor de
+
+\[ \boxed{R_c = 390 \;\Omega} \]
 
 
 

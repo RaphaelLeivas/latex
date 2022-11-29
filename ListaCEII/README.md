@@ -10,5 +10,5 @@ R = |Zth*| ou R = Real{Zth*} ?
 
 ## Problemas com a linguagem
 
-- usar \newcommand \un para evitar repetição do \;\textrm{unit} toda hora da pau na extensao de build.
+- Usar `\newcommand\un[1]{\un{#1}}` para evitar repetição do \;\textrm{unit} toda hora da pau na extensao de build.
 
