@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.21)  29 NOV 2022 10:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.10) (preloaded format=pdflatex 2022.11.21)  29 NOV 2022 12:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -545,12 +545,12 @@ Package color Info: Driver file: pdftex.def on input line 149.
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
 Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 24.
- (Prova02/P9.14.tex
-<./PrintsQuestoes//P9.14.jpg, id=1, 437.83575pt x 142.131pt>
-File: ./PrintsQuestoes//P9.14.jpg Graphic file (type jpg)
-<use ./PrintsQuestoes//P9.14.jpg>
-Package pdftex.def Info: ./PrintsQuestoes//P9.14.jpg  used on input line 8.
-(pdftex.def)             Requested size: 437.83469pt x 142.13063pt.
+ (Prova02/P9.3.tex
+<./PrintsQuestoes//P9.3.jpg, id=1, 407.72325pt x 138.5175pt>
+File: ./PrintsQuestoes//P9.3.jpg Graphic file (type jpg)
+<use ./PrintsQuestoes//P9.3.jpg>
+Package pdftex.def Info: ./PrintsQuestoes//P9.3.jpg  used on input line 8.
+(pdftex.def)             Requested size: 407.72224pt x 138.51715pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 13.
  (C:\Users\Usuario_01\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -573,61 +573,66 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <8> on input line 13.
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 13.
- [1
+LaTeX Font Info:    Trying to load font information for TS1+lmss on input line 23.
+ (C:\Users\Usuario_01\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmss.fd
+File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+) [1
 
-{C:/Users/Usuario_01/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./PrintsQuestoes//P9.14.jpg>]) (Prova02/P9.37.tex
-<./PrintsQuestoes//P9.37.jpg, id=14, 435.42674pt x 113.223pt>
+{C:/Users/Usuario_01/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map} <./PrintsQuestoes//P9.3.jpg>] [2]) (Prova02/P9.14.tex
+<./PrintsQuestoes//P9.14.jpg, id=19, 437.83575pt x 142.131pt>
+File: ./PrintsQuestoes//P9.14.jpg Graphic file (type jpg)
+<use ./PrintsQuestoes//P9.14.jpg>
+Package pdftex.def Info: ./PrintsQuestoes//P9.14.jpg  used on input line 8.
+(pdftex.def)             Requested size: 437.83469pt x 142.13063pt.
+ [3] [4 <./PrintsQuestoes//P9.14.jpg>]) (Prova02/P9.37.tex
+<./PrintsQuestoes//P9.37.jpg, id=26, 435.42674pt x 113.223pt>
 File: ./PrintsQuestoes//P9.37.jpg Graphic file (type jpg)
 <use ./PrintsQuestoes//P9.37.jpg>
 Package pdftex.def Info: ./PrintsQuestoes//P9.37.jpg  used on input line 7.
 (pdftex.def)             Requested size: 435.42567pt x 113.22272pt.
- [2 <./PrintsQuestoes//P9.37.jpg>] [3]) (Prova02/P9.50.tex
-<./PrintsQuestoes//P9.50.jpg, id=24, 346.29375pt x 196.93575pt>
+ [5 <./PrintsQuestoes//P9.37.jpg>] [6]) (Prova02/P9.50.tex
+<./PrintsQuestoes//P9.50.jpg, id=35, 346.29375pt x 196.93575pt>
 File: ./PrintsQuestoes//P9.50.jpg Graphic file (type jpg)
 <use ./PrintsQuestoes//P9.50.jpg>
 Package pdftex.def Info: ./PrintsQuestoes//P9.50.jpg  used on input line 7.
 (pdftex.def)             Requested size: 346.2929pt x 196.93524pt.
- [4] [5 <./PrintsQuestoes//P9.50.jpg>]) (Prova02/P9.69.tex
-<./PrintsQuestoes//P9.69.jpg, id=31, 458.9145pt x 121.05225pt>
+ [7] [8 <./PrintsQuestoes//P9.50.jpg>]) (Prova02/P9.69.tex
+<./PrintsQuestoes//P9.69.jpg, id=43, 458.9145pt x 121.05225pt>
 File: ./PrintsQuestoes//P9.69.jpg Graphic file (type jpg)
 <use ./PrintsQuestoes//P9.69.jpg>
 Package pdftex.def Info: ./PrintsQuestoes//P9.69.jpg  used on input line 7.
 (pdftex.def)             Requested size: 458.91338pt x 121.05194pt.
- [6] [7 <./PrintsQuestoes//P9.69.jpg>]) (Prova02/P9.77.tex
-<./PrintsQuestoes//P9.77.jpg, id=39, 456.5055pt x 114.4275pt>
+ [9] [10 <./PrintsQuestoes//P9.69.jpg>]) (Prova02/P9.77.tex
+<./PrintsQuestoes//P9.77.jpg, id=50, 456.5055pt x 114.4275pt>
 File: ./PrintsQuestoes//P9.77.jpg Graphic file (type jpg)
 <use ./PrintsQuestoes//P9.77.jpg>
 Package pdftex.def Info: ./PrintsQuestoes//P9.77.jpg  used on input line 8.
 (pdftex.def)             Requested size: 456.50438pt x 114.42722pt.
- [8 <./PrintsQuestoes//P9.77.jpg>]
-LaTeX Font Info:    Trying to load font information for TS1+lmss on input line 34.
- (C:\Users\Usuario_01\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmss.fd
-File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [9] [10]) (Prova02/P10.22.tex
-<./PrintsQuestoes//P10.22.jpg, id=51, 425.1885pt x 197.538pt>
+ [11 <./PrintsQuestoes//P9.77.jpg>] [12] [13]) (Prova02/P10.22.tex
+<./PrintsQuestoes//P10.22.jpg, id=62, 425.1885pt x 197.538pt>
 File: ./PrintsQuestoes//P10.22.jpg Graphic file (type jpg)
 <use ./PrintsQuestoes//P10.22.jpg>
 Package pdftex.def Info: ./PrintsQuestoes//P10.22.jpg  used on input line 8.
 (pdftex.def)             Requested size: 425.18745pt x 197.5375pt.
- [11 <./PrintsQuestoes//P10.22.jpg>]) (Prova02/P10.37.tex
-<./PrintsQuestoes//P10.37.jpg, id=55, 423.38174pt x 121.6545pt>
+ [14 <./PrintsQuestoes//P10.22.jpg>]) (Prova02/P10.37.tex
+<./PrintsQuestoes//P10.37.jpg, id=66, 423.38174pt x 121.6545pt>
 File: ./PrintsQuestoes//P10.37.jpg Graphic file (type jpg)
 <use ./PrintsQuestoes//P10.37.jpg>
 Package pdftex.def Info: ./PrintsQuestoes//P10.37.jpg  used on input line 8.
 (pdftex.def)             Requested size: 423.3807pt x 121.65419pt.
- [12 <./PrintsQuestoes//P10.37.jpg>] [13]) [14] (ListaCEII.aux) ) 
+ [15 <./PrintsQuestoes//P10.37.jpg>] [16]) [17] (ListaCEII.aux) ) 
 Here is how much of TeX's memory you used:
- 10954 strings out of 475385
- 260139 string characters out of 2774546
- 713823 words of memory out of 3000000
- 32176 multiletter control sequences out of 15000+600000
+ 10971 strings out of 475385
+ 260507 string characters out of 2774546
+ 713845 words of memory out of 3000000
+ 32190 multiletter control sequences out of 15000+600000
  497279 words of font info for 46 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  108i,9n,106p,10627b,518s stack positions out of 10000i,1000n,20000p,200000b,80000s
-{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}<C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
-Output written on ListaCEII.pdf (14 pages, 476019 bytes).
+{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}{C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}<C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi12.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss12.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy6.pfb><C:/Users/Usuario_01/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy8.pfb>
+Output written on ListaCEII.pdf (17 pages, 532245 bytes).
 PDF statistics:
- 123 PDF objects out of 1000 (max. 8388607)
+ 133 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 36 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
