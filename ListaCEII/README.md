@@ -10,6 +10,8 @@ R = |Zth*| ou R = Real{Zth*} ?
 - O fasor de uma onda senoidal Acos(wt + theta) é A\phase ou é (A/sqrt(2))\phase? Eu uso o valor de pico ou o 
 valor RMS no modulo do fasor? 
 
+- Questao P6.21 envolve muiitos sinais de integração e desenhar grafico. Deixar pendente por enquanto para nao gastar muito tempo
+
 ## Problemas com a linguagem
 
 ## Melhorias
