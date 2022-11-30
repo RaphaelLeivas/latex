@@ -12,3 +12,5 @@ valor RMS no modulo do fasor?
 
 ## Problemas com a linguagem
 
+## Melhorias
+
