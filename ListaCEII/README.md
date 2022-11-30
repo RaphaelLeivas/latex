@@ -2,11 +2,13 @@
 
 - Problema P9.69: porque i_GND é igual a zero? Não seria igual a corrente na malha 2?
 O solucionário do Nilsson considerou ela nula, porque?
-- Colocar link do codigo fonte no inicio da lista para o prof avaliar código se necessario.
+    * eu fiz considerando zero mesmo, como se fosse um erro na imagem aparecer um curto entre os terminais
+    + e - do AmpOp.
 - Problema P10.46: quando a maxima transferencia de potencia é ajustada para um resistor, temos
 R = |Zth*| ou R = Real{Zth*} ?
-
-- Para finalizar as questoes da Prova 2, faltam apenas os exercicios P10.46 (corrigir o erro, esta diferente do solucionario) e P.9.69 (corrigir o erro)
+    * eu fiz considerando o que esta no solucionário, ou seja, R = |Zth*|
+- O fasor de uma onda senoidal Acos(wt + theta) é A\phase ou é (A/sqrt(2))\phase? Eu uso o valor de pico ou o 
+valor RMS no modulo do fasor? 
 
 ## Problemas com a linguagem
 
