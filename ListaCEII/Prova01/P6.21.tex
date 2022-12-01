@@ -10,7 +10,6 @@
 
 \subsection*{(a), (b), (c), (d)}
 
-
 Sabemos que a tensão em um capacitor de capacitância $C$ é dada por
 
 \begin{equation}\label{eq:6.21.1}
@@ -23,25 +22,31 @@ Usando a figura, e aplicando \eqref{eq:6.21.1} nos intervalos correspondetes ao 
     \begin{cases}
         15 + \frac{1}{C} \int_{0}^{t} (-50 \un{mA}) \,dt,            & 0 \leq t \leq 10 \;\mu\textrm{s}  \\
         \noalign{\vskip9pt}
-        \frac{1}{C} \int_{10 \;\mu\textrm{s}}^{20 \;\mu\textrm{s}} (100 \un{mA}) \,dt,    & 10 \leq t \leq 20 \;\mu\textrm{s} \\
+        10 + \frac{1}{C} \int_{10 \;\mu\textrm{s}}^{t} (100 \un{mA}) \,dt,     & 10 \leq t \leq 20 \;\mu\textrm{s} \\
         \noalign{\vskip9pt}
-        L \cdot (-4), & 20 \leq t \leq 40 \;\mu\textrm{s} \\
+        20 + \frac{1}{C} \int_{20 \;\mu\textrm{s}}^{t} (160 \un{mA}) \,dt, & 20 \leq t \leq 40 \;\mu\textrm{s} \\
         \noalign{\vskip9pt}
-        0,            & t > 40 \;\mu\textrm{s}
+        52 + \frac{1}{C} \int_{40 \;\mu\textrm{s}}^{t} (0 \un{mA}) \,dt,           & t > 40 \;\mu\textrm{s}
     \end{cases}
     =
     \begin{cases}
-        10 \un{V},            & 0 \leq t \leq 10 \;\mu\textrm{s}  \\
+        15 - 5 \cdot 10^{5}t \un{V},            & 0 \leq t \leq 10 \;\mu\textrm{s}  \\
         \noalign{\vskip9pt}
-        10 \un{V},    & 10 \leq t \leq 20 \;\mu\textrm{s} \\
+        10^{6}t \un{V},    & 10 \leq t \leq 20 \;\mu\textrm{s} \\
         \noalign{\vskip9pt}
-        L \cdot (-4), & 20 \leq t \leq 40 \;\mu\textrm{s} \\
+        1.6 \cdot 10^{6}t - 12 \un{V}, & 20 \leq t \leq 40 \;\mu\textrm{s} \\
         \noalign{\vskip9pt}
-        0,            & t > 40 \;\mu\textrm{s}
+        52 \un{V},            & t > 40 \;\mu\textrm{s}
     \end{cases}
 \]
 
-Além disso, temos que a potência no indutor é dada por
+\subsection*{(e)}
+
+Usando a ferramenta online Desmos, temos o gráfico de $v(t)$ em função do tempo $t$ abaixo.
+
+\begin{center}
+    \includegraphics[scale=0.75]{P6.21-Item(e).jpg}
+\end{center}
 
 
 
