@@ -15,5 +15,13 @@ valor RMS no modulo do fasor?
 ## Melhorias
 
 - investigar como otimizar o espaço das páginas. Usar duas colunas em algumas questões talvez? Esta com muito
-espaco vazio.
+espaço vazio.
 
+## TO-DO
+
+- passar a limpo 7.26 - OK
+- passar a limpo 7.35
+- finalizar 7.28 (se valer a pena, ela esta fora da lista)
+- fazer a 7.29
+- passar a limpo a 11.38 (feita em sala com o prof)
+- fazer a 7.53
