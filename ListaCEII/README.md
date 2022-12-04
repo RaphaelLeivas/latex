@@ -16,12 +16,12 @@ valor RMS no modulo do fasor?
 
 - investigar como otimizar o espaço das páginas. Usar duas colunas em algumas questões talvez? Esta com muito
 espaço vazio.
+- add numeração de paginas também, cabeçalho e rodapé
 
 ## TO-DO
 
 - passar a limpo 7.26 - OK
-- passar a limpo 7.35
-- finalizar 7.28 (se valer a pena, ela esta fora da lista)
-- fazer a 7.29
+- passar a limpo 7.35 - OK
+- fazer a 7.29 - OK
 - passar a limpo a 11.38 (feita em sala com o prof)
 - fazer a 7.53
