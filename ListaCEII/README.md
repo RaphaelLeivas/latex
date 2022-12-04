@@ -19,9 +19,4 @@ espaço vazio.
 - add numeração de paginas também, cabeçalho e rodapé
 
 ## TO-DO
-
-- passar a limpo 7.26 - OK
-- passar a limpo 7.35 - OK
-- fazer a 7.29 - OK
-- passar a limpo a 11.38 (feita em sala com o prof)
-- fazer a 7.53
+- passar a limpo a 11.38 e 11.06 (feitas em sala com o prof, no caderno em fotos)

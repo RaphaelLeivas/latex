@@ -77,7 +77,7 @@ Vamos primeiro determinar a expressão de $i(t)$ no indutor para $t>0$. Quando a
 de \ref*{fig:7.35.1} (a). Reduzindo o circuito de \ref*{fig:7.35.1} (a) via transformações de fonte, 
 temos o circuito de \ref*{fig:7.35.1} (b).
 
-\begin{figure}
+\begin{figure}[hb]
     \centering
     \caption{(a) Circuito do problema com a chave fechada. (b) Redução via transformações de fonte.}
       \centering
@@ -94,6 +94,8 @@ Em \ref*{fig:7.35.1} (b), aplicamos análise de malhas
 Usando o fator integrante $M(t) = e^{\frac{R}{L}t}$
 
 \[ e^{\frac{R}{L}t}\diff{i}{t} + e^{\frac{R}{L}t}\frac{R}{L}i = e^{\frac{R}{L}t}\frac{30}{L} \]
+
+Aplicando o inverso da regra da derivada do produto,
 
 \[ \diff{[i \cdot e^{\frac{R}{L}t}]}{t} = e^{\frac{R}{L}t}\frac{30}{L} \]
 
