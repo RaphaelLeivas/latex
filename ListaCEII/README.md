@@ -17,6 +17,7 @@ valor RMS no modulo do fasor?
 - investigar como otimizar o espaço das páginas. Usar duas colunas em algumas questões talvez? Esta com muito
 espaço vazio.
 - add numeração de paginas também, cabeçalho e rodapé
+- Considerar refazer P7.53 usando variaveis. Subsitui numeros no inicio e ficou uma bagunça (apesar de correto)
 
 ## TO-DO
 - passar a limpo a 11.38 e 11.06 (feitas em sala com o prof, no caderno em fotos)
