@@ -9,6 +9,7 @@ R = |Zth*| ou R = Real{Zth*} ?
     * eu fiz considerando o que esta no solucionário, ou seja, R = |Zth*|
 - O fasor de uma onda senoidal Acos(wt + theta) é A\phase ou é (A/sqrt(2))\phase? Eu uso o valor de pico ou o 
 valor RMS no modulo do fasor? 
+    * Depende, tem vez que pe conviente usar um ou outro. Nao é 100% definido em regra.
 
 ## Problemas com a linguagem
 - Como corrigir o posicionamento das figuras? com o includegraphics está OK, mas com o Figure está bugando demais (usar !hb)
@@ -25,6 +26,5 @@ espaço vazio.
 - corrigir e padronizar o 'Figure' das figuras
 
 ## TO-DO
-- 3 ultimas questoes do cap 11
 - aprender o cap 8
 - 8 questoes do cap 8
