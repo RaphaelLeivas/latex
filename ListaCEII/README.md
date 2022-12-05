@@ -19,6 +19,9 @@ espaço vazio.
 - add numeração de paginas também, cabeçalho e rodapé
 - Considerar refazer P7.53 usando variaveis. Subsitui numeros no inicio e ficou uma bagunça (apesar de correto)
 - criar comando para abstrair o \phase. Ficar colocando \circ toda hora está horrivel
+- corrigir o 'Figure' das figuras
 
 ## TO-DO
-- passar a limpo a 11.38 e 11.06 (feitas em sala com o prof, no caderno em fotos)
+- 3 ultimas questoes do cap 11
+- aprender o cap 8
+- 8 questoes do cap 8
