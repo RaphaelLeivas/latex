@@ -11,6 +11,8 @@ R = |Zth*| ou R = Real{Zth*} ?
 valor RMS no modulo do fasor? 
 
 ## Problemas com a linguagem
+- Como corrigir o posicionamento das figuras? com o includegraphics está OK, mas com o Figure está bugando demais (usar !hb)
+talvez
 
 ## Melhorias
 
