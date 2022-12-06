@@ -24,6 +24,10 @@ espaço vazio.
 - criar comando para abstrair o \phase. Ficar colocando \circ toda hora está horrivel
     * aplicar o `\fase{}` criado para todos os lugares, deixar padronizado
 - corrigir e padronizar o 'Figure' das figuras
+- Melhorar label de equations (https://tex.stackexchange.com/questions/278712/numbering-many-equations-automatically-plus-allowing-to-add-new-equations)
+    * nao parece ser ideal colocar o numero da equação no label de referencia
+    * sem o numero do label, seria possivel referenciar equacoes de outros problemas, evitando repeticao
+- Corrigir warnings da extensão do VS Code no arquivo principal
 
 ## TO-DO
 - aprender o cap 8
