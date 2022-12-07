@@ -18,13 +18,13 @@ do nó essencial (A). Assim, aplicando análise de malhas nessa malha, temos
 
 \[ I(500 + j300 + j200) = 300 \]
 
-\[ I = \frac{300}{500 + j500} = 0.3 + j0.3 \un{A} = 424.25\phase{45^{\circ}} \un{mA}\]
+\[ I = \frac{300}{500 + j500} = 0.3 + j0.3 \un{A} = 424.25\fase{45} \un{mA}\]
 
 Assim, a tensão $V_A = V_a$ é dada por   
 
-\[ V_a = j200 \cdot I = 200\phase{90^{\circ}} \;\Omega \cdot 424.25\phase{45^{\circ}} \un{mA}\]
+\[ V_a = j200 \cdot I = 200\fase{90} \;\Omega \cdot 424.25\fase{45} \un{mA}\]
 
-\[ V_a = V_{ab} = V_{th} = 84.85\phase{135^{\circ}} \un{V}\]
+\[ V_a = V_{ab} = V_{th} = 84.85\fase{135} \un{V}\]
 
 Agora curto-circuitamos os terminais $a$ e $b$ para achar a corrente $I_{sc}$. Nesse caso, aplicamos análise nodal no nó
 essencial (A), obtendo
@@ -37,15 +37,15 @@ essencial (A), obtendo
 
 \[ V_A = \frac{0.4412 - j0.2647}{0.00221 - j0.00410} \]
 
-\[ V_A = 110.46\phase{30.71^{\circ}} \un{V} \]
+\[ V_A = 110.46\fase{30.71} \un{V} \]
 
 Assim, temos a corrente de curto-circuito dada por
 
-\[ I_{sc} = \frac{V_A}{200 - j480} = \frac{110.46\phase{30.71^{\circ}}}{200 - j480} = 212.42\phase{98.09^{\circ}}\un{mA} \]
+\[ I_{sc} = \frac{V_A}{200 - j480} = \frac{110.46\fase{30.71}}{200 - j480} = 212.42\fase{98.09}\un{mA} \]
 
 Conhecido $V_{th}$ e $I_{sc}$, temos a impedância de Thevenin dada por
 
-\[ Z_{th} = \frac{V_{th}}{I_{sc}} = 399.5\phase{36.91^{\circ}} \;\Omega \]
+\[ Z_{th} = \frac{V_{th}}{I_{sc}} = 399.5\fase{36.91} \;\Omega \]
 
 Para que tenhamos a máxima transferência de potência, precisamos que
 
@@ -65,9 +65,9 @@ Usando o circuito equivalente Thevenin, sabemos que a corrente que passa pelo re
 
 \[ I_R = \frac{V_{th}}{R + Z_{th}} \]
 
-\[ I_R = \frac{84.85\phase{135^{\circ}}}{399.5 + 319.43 + j239.92} = \frac{84.85\phase{135^{\circ}}}{718.93 + j239.92} \]
+\[ I_R = \frac{84.85\fase{135}}{399.5 + 319.43 + j239.92} = \frac{84.85\fase{135}}{718.93 + j239.92} \]
 
-\[ I_R = 111.95\phase{116.54^{\circ}} \un{mA} \]
+\[ I_R = 111.95\fase{116.54} \un{mA} \]
 
 Assim, a potência $P_R$ no resistor de carga é
 

@@ -20,8 +20,6 @@ talvez
 - investigar como otimizar o espaço das páginas. Usar duas colunas em algumas questões talvez? Esta com muito
 espaço vazio.
 - Considerar refazer P7.53 usando variaveis. Subsitui numeros no inicio e ficou uma bagunça (apesar de correto)
-- criar comando para abstrair o \phase. Ficar colocando \circ toda hora está horrivel
-    * aplicar o `\fase{}` criado para todos os lugares, deixar padronizado
 - corrigir e padronizar o 'Figure' das figuras
 - Melhorar label de equations (https://tex.stackexchange.com/questions/278712/numbering-many-equations-automatically-plus-allowing-to-add-new-equations)
     * nao parece ser ideal colocar o numero da equação no label de referencia
