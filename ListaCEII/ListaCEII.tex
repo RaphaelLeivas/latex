@@ -1,36 +1,51 @@
 \documentclass[12pt]{scrartcl}
 
-\usepackage{blindtext}
-\usepackage{multicol}
-\usepackage[a4paper, total={18cm, 26cm}]{geometry}
-\usepackage{lmodern}
-\renewcommand{\familydefault}{\sfdefault}
-\usepackage{graphicx}
-\usepackage{parskip}
-\usepackage{amsmath}
-\usepackage{steinmetz}
-\usepackage{import}
-\usepackage{siunitx}
-\usepackage{hyperref}
-\usepackage{esdiff}
- 
-\usepackage[nodisplayskipstretch]{setspace}
-\setstretch{0.5}
+% packages
+\usepackage[
+    a4paper, total={18cm, 26cm},
+    left=0.75in,
+    right=0.75in,
+    top=0.75in,
+    bottom=0.50in,
+    footskip=15pt
+]{geometry}
+\usepackage{lastpage}
+\usepackage{graphicx} % \includegraphics
+\usepackage{amsmath} % math
+\usepackage{steinmetz} % \phase
+\usepackage{import} % \import
+\usepackage{esdiff} % \diff
+\usepackage{fancyhdr} % header and footer
 
-\newcommand\un[1]{\;\textrm{#1}}
-\newcommand\logo{\quad \Rightarrow \quad}
-\newcommand{\fase}[1]{\ensuremath{\phase{{#1}^{\circ}}}}
-
+% configs
+\setlength{\parindent}{0pt}
 \graphicspath{ {./PrintsQuestoes/} }
 
-\pagenumbering{gobble}
+% comandos
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\un}[1]{\;\textrm{#1}}
+\newcommand{\logo}{\quad \Rightarrow \quad}
+\newcommand{\fase}[1]{\ensuremath{\phase{{#1}^{\circ}}}}
 
 \begin{document}
 
-Aluno: Raphael Henrique Braga Leivas \\[20pt]
-Código fonte LaTeX desse arquivo pode ser visto em meu GitHub pessoal: \\[10pt]
-\href{https://github.com/RaphaelLeivas/latex/tree/main/ListaCEII}{https://github.com/RaphaelLeivas/latex/tree/main/ListaCEII} \\[20pt]
-Aceito sugestões de melhoria do código :) 
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyhead[R]{Matrícula: 2020028101}
+\fancyhead[L]{Análise de Circuitos Elétricos II - TECAN}
+\fancyfoot{}
+\fancyfoot[R]{Pág. \thepage \; / \pageref{LastPage}}
+
+\begin{center}
+    Aluno: Raphael Henrique Braga Leivas \\
+    Matrícula: 2020028101 \\[20pt]
+    Código fonte LaTeX desse arquivo pode ser visto em meu GitHub pessoal: \\
+    https://github.com/RaphaelLeivas/latex/tree/main/ListaCEII \\
+    Aceito sugestões de melhoria do código :)
+\end{center}
+
+\hrule
 
 % Prova 01
 \import{./Prova01}{P6.2.tex}
