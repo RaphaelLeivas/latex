@@ -26,8 +26,6 @@ talvez
 - P8.33, entender porque deu pau nas condições iniciais, deveria ter funcionado
 
 ## TO-DO
-- P8.54
-- P8.62
-- Corrigir posicionamento das Figures
 - Gerar PDF completo e dar uma revisão geral por cima
+- Add sumário se for fácil
 - Enviar moodle
