@@ -12,8 +12,7 @@ valor RMS no modulo do fasor?
     * Depende, tem vez que pe conviente usar um ou outro. Nao é 100% definido em regra.
 
 ## Problemas com a linguagem
-- Como corrigir o posicionamento das figuras? com o includegraphics está OK, mas com o Figure está bugando demais (usar !hb)
-talvez
+
 
 ## Melhorias
 
@@ -24,8 +23,3 @@ talvez
     * sem o numero do label, seria possivel referenciar equacoes de outros problemas, evitando repeticao
 - Corrigir warnings da extensão do VS Code no arquivo principal
 - P8.33, entender porque deu pau nas condições iniciais, deveria ter funcionado
-
-## TO-DO
-- Gerar PDF completo e dar uma revisão geral por cima
-- Add sumário se for fácil
-- Enviar moodle
