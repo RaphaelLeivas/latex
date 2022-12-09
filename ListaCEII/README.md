@@ -23,7 +23,11 @@ talvez
     * nao parece ser ideal colocar o numero da equação no label de referencia
     * sem o numero do label, seria possivel referenciar equacoes de outros problemas, evitando repeticao
 - Corrigir warnings da extensão do VS Code no arquivo principal
+- P8.33, entender porque deu pau nas condições iniciais, deveria ter funcionado
 
 ## TO-DO
-- aprender o cap 8
-- 8 questoes do cap 8
+- P8.54
+- P8.62
+- Corrigir posicionamento das Figures
+- Gerar PDF completo e dar uma revisão geral por cima
+- Enviar moodle
