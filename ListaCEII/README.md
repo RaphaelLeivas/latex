@@ -17,8 +17,6 @@ talvez
 
 ## Melhorias
 
-- investigar como otimizar o espaço das páginas. Usar duas colunas em algumas questões talvez? Esta com muito
-espaço vazio.
 - Considerar refazer P7.53 usando variaveis. Subsitui numeros no inicio e ficou uma bagunça (apesar de correto)
 - corrigir e padronizar o 'Figure' das figuras
 - Melhorar label de equations (https://tex.stackexchange.com/questions/278712/numbering-many-equations-automatically-plus-allowing-to-add-new-equations)
