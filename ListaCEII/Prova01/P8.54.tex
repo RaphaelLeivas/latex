@@ -15,7 +15,7 @@ O primeiro passo é identificar as condições iniciais do circuito, ou seja, as
     \centering
     \caption{(a) Circuito para $t<0$. (b) Circuito para $t \geq 0$.}
       \centering
-      \includegraphics[scale=0.5]{P8.54-Item(a).jpg} \\
+      \includegraphics[scale=0.75]{P8.54-Item(a).jpg} \\
     \label{fig:8.54.1}
 \end{figure}
 
@@ -36,7 +36,7 @@ Além disso, para identificar a condições de iniciais das derivadas de $i_L(t)
 \end{equation}
 
 \begin{equation}\label{eq:8.54.4}
-    \diff{i_L(0)}{t} = \frac{v_L(0)}{L} \logo \diff{i_L(0)}{t} = \frac{200}{0.1} = 2000 \un{A/s}
+    \diff{i_L(0)}{t} = \frac{v_L(0)}{L} \logo \diff{i_L(0)}{t} = \frac{0}{0.1} = 0 \un{A/s}
 \end{equation}
 
 De posse das condições inciais, aplicamos análise de malhas no circuito da Figura \ref*{fig:8.54.1} (b), obtendo
@@ -53,7 +53,7 @@ A EDO acima possui equação característica dada por
     s^2 + \frac{R}{L}s + \frac{1}{LC} = 0
 \end{equation}
 
-Substituindo com os valores do circuito da Figura \ref*{fig:8.54.1} (b,
+Substituindo com os valores do circuito da Figura \ref*{fig:8.54.1} (b),
 
 \[ s = \frac{-(100) \pm \sqrt{(100)^2 - 4(1)(5 \cdot 10^{3})}}{2(1)} \]
 
@@ -96,7 +96,7 @@ Em $t=0$, temos as condições iniciais já conhecidas em \eqref{eq:8.54.2} em \
     \begin{cases}
         A_1 + A_2 = -5 \un{A} & \\
         \noalign{\vskip9pt}
-        A_1s_1 + A_2s_2 = 2000 \un{A/s}
+        A_1s_1 + A_2s_2 = 0 \un{A/s}
     \end{cases}
 \]
 
@@ -117,7 +117,7 @@ De posse dessas equações, temos o sistema linear para identificar os coeficien
     =
     \begin{bmatrix}
         -5 \\
-        2000
+        0
     \end{bmatrix} \logo
     \begin{bmatrix}
         -s_1 & -s_1    \\
@@ -130,7 +130,7 @@ De posse dessas equações, temos o sistema linear para identificar os coeficien
     =
     \begin{bmatrix}
         5s_1 \\
-        2000
+        0
     \end{bmatrix}
 \]
 
@@ -146,7 +146,7 @@ De posse dessas equações, temos o sistema linear para identificar os coeficien
     =
     \begin{bmatrix}
         5s_1 \\
-        2000 + 5s_1
+        0 + 5s_1
     \end{bmatrix}
 \]
 
@@ -154,30 +154,32 @@ De posse dessas equações, temos o sistema linear para identificar os coeficien
 
 Assim, temos  
 
-\[ A_2 = \frac{2000 + 5s_1}{s_2 - s_1} \logo  A_2 = \frac{1750 + j250}{-j100} \] 
+\[ A_2 = \frac{5s_1}{s_2 - s_1} \logo  A_2 = \frac{-250 + j250}{-j100} \] 
 
-\[ A_2 = -2.5 + j17.5 \quad , \quad A_1 = -2.5 - j17.5 \quad  \] 
+\[ A_2 = -2.5 - j2.5 \quad , \quad A_1 = -2.5 + j2.5 \quad  \] 
 
 Conhecidos coeficientes $A_1$ e $A_2$, bem como as raízes $s_1$ e $s_2$, temos a solução geral $v(t)$ na forma de \eqref{eq:8.54.6}
 
-\[ i(t) = (-2.5 - j17.5)e^{(-50 + j50)t} + (-2.5 + j17.5)e^{(-50 - j50)t} \un{A} \, , \, t \geq 0  \]
+\[ i(t) = (-2.5 + j2.5)e^{(-50 + j50)t} + (-2.5 - j2.5)e^{(-50 - j50)t} \un{A} \, , \, t \geq 0  \]
 
 Vamos remover os exponenciais complexos usando a identidade de Euler.
 
-\[ i(t) = (-2.5 - j17.5)e^{-50t}e^{j50t} + (-2.5 + j17.5)e^{-50t}e^{-j50t} \]
+\[ i(t) = (-2.5 + j2.5)e^{-50t}e^{j50t} + (-2.5 - j2.5)e^{-50t}e^{-j50t} \]
 
-\[ i(t) = (-2.5 - j17.5)e^{-50t}(\cos(50t) + j\sin(50t)) + (-2.5 + j17.5)e^{-50t}(\cos(50t) - j\sin(50t)) \]
+\[ i(t) = (-2.5 + j2.5)e^{-50t}(\cos(50t) + j\sin(50t)) + (-2.5 - j2.5)e^{-50t}(\cos(50t) - j\sin(50t)) \]
 
 Evidenciando o termo $e^{-50t}$ e expandindo os demais via propriedade distributiva, temos que todas 
 parcelas complexas se cancelam e ficamos com
 
-\[ \boxed{i(t) = e^{-50t}\left[-5\cos(50t) + 35\sin(50t)\right] \un{A} \, , \, t \geq 0 }  \]
+\[ \boxed{i(t) = e^{-50t}\left[-5\cos(50t) - 5\sin(50t)\right] \un{A} \, , \, t \geq 0 }  \]
 
 Por fim, usando a relação entre corrente e tensão no capacitor de  
 
-\[ v_C(t) = v_C(0) + \frac{1}{C} \int_{0}^{t}i(t) \, dt\]
+\[ v_C(t) = v_C(0) + \frac{1}{C} \int i(t) \, dt\]
 
-Temos 
+\[ v_C(t) = -90 + \frac{1}{0.002} \int e^{-50t}\left[-5\cos(50t) - 5\sin(50t)\right] \, dt \]   
 
-\[ \boxed{v_C(t) = -90 + \frac{1}{0.002} \int_{0}^{t}e^{-50t}\left[-5\cos(50t) + 35\sin(50t)\right] \, dt \un{V} \, , \, t \geq 0} \]
+\[ v_C(t) = -90 + \frac{1}{0.002} \frac{1}{10}e^{-50t}\cos \left(50t\right) \]
+
+\[ \boxed{v_C(t) = -90 + 50e^{-50t}\cos \left(50t\right) \un{V} \, , \, t \geq 0} \]
 
