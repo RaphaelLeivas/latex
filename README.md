@@ -5,7 +5,7 @@ Repositório para códigos em LaTeX desenvolvidos.
 
 - Vá em https://www.latex-project.org/get/ 
 - Clique em MikTex, na seção Windows, indo para https://miktex.org/download
-- Faça download do MikTex para Windows
+- Faça download do MikTex para Windows 
 - Salve em C:\Users\Usuario_01\AppData\Local\Programs\MiKTeX
 - Instale a extensão LaTeX workshop no VS Code
 - Instale o strawberry-perl-5.32.1.1-64bit.msi a partir de https://strawberryperl.com/
