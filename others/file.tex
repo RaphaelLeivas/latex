@@ -1,0 +1,63 @@
+\documentclass[12pt]{scrartcl}
+
+% packages
+\usepackage[
+    a4paper, total={18cm, 26cm},
+    left=0.75in,
+    right=0.75in,
+    top=0.75in,
+    bottom=0.50in,
+    footskip=15pt
+]{geometry}
+\usepackage{lastpage}
+\usepackage{graphicx} % \includegraphics
+\usepackage{amsmath} % math
+\usepackage{steinmetz} % \phase
+\usepackage{import} % \import
+\usepackage{esdiff} % \diff
+\usepackage{fancyhdr} % header and footer
+
+\makeatletter
+\def\today{%
+  \two@digits{\the\day}/%
+  \ifcase\month\or%
+  01\or 02\or 03\or 04\or 05\or 06\or%
+  07\or 08\or 09\or 10\or 11\or 12\fi/%
+  \number\year%
+}
+\makeatother
+
+% configs
+\setlength{\parindent}{0pt}
+
+% comandos
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\un}[1]{\;\textrm{#1}}
+\newcommand{\logo}{\quad \Rightarrow \quad}
+\newcommand{\fase}[1]{\ensuremath{\phase{{#1}^{\circ}}}}
+
+\begin{document}
+
+\pagestyle{fancy}
+
+\fancyhead{}
+\fancyhead[L]{Programa de Monitoria de Graduação - Cálculo III}
+\fancyhead[R]{Data: \today}
+\fancyfoot{}
+\fancyfoot[R]{Pág. \thepage \; / \pageref{LastPage}}
+
+\section*{Exemplo}
+
+\[ 0 = R \tan(\phi_0) - \frac{g}{2}\frac{R^2}{\left(v_o\cos(\phi_0)\right)^2}  \]
+
+\[ \frac{g}{2}\frac{R^2}{\left(v_o\cos(\phi_0)\right)^2} = R \tan(\phi_0)   \]
+
+\[ \frac{g}{2}\frac{R}{\left(v_o\cos(\phi_0)\right)^2} = \frac{\sin(\phi_0)}{\cos(\phi_0)}    \]
+
+\[ R = \frac{2}{g} v_o^2\cos^2(\phi_0) \frac{\sin(\phi_0)}{\cos(\phi_0)}    \]
+
+\[ \boxed{R = \frac{2v_o^2}{g} \cos(\phi_0)\sin(\phi_0)} \]
+
+
+
+\end{document}
