@@ -62,7 +62,7 @@
     Matrícula: 2020028101 \\
     Professor Responsável: Márcio Ziviani \\[20pt]
 
-    Código fonte LaTeX desse arquivo pode ser visto em meu GitHub pessoal:
+    Código fonte LaTeX desse arquivo pode ser visto em meu GitHub pessoal: https://github.com/RaphaelLeivas/latex/tree/main/TermoComp
 \end{center}
 
 \hrule
@@ -92,18 +92,18 @@ Figura \ref{fig:problemaParede}.
     \caption{Diagrama do problema posto, com superfície de controle destacada.}
     \label{fig:problemaParede}
     \centering
-    \includegraphics[scale=1.0]{problema.jpg}
+    \includegraphics[scale=0.18]{esquematico.jpeg}
     \par{Fonte: elaboração própria.}
 \end{figure}
 
-Como mostra a Figura \ref{fig:problemaParede}, temos uma superfície de controle na
+Como mostra a Figura \ref{fig:problemaParede}, traçamos uma superfície de controle na
 parede esquerda. Aplicando a primeira lei da termodinâmica sobre essa superfície, temos
 
 \begin{equation}\label{eq:primeiraLei}
     \overset{\cdot}{E}_{in} + \overset{\cdot}{E}_{g} - \overset{\cdot}{E}_{out} = \overset{\cdot}{E}_{st}
 \end{equation}
 
-Como temos uma superfície de controle, não há energia armazenada e energia gerada. Além disso, no modelo
+Como temos uma superfície de controle, não há energia armazenada e nem energia gerada. Além disso, no modelo
 da Figura \ref*{fig:problemaParede}, repare que todos os fluxos de calor estão entrando na superfície, de tal
 maneira que $\overset{\cdot}{E}_{out} = 0$. Assim, \eqref{eq:primeiraLei} se reduz a
 
@@ -151,12 +151,12 @@ $10,8 \un{km/h}$. Para ter uma noção do quão rápido essa velocidade é, usam
 \end{table}
 
 Assim, segundo a Tabela \ref*{tab:winds}, temos que $u_{\infty} = 10,8 \un{km/h}$ equivale a apenas uma brisa leve, e portanto
-podemos considerar a conveccção como natural. 
-\underline{Nota}: tentamos considerar a conveccção como forçada, mas encontramos erros, conforme elaborado na seção \ref{discussion}. \\
+podemos considerar a convecção como natural. 
+\underline{Nota}: tentamos considerar a convecção como forçada, mas encontramos erros, conforme elaborado na seção \ref{discussion}. \\
 
 Uma vez feita a análise inicial do problema, agora criamos um código em linguagem R para 
-calcular iteratiamente a temperatura da face esquerda iterativamente até que ela conergir para 
-para temperatura de equilíbrio. O primeiro passo é adicionar os dados do problema no código  
+calcular iterativamente a temperatura da face esquerda até ela convergir para 
+para a temperatura de equilíbrio. O primeiro passo é adicionar os dados do problema no código  
 
 \begin{lstlisting}
     # dados do problema
@@ -171,7 +171,9 @@ para temperatura de equilíbrio. O primeiro passo é adicionar os dados do probl
 \end{lstlisting}
 
 Em seguida, definimos a tabela com as propriedades termofísicas do ar conforme o livro
-do Incropera. 
+do Incropera. A primeira coluna da variável \code{Properties\char`_Table} representa a temperatura do fluido, e as demais colunas representação
+respectivamente as propriedades termofísicas de massa específica $\rho$, viscosidade dinâmica $\mu$, viscosidade
+cinética $v$, condutividade térmica do fluido $k_f$ e número de Prandtl $Pr$.
 
 \begin{lstlisting}
     Properties_Table = matrix(
@@ -190,18 +192,18 @@ do Incropera.
         ),
         ncol = 6,
         byrow = TRUE
-      )
+    )
       
-      colnames(Properties_Table) <- c('Tf', 'rho', 'mu', 'v', 'kf', 'Pr')
-      rownames(Properties_Table) <- seq(1, nrow(Properties_Table), 1)
-      Properties_Table <- as.table(Properties_Table)
+    colnames(Properties_Table) <- c('Tf', 'rho', 'mu', 'v', 'kf', 'Pr')
+    rownames(Properties_Table) <- seq(1, nrow(Properties_Table), 1)
+    Properties_Table <- as.table(Properties_Table)
 \end{lstlisting}
 
 Agora definimos uma variável \code{max\char`_iterations} que limita o número máximo de
 iterações para que $T_e$ converja, a fim de evitar loops infinitos em tempo de compilação.
 Além disso, definimos o valor inicial ("chute") para $T_e$, e o adicionamos em uma lista
 que salva os valores calculados de $T_e$ em cada iteração. Consideramos o valor inicial de
-$T_e$ como a temperatura ambiente.
+$T_e$ como a temperatura ambiente $T_e = 25 \un{°C} = 298 \un{K}$.
 
 \begin{lstlisting}
     max_iterations <- 100
@@ -224,7 +226,7 @@ que olharemos na tabela, definida por
     T_f = \frac{T_e + T_{\infty}}{2}
 \end{equation}
 
-No código, temos
+No código, \eqref{eq:tf} é executada por
 
 \begin{lstlisting}
     Tf <- (T_e_calculated + T_inf) / 2
@@ -258,15 +260,14 @@ a faixa $T_{f_{min}} \leq T_f \leq T_{f_{max}}$.
 
 Isso deve ser feito pois $T_f$ pode não coincidir exatamente com os valores tabelados.
 Assim, usamos a variável \code{interpolation\char`_ratio} para realizar a interpolação dos valores  
-das propriedades, dependendo do quão próximo $T_f$ está de $T_{f_{min}}$ e $T_{f_{max}}$.
+das propriedades, dependendo do quão próximo $T_f$ está de $T_{f_{min}}$ ou $T_{f_{max}}$.
 
 \begin{lstlisting}
-    # pega a razao que diz o quao proximo T_f esta de min ou max
     interpolation_ratio <- (Tf - Tf_min) / (Tf_max - Tf_min)
 \end{lstlisting}
 
-Com a razão de interpolação, calculas as propriedades termofísicas necessárias para os cálculos
-através de interpolação com os dados da tabela.
+Com a razão de interpolação, calculamos as propriedades termofísicas necessárias através de interpolação 
+com os dados da tabela.
 
 \begin{lstlisting}
     rho_min <- Properties_Table[Tf_min_index, 'rho']
@@ -300,7 +301,7 @@ adimensionais
     Gr <- 9.81 * (1/Tf) * (abs(T_e_calculated - T_inf) * L^3) / (v^2)
     Ra <- Gr * Pr
 
-    Nu <- 0.825 + (0.387 * Ra^(1/6)) / ((1 + (0.492/Pr)^(9/16))^(8/27))^2
+    Nu <- (0.825 + (0.387 * Ra^(1/6)) / (1 + (0.492/Pr)^(9/16))^(8/27))^2
 \end{lstlisting}
 
 Note que, para o cálculo do Número de Nusselt, usamos a expressão \eqref{eq:Nu}, que 
@@ -322,8 +323,8 @@ No código,
     hc <- Nu * kf / L
 \end{lstlisting}
 
-Com $h_c$ calculado, encontramos a temperatura da face esquerda da parede diretamente
-através da expressão \eqref{eq:hc}. Isolando $T_e$ nessa equação, temos
+Com $h_c$ calculado, encontramos a temperatura da face esquerda
+através da expressão \eqref{eq:hc}, isolando $T_e$, obtendo
 
 \[ h_cT_{\infty} - h_cT_e = - q_{p}^{''} - \frac{k}{L}T_d + \frac{k}{L}T_e \]
 
@@ -345,11 +346,12 @@ definida. Caso esteja dentro dessa tolerância, já está convergindo e deve sai
 \code{break}. Caso contrário, continua para a próxima iteração do loop, com \code{next}.
 
 \begin{lstlisting}
+    tolerance <- 0.001 # 0.1% 
     if (abs(T_e_list[i + 1] - T_e_list[i]) < tolerance * T_e_list[i]) {
         break
-      } else {
+    } else {
         next
-      }
+    }
 \end{lstlisting}
 
 Finalmente, ao final das iterações do loop, plotamos os valores de $T_e$ armazenados na lista,
@@ -363,18 +365,18 @@ para que possamos visualizar a convergência.
         ylab = "T_e (K)",
         col = "black",
         lwd = 3
-      )
+    )
       
-      lines(T_e_list, col = "red", lwd = 2, lty = 1)
+    lines(T_e_list, col = "red", lwd = 2, lty = 1)
 \end{lstlisting}
 
 O gráfico plotado pelo software está exibido na Figura \ref*{fig:solucaoTe298}.
 A temperatura de equilíbrio para a superfície esquerda calculada pelo software foi de
 
-\[ \boxed{T_e = 451,96 \un{K}} \]
+\[ \boxed{T_e = 415,96 \un{K}} \]
 
 \begin{figure}[h!]
-    \caption{Evolução da temperatura $T_e$ calculada pelo software a cada iteralção do loop.}
+    \caption{Evolução da temperatura $T_e$ calculada pelo software a cada iteração do loop.}
     \label{fig:solucaoTe298}
     \centering
     \includegraphics[scale=0.75]{Te_x_Iteracao_298K.png}
@@ -382,5 +384,76 @@ A temperatura de equilíbrio para a superfície esquerda calculada pelo software
 \end{figure}
 
 \section{Análise e Discussão dos Resultados} \label{discussion}
+
+A robustez da solução pode ser verificada alterando o valor do "chute" inicial. Para
+valores iniciais de $T_e$ extremos de $T_{e_{inicial}} = 0 \un{K}$ e $T_{e_{inicial}} = 700 \un{K}$, obtemos 
+temperaturas de equilíbrio respectivamente de $T_e = 415,95 \un{K}$ e $T_e = 415,96 \un{K}$,
+comprovando que o valor de convergência do software não depende do chute inicial. 
+As Figuras \ref*{fig:solucaoTe0e700} (a) e (b) exibem respectivamente a convergência para cada
+valor extremos de $T_e$ inicial.
+
+\begin{figure}[h!]
+    \caption{\centering{Evolução da temperatura $T_e$ calculada pelo software a cada iteração do loop, para $T_e$ inicial
+    (a) $0 \un{K}$ e (b) $700 \un{K}$.}}
+    \label{fig:solucaoTe0e700}
+    \centering
+    \includegraphics[scale=0.55]{Te_x_Iteracao_0e700K.png}
+    \par{Fonte: elaboração própria.}
+\end{figure}
+
+Por fim, gostaríamos de elaborar um pouco mais sobre a decisão de considerar a convecção como natural, 
+e não como forçada, apesar do ar sobre a placa possuir velocidade de $u_{\infty} = 10,8 \un{km/h}$. 
+Se considerarmos a convecção como forçada, o regime de escoamento é determinado pelo Número de Reynolds
+$Re$, e o valor do Número de Nusselt $Nu$ é dado por
+
+\begin{equation}\label{eq:NuForced}
+    Nu = \begin{cases}
+        0,664 Re^{1/2}Pr^{1/3},  & Re \leq 5 \cdot 10^{5} \; \un{(Laminar}),                 \\
+        \noalign{\vskip9pt}
+        \left(0,037 Re^{4/5} - 871\right)Pr^{1/3},  & Re > 5 \cdot 10^{5} \; \un{(Turbulento)},                
+    \end{cases}
+\end{equation}
+
+No código, a condição \eqref{eq:NuForced} pode ser feita através de 
+
+\begin{lstlisting}
+    if (Re < Re_critical) {
+        # escoamento laminar
+        Nu <- 0.664 * (Re)^(1/2) * (Pr)^(1/3)
+      } else {
+        # escoamento turbulento
+        Nu <- (0.037 * Re^(4/5) - 871) * (Pr)^(1/3)
+      }
+\end{lstlisting}
+
+No entanto, verificamos que, em condição de escoamento turbulento, o Número de Nusselts calculado era   
+negativo devido à parcela $- 871$ da subtração, o que é claramente uma impossibilidade física.
+Assim, optamos por considerar a convecção como natural para evitar essa inconsistência. \\
+
+Para melhor estudar o comportamento da solução considerando-se a convecção como forçada, vamos considerar a velocidade do fluido $u_{\infty} = 30 \un{m/s}$, o que 
+equivale a $u_{\infty} = 108 \un{km/h}$, que claramente é convecção forçada. Nesse caso, compilamos o software
+novamente levando em consideração a condição \eqref{eq:NuForced}, obtendo os gráficos
+da Figura \ref*{fig:solucaoTe50e700}.
+
+\begin{figure}[h!]
+    \caption{\centering{Evolução da temperatura $T_e$ calculada pelo software a cada iteração do loop, para $T_e$ inicial
+    (a) $0 \un{K}$ e (b) $700 \un{K}$, com $u_{\infty} = 108 \un{km/h}$.}}
+    \label{fig:solucaoTe50e700}
+    \centering
+    \includegraphics[scale=0.55]{Te_x_Iteracao_e700K_ui30.png}
+    \par{Fonte: elaboração própria.}
+\end{figure}
+
+As soluções usando convecção forçada para altos valores de $u_{\infty}$ são robustas para vários valores 
+inicias de $T_e$ "chutados", como mostra a Figura \ref*{fig:solucaoTe50e700}. Portanto, é válido considerar a convecção como natural para baixos
+valores de $u_{\infty}$ e forçada para altos valores de $u_{\infty}$, uma vez que ambas convergem para a mesma 
+temperatura de equilíbrio da face esquerda $T_e$ para diferentes valores iniciais estimados no código.
+
+\section{Referências}
+
+INCROPERA, Frank, et. al. Fundamentals of Heat and Mass Transfer. 6 ed. John Wilhey \& Sons Inc. 2007. \\
+
+National Oceanic and Atmospheric Administation (NOAA). Estimating wind speed. Disponível em: https://www.weather.gov/pqr/wind.
+Acesso em 22 de abr. de 2023.
 
 \end{document}
