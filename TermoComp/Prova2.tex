@@ -72,17 +72,17 @@
 \section{Problema}
 
 Precisamos criar um algoritmo para determinar a temperatura de equilíbrio da superfície
-da parede esquerda $T_e$ de uma placa vertical. Temos as seguintes informações dadas:
+da face esquerda $T_e$ de uma placa vertical. Temos as seguintes informações dadas:
 
 \begin{itemize}
-    \item Condutividade térmica: $k=2,5 \un{W/m$^2$K}$
+    \item Condutividade térmica da placa: $k=2,5 \un{W/m$^2$K}$
     \item Comprimento: $W=5,0 \un{m}$
     \item Altura: $H=2,0 \un{m}$
     \item Espessura: $L=0,25 \un{m}$
-    \item Velocidade do ar ambiente na face da parede: $u_{\infty}=3 \un{m/s}$
-    \item Temperatura do ar ambiente na face da parede: $T_{\infty}=300 \un{K}$
-    \item Fluxo de calor prescrito sobre a parede esquerda: $q_{p}^{''}=750 \un{W/m$^2$}$
-    \item Temperatura da parede direita: $T_d=350 \un{K}$
+    \item Velocidade do ar ambiente na face esquerda: $u_{\infty}=3 \un{m/s}$
+    \item Temperatura do ar ambiente na face esquerda: $T_{\infty}=300 \un{K}$
+    \item Fluxo de calor prescrito sobre a face esquerda: $q_{p}^{''}=750 \un{W/m$^2$}$
+    \item Temperatura da face direita: $T_d=350 \un{K}$
 \end{itemize}
 
 \section{Solução}
@@ -90,25 +90,25 @@ da parede esquerda $T_e$ de uma placa vertical. Temos as seguintes informações
 \underline{Nota:} O código completo desenvolvido na solução pode ser visto no final desse arquivo, em Anexo. \\
 
 De posse dessas informações, fazemos um desenho esquemático do problema, exibido na
-Figura \ref{fig:problemaParede}.
+Figura \ref{fig:problemaplaca}.
 
 \begin{figure}[h!]
     \caption{Diagrama do problema posto, com superfície de controle destacada.}
-    \label{fig:problemaParede}
+    \label{fig:problemaplaca}
     \centering
     \includegraphics[scale=0.18]{esquematico.jpeg}
     \par{Fonte: elaboração própria.}
 \end{figure}
 
-Como mostra a Figura \ref{fig:problemaParede}, traçamos uma superfície de controle na
-parede esquerda. Aplicando a primeira lei da termodinâmica sobre essa superfície, temos
+Como mostra a Figura \ref{fig:problemaplaca}, traçamos uma superfície de controle na
+face esquerda. Aplicando a primeira lei da termodinâmica sobre essa superfície, temos
 
 \begin{equation}\label{eq:primeiraLei}
     \overset{\cdot}{E}_{in} + \overset{\cdot}{E}_{g} - \overset{\cdot}{E}_{out} = \overset{\cdot}{E}_{st}
 \end{equation}
 
 Como temos uma superfície de controle, não há energia armazenada e nem energia gerada. Além disso, no modelo
-da Figura \ref*{fig:problemaParede}, repare que todos os fluxos de calor estão entrando na superfície, de tal
+da Figura \ref*{fig:problemaplaca}, repare que todos os fluxos de calor estão entrando na superfície, de tal
 maneira que $\overset{\cdot}{E}_{out} = 0$. Assim, \eqref{eq:primeiraLei} se reduz a
 
 \begin{equation}\label{eq:primeiraLeiReduzida}
@@ -129,7 +129,7 @@ Isolando o coeficiente convectivo $h_c$, temos
     h_c = - \frac{q_{p}^{''} + \frac{k}{L}\left(T_d-T_e\right)}{T_{\infty}-T_e}
 \end{equation}
 
-Como a velocidade do ar ambiente na face da parede é $u_{\infty}=3 \un{m/s}$, temos que isso equivale a
+Como a velocidade do ar ambiente na face da placa é $u_{\infty}=3 \un{m/s}$, temos que isso equivale a
 $10,8 \un{km/h}$. Para ter uma noção do quão rápido essa velocidade é, usamos a Tabela \ref*{tab:winds}.
 
 \begin{table}[h!]
@@ -175,7 +175,7 @@ para a temperatura de equilíbrio. O primeiro passo é adicionar os dados do pro
 \end{lstlisting}
 
 Em seguida, definimos a tabela com as propriedades termofísicas do ar conforme o livro
-do Incropera. A primeira coluna da variável \code{Properties\char`_Table} representa a temperatura do fluido, e as demais colunas representação
+do Incropera. A primeira coluna da variável \code{Properties\char`_Table} representa a temperatura do fluido, e as demais colunas representam
 respectivamente as propriedades termofísicas de massa específica $\rho$, viscosidade dinâmica $\mu$, viscosidade
 cinética $v$, condutividade térmica do fluido $k_f$ e número de Prandtl $Pr$.
 
@@ -301,7 +301,6 @@ adimensionais
 \begin{lstlisting}
     Re_critical <- 50000
     Re <- u_inf * L * rho / mu
-    Nu <- 0.0
     Gr <- 9.81 * (1/Tf) * (abs(T_e_calculated - T_inf) * L^3) / (v^2)
     Ra <- Gr * Pr
 
@@ -394,7 +393,7 @@ valores iniciais de $T_e$ extremos de $T_{e_{inicial}} = 0 \un{K}$ e $T_{e_{inic
 temperaturas de equilíbrio respectivamente de $T_e = 377,23 \un{K}$ e $T_e = 377,21 \un{K}$,
 comprovando que o valor de convergência do software não depende do chute inicial. 
 As Figuras \ref*{fig:solucaoTe0e700} (a) e (b) exibem respectivamente a convergência para cada
-valor extremos de $T_e$ inicial.
+valor extremo de $T_e$ inicial usado.
 
 \begin{figure}[h!]
     \caption{\centering{Evolução da temperatura $T_e$ calculada pelo software a cada iteração do loop, para $T_e$ inicial
