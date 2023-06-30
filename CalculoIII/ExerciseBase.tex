@@ -11,7 +11,7 @@
 ]{geometry}
 \usepackage{lastpage}
 \usepackage{graphicx} % \includegraphics
-\usepackage{amsmath} % math
+\usepackage{amsmath, esint} % math
 \usepackage{steinmetz} % \phase
 \usepackage{import} % \import
 \usepackage{esdiff} % \diff
@@ -35,6 +35,10 @@
 \newcommand{\un}[1]{\;\textrm{#1}}
 \newcommand{\logo}{\quad \Rightarrow \quad}
 \newcommand{\fase}[1]{\ensuremath{\phase{{#1}^{\circ}}}}
+
+\newcommand*\VF[1]{\mathbf{#1}}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+
 
 \begin{document}
 
