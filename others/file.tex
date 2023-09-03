@@ -15,17 +15,6 @@
 \usepackage{steinmetz} % \phase
 \usepackage{import} % \import
 \usepackage{esdiff} % \diff
-\usepackage{fancyhdr} % header and footer
-
-\makeatletter
-\def\today{%
-  \two@digits{\the\day}/%
-  \ifcase\month\or%
-  01\or 02\or 03\or 04\or 05\or 06\or%
-  07\or 08\or 09\or 10\or 11\or 12\fi/%
-  \number\year%
-}
-\makeatother
 
 % configs
 \setlength{\parindent}{0pt}
@@ -38,25 +27,68 @@
 
 \begin{document}
 
-\pagestyle{fancy}
-
-\fancyhead{}
-\fancyhead[L]{Programa de Monitoria de Graduação - Cálculo III}
-\fancyhead[R]{Data: \today}
-\fancyfoot{}
-\fancyfoot[R]{Pág. \thepage \; / \pageref{LastPage}}
-
 \section*{Exemplo}
 
-\[ 0 = R \tan(\phi_0) - \frac{g}{2}\frac{R^2}{\left(v_o\cos(\phi_0)\right)^2}  \]
+\[ Z_1 = \frac{R_1\frac{1}{sC_1}}{R_1 + \frac{1}{sC_1}} = \frac{R_1}{sR_1C_1 + 1} \]
 
-\[ \frac{g}{2}\frac{R^2}{\left(v_o\cos(\phi_0)\right)^2} = R \tan(\phi_0)   \]
+\[ Z_2 = \frac{R_2\frac{1}{sC_2}}{R_2 + \frac{1}{sC_2}} = \frac{R_2}{sR_2C_2 + 1} \]
 
-\[ \frac{g}{2}\frac{R}{\left(v_o\cos(\phi_0)\right)^2} = \frac{\sin(\phi_0)}{\cos(\phi_0)}    \]
+\[ V_o = V_i \frac{\frac{R_2}{sR_2C_2 + 1}}{\frac{R_1}{sR_1C_1 + 1} + \frac{R_2}{sR_2C_2 + 1}}  \]
 
-\[ R = \frac{2}{g} v_o^2\cos^2(\phi_0) \frac{\sin(\phi_0)}{\cos(\phi_0)}    \]
+\[ V_o = V_i \frac{\frac{R_2}{sR_2C_2 + 1}}{\frac{R_1(sR_2C_2 + 1) + R_2(sR_1C_1 + 1)}{(sR_1C_1 + 1)(sR_2C_2 + 1)}}  \]
 
-\[ \boxed{R = \frac{2v_o^2}{g} \cos(\phi_0)\sin(\phi_0)} \]
+\[ V_o = V_i \frac{R_2}{\frac{R_1(sR_2C_2 + 1) + R_2(sR_1C_1 + 1)}{sR_1C_1 + 1}}  \]
+
+\[ V_o = V_i \frac{R_2}{\frac{R_1(sR_2C_2 + 1)}{sR_1C_1 + 1} + R_2}  \]
+
+\[ \frac{V_o}{V_i} = \frac{R_2}{\frac{R_1(sR_2C_2 + 1)}{sR_1C_1 + 1} + R_2}  \]
+
+Rascunho aqui agora
+
+\[ \frac{sR_1R_2C_2 + R_1}{sR_1C_1 + 1} + R_2 \]
+
+\[ \frac{sR_1R_2C_2 + R_1 + R_2(sR_1C_1 + 1)}{sR_1C_1 + 1} \]
+
+Fim rascunho
+
+\[ \frac{V_o}{V_i} = \frac{R_2(sR_1C_1 + 1)}{sR_1R_2C_2 + R_1 + R_2(sR_1C_1 + 1)}  \]
+
+\[ \frac{V_o}{V_i} = \frac{sR_1R_2C_1 + R_2}{R_1 + R_2 + sR_1R_2C_2 + sR_2R_1C_1}  \]
+
+\[ \frac{V_o}{V_i} = \frac{sR_1R_2C_1 + R_2}{R_1 + R_2 + s(R_1R_2C_2 + R_2R_1C_1)}  \]
+
+Multiplica pelo conjugado do denominador
+
+\[ \frac{V_o}{V_i} = \frac{(sR_1R_2C_1 + R_2) (R_1 + R_2 - s(R_1R_2C_2 + R_2R_1C_1))}{(R_1 + R_2)^2 + (R_1R_2C_2 + R_2R_1C_1)^2}  \]
+
+\[ \frac{V_o}{V_i} = \frac{(R_1 + R_2)(sR_1R_2C_1) + R_2(R_1 + R_2) + (R_1R_2C_1)(R_1R_2C_2 + R_2R_1C_1) - sR_2(R_1R_2C_2 + R_2R_1C_1)}{(R_1 + R_2)^2 + (R_1R_2C_2 + R_2R_1C_1)^2}  \]
+
+Coloca a parte imaginária em evidência no numerador
+
+\[ s[(R_1 + R_2)(R_1R_2C_1) - R_2(R_1R_2C_2 + R_2R_1C_1)] \]
+
+A parte imaginária tem que ser nula para nao depender da frequência, logo
+
+\[ (R_1 + R_2)(R_1R_2C_1) = R_2(R_1R_2C_2 + R_2R_1C_1) \]
+
+\[ R_1^2R_2C_1 + R_1R_2^2C_1 = R_1R_2^2C_2 + R_1R_2^2C_1 \]
+
+\[ R_1^2R_2C_1 = R_1R_2^2C_2 \]
+
+\[ \boxed{ R_1C_1 = R_2C_2} \]
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
