@@ -1,0 +1,41 @@
+\section*{Questão 1 (d)}
+
+Começamos no caminho certo invertendo a ordem de integração e separando a integral em duas na soma:
+
+\[ \int_{2}^{4} \int_{-1010}^{1010} \left[y^5e^{x^2+y^2} + 1\right] \, dy \, dx \]
+
+\[ \int_{2}^{4} \int_{-1010}^{1010} y^5e^{x^2+y^2} \, dy \, dx + \int_{2}^{4} \int_{-1010}^{1010} \, dy \, dx \]
+
+Observe que a integral da esquerda é do tipo separável: os extremos de integração são constantes 
+e podemos separar o integrando em apenas funções de x de um lado, e apenas funções de y do outro 
+
+\[ \int_{2}^{4} \int_{-1010}^{1010} \left[y^5 e^{y^2}\right] \left[e^{x^2}\right] \, dy \, dx + \int_{2}^{4} \int_{-1010}^{1010} \, dy \, dx \]
+
+\[ \left[\int_{-1010}^{1010} y^5 e^{y^2} \, dy\right] \left[\int_{2}^{4} e^{x^2} \, dx\right]  + \int_{2}^{4} \int_{-1010}^{1010} \, dy \, dx \]
+
+Note que $e^{y^2}$ é uma função par, e $y^5$ é uma função ímpar. Multiplicando função par por função ímpar, 
+o resultado é uma função ímpar. \\
+
+Logo,  $y^5 e^{y^2}$ é uma função ímpar.  \\
+
+Quando integramos uma função ímpar em um intervalo simétrico em relação à origem (no caso, de $-1010$ a $1010$), o resultado é zero, pois a área 
+do lado esquerdo da origem "cancela" com a área do lado da direita. Assim, a expressão fica  
+
+\[ 0 \left[\int_{2}^{4} e^{x^2} \, dx\right]  + \int_{2}^{4} \int_{-1010}^{1010} \, dy \, dx \]
+
+Uma outra maneira de ver que a integral da esquerda da zero, sem usar paridade, é usar substituição.
+
+\[ \int_{-1010}^{1010} y^4 y e^{y^2} \, dy \]
+
+Seja $u = y^2$, logo $du = 2y \, dy$
+
+\[ \frac{1}{2} \int_{-1010}^{1010} u^2 e^{u^2} \, du \]
+
+Agora usamos integração por partes:
+
+\[ \frac{1}{2} \left[ e^{u^2} \frac{u^3}{3} - \int 2ue^{u^2} \frac{u^3}{3} \right] \, du \]
+
+Para aqui. Fica muito complicado.
+
+
+
