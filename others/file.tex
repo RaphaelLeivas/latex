@@ -15,6 +15,7 @@
 \usepackage{steinmetz} % \phase
 \usepackage{import} % \import
 \usepackage{esdiff} % \diff
+\usepackage{amsfonts} % set notation 
 
 % configs
 \setlength{\parindent}{0pt}
@@ -27,69 +28,77 @@
 
 \begin{document}
 
-\section*{Exemplo}
+\Large
 
-\[ Z_1 = \frac{R_1\frac{1}{sC_1}}{R_1 + \frac{1}{sC_1}} = \frac{R_1}{sR_1C_1 + 1} \]
+\textbf{Variáveis}
 
-\[ Z_2 = \frac{R_2\frac{1}{sC_2}}{R_2 + \frac{1}{sC_2}} = \frac{R_2}{sR_2C_2 + 1} \]
+\begin{itemize}
+    \item $x_{it}$: quantidade do item $i$ produzida no período $t$ (em unidades);
+    \item $I_{it}$: estoque do item $i$ no final do período $t$ (em unidades);
+    \item $y_{it}$: se o item $i$ é produzido no período $t$ ou não.
+  \end{itemize}
 
-\[ V_o = V_i \frac{\frac{R_2}{sR_2C_2 + 1}}{\frac{R_1}{sR_1C_1 + 1} + \frac{R_2}{sR_2C_2 + 1}}  \]
+\textbf{Função objetivo}
 
-\[ V_o = V_i \frac{\frac{R_2}{sR_2C_2 + 1}}{\frac{R_1(sR_2C_2 + 1) + R_2(sR_1C_1 + 1)}{(sR_1C_1 + 1)(sR_2C_2 + 1)}}  \]
+Minimizar o custo total de preparação, produção e estoque
 
-\[ V_o = V_i \frac{R_2}{\frac{R_1(sR_2C_2 + 1) + R_2(sR_1C_1 + 1)}{sR_1C_1 + 1}}  \]
+\LARGE
 
-\[ V_o = V_i \frac{R_2}{\frac{R_1(sR_2C_2 + 1)}{sR_1C_1 + 1} + R_2}  \]
+\[ \un{min} \, \sum_{i=1}^{n} \sum_{t=1}^{T} \left(s_iy_{it} + c_{it}x_{it} + h_iI_{it}\right) \]
 
-\[ \frac{V_o}{V_i} = \frac{R_2}{\frac{R_1(sR_2C_2 + 1)}{sR_1C_1 + 1} + R_2}  \]
+\Large
 
-Rascunho aqui agora
+onde
 
-\[ \frac{sR_1R_2C_2 + R_1}{sR_1C_1 + 1} + R_2 \]
+\begin{itemize}
+    \item $n$: total de itens;
+    \item $T$: total de períodos considerados;
+    \item $s_{i}$: custo de preparação do item $i$ (em R\$);
+    \item $c_{it}$: custo de produzir o item $i$ no período $t$ (em R\$/un);
+    \item $h_{i}$: custo de estocar uma unidade do item $i$ (em R\$/un);
+  \end{itemize}
 
-\[ \frac{sR_1R_2C_2 + R_1 + R_2(sR_1C_1 + 1)}{sR_1C_1 + 1} \]
+  \newpage
 
-Fim rascunho
+\textbf{Restrições} \\ 
 
-\[ \frac{V_o}{V_i} = \frac{R_2(sR_1C_1 + 1)}{sR_1R_2C_2 + R_1 + R_2(sR_1C_1 + 1)}  \]
+Definição da variável de estoque:
 
-\[ \frac{V_o}{V_i} = \frac{sR_1R_2C_1 + R_2}{R_1 + R_2 + sR_1R_2C_2 + sR_2R_1C_1}  \]
+\[ I_{it} = I_{i, t-1} + x_{it} - d_{it} \quad , \quad \forall i = {1, 2, \dots, n} \quad \forall t = {1, 2, \dots, T} \]
+\[ I_{i0} = e_{i0} \quad , \quad \forall i = {1, 2, \dots, n} \]
+\[ I_{iT} = 0 \quad , \quad \forall i = {1, 2, \dots, n} \]
 
-\[ \frac{V_o}{V_i} = \frac{sR_1R_2C_1 + R_2}{R_1 + R_2 + s(R_1R_2C_2 + R_2R_1C_1)}  \]
+onde
 
-Multiplica pelo conjugado do denominador
+\begin{itemize}
+    \item $d_{it}$: demanda prevista do item $i$ no período $t$ (em unidades);
+    \item $e_{i0}$: estoque inicial do item $i$ (em unidades).
+  \end{itemize}
 
-\[ \frac{V_o}{V_i} = \frac{(sR_1R_2C_1 + R_2) (R_1 + R_2 - s(R_1R_2C_2 + R_2R_1C_1))}{(R_1 + R_2)^2 + (R_1R_2C_2 + R_2R_1C_1)^2}  \]
+Limitação da quantidade a ser produzida com base na demanda 
 
-\[ \frac{V_o}{V_i} = \frac{(R_1 + R_2)(sR_1R_2C_1) + R_2(R_1 + R_2) + (R_1R_2C_1)(R_1R_2C_2 + R_2R_1C_1) - sR_2(R_1R_2C_2 + R_2R_1C_1)}{(R_1 + R_2)^2 + (R_1R_2C_2 + R_2R_1C_1)^2}  \]
+\[ x_{it} \leq \left(\sum_{\tau = t}^{T} d_{i\tau}\right) y_{it} \quad , \quad \forall i = {1, 2, \dots, n} \quad \forall t = {1, 2, \dots, T} \]
 
-Coloca a parte imaginária em evidência no numerador
+\textbf{Domínio}
 
-\[ s[(R_1 + R_2)(R_1R_2C_1) - R_2(R_1R_2C_2 + R_2R_1C_1)] \]
+\[ i \in {1, 2, \dots, n} \quad t \in {1, 2, \dots, T} \]
+\[ x_{it} \in \mathbb{Z}_+ \quad , \quad I_{it} \in \mathbb{Z}_+ \quad , \quad y_{it} \in \left\{0, 1\right\} \]
 
-A parte imaginária tem que ser nula para nao depender da frequência, logo
+\newpage
 
-\[ (R_1 + R_2)(R_1R_2C_1) = R_2(R_1R_2C_2 + R_2R_1C_1) \]
+\centering
 
-\[ R_1^2R_2C_1 + R_1R_2^2C_1 = R_1R_2^2C_2 + R_1R_2^2C_1 \]
+Custo de preparar o item $i$ recebe a média dos custos das trocas do processo de $i$ para $j$
 
-\[ R_1^2R_2C_1 = R_1R_2^2C_2 \]
+\[ s_i \leftarrow \sum_{j = 1}^{n} c_{ij} \quad , \quad \forall i = {1, 2, \dots, n} \]
 
-\[ \boxed{ R_1C_1 = R_2C_2} \]
+Custo de produzir uma unidade do item $i$ em $t$ recebe uma distriuição uniforme entre R\$ 1,00 e R\$ 3,00 
 
+\[ c_{it} \leftarrow U [1, 3] \]
 
+Estoque inicial do item $i$ igual a $0$.
 
-
-
-
-
-
-
-
-
-
-
-
+\[ I_{i0} \leftarrow 0 \quad , \quad \forall i = {1, 2, \dots, n} \]
 
 
 \end{document}
