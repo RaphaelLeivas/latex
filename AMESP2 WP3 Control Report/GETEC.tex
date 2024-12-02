@@ -49,64 +49,47 @@
 \newpage    \pagestyle{empty}
 \tableofcontents
 \pagestyle{fancy}
-
-
-% ======== EXAMPLE OF FIGURE ============
-% \begin{figure}[ht!]
-%     \centering
-%     \includegraphics[width=.9\textwidth,trim=1 1 1 1,clip]{Filamented_particles.png}
-%     \caption{SEM images of polystyrene particles carrying filaments developed due to Coulomb instabilities. }
-%     \label{fig:Filamented_particles}
-% \end{figure}
-
-% ==============================================
 \newpage
-\section{Introduction}
-
-bla bla bla
-
-% \citep{Carrasco-Munoz2022}. % How to  put Citations
-
-
-
-% \textit{$\bullet$ EXAMPLE OF EQUATION:} 
-% \begin{equation}
-%     q_R = \sqrt{8 \pi^2 \varepsilon_0 \gamma d^3} 
-%     \label{eq:Rayleigh}
-% \end{equation}
-% To make your life easier, use the following \textbf{equation editor} to get the latex code: \\
-% \url{https://latex.codecogs.com/eqneditor/editor.php}
-
-
 
 % ==============================================
-\subsection{Subsection}
+% \newpage
+\section{WP3 Overview}
 
-Hello Juliana 
+EXAMPLE CITATION
 
  \citep{Carrasco-Munoz2022}. % Citation
 
-Example of how to reference a figure:
+\subsection{Objectives}
 
-In Fig. \ref{fig:ES_intro} shows... blablabla. % Example of how to reference a figure
+Bases on the signed proposal, ... 
+
+\subsection{Timeline of Executed Tasks}
+
+\subsection{Conventions}
+
+Throughout this section, we'll refer multiple times to physical variables of the system. \autoref{fig:setup-conventions}
+shows the variable conventions we'll use in this text.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/Example.png}
-    \caption{EXAMPLE OF FIGURE. Left: Conventional ES setup. Right: Droplet emission region.}
-    \label{fig:ES_intro}
+    \includegraphics[width=.9\textwidth,trim=1 1 1 1,clip]{figures/setup-conventions.png}
+    \caption{Variable conventions and nomenclature. \hl{SOURCE - ADAPTED FROM VERDOOLD}}
+    \label{fig:setup-conventions}
 \end{figure}
 
+As shown in \autoref{fig:setup-conventions}, we have
 
-% ==============================================
-\subsection{Subsection}
-\subsubsection{Subsubsection}
+\begin{itemize}
+    \item $i_N$: current flowing from the positive high voltage source to the nozzles
+    \item $i_C$: current flowing from the crown to the negative high voltage source
+    \item $i_{GND}$: current flowing from the ground to the ring
+    \item $\phi$: flow rate of the syringe pump
+    \item $V_+$: voltage of the positive high voltage
+    \item $V_-$: voltage of the negative high voltage
+\end{itemize}
 
-\blindtext % Remove this and write your text!
-
-
-\subsubsection{Specific objectives}
-\blindtext % Remove this and write your text!
+The direction of the currents was chosen as shown in \autoref{fig:setup-conventions} to ensure they are always positve 
+in the measurements, faciliting the analysis.
 
 
 % ==============================================
@@ -154,7 +137,7 @@ verify if we see a pattern in the shape of current that can be used to classify 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/setup-three-currents-spray-mode.png}
     \caption{Setup to measure all three currents on the sprayhead.}
     \label{fig:setup-three-currents-spray-mode}
 \end{figure}
@@ -281,7 +264,7 @@ Using this, we get ...
 \subsubsection{8 vs 16 Needle in the Crown}
 
 
-\subsection{Optimizing Signal Acquisition}
+\subsection{Optimizing the Signal Acquisition}
 
 In the previous sections, the signal was acquired using the minimum sampling frequency
 suggested by the Verdoold of $f_s = 5 \un{kHz}$. A sample size of $N_s = 20.000$ was used to obtain a spectral resolution of 0.25 Hz
@@ -294,25 +277,173 @@ minimum sample size that can still reliably distinguish the signal of the interm
 To do this, we'll use the following method:
 
 \begin{itemize}
-    \item Collect a time window of 100 seconds for different values of $f_s$
-    \item Break the 100 seconds into smaller time windows - denoted as $S_i$ - of size $S$. Note that $i = 1, 2, ...$
-    \item Calculate the relevant statistical parameters in each $S_i$ and store these values
+    \item Collect a time window of $T = 100$ seconds for different values of $f_s$, resulting in a sample size of $N_s = T \cdot f_s$
+    \item Break the $T = 100$ seconds into smaller time windows - denoted as $S_i$ - of size $T_S$. 
+    \item Calculate the relevant statistical parameters in each $S_i$ and store these values in an array of size $T / T_S$
     \item Plot a boxplot of the calculated statistical parameters
 \end{itemize}
 
-We'll use the same setup shown in \hl{COMPLETE}. The resuls obtained are shown belon on ....
+\autoref{fig:subsample-size-strategy} further explains the method above visually. $T_S$ will be chosen for different values for the result to be verified. 
+Note that $i = 1, 2, ..., T / T_S$, and the goal is to find the minimum $T_S$.
 
-% ==============================================
-% \newpage
-\section{Conclusions} 
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/subsample-size-strategy.png}
+    \caption{Method to find the minimum sample size that can still classify the EHDA mode via the current.}
+    \label{fig:subsample-size-strategy}
+\end{figure}
 
-These are the conclusions:
+We'll use the same setup shown in \autoref{fig:setup-three-currents-spray-mode}, using only the oscilloscope for $i_{GND}$.
+We begin with $f_s = 5 \un{kHz}$, with $T_S = 0.01 \un{s}; 0.1 \un{s}; 1 \un{s}; 10 \un{s}$. Note that we are first changing
+$T_S$ over four orders of magnitude to understand the general influence of $T_S$ on the calcualated standard deviation.
+The result obtained is shown on \autoref{fig:first-test-subsample}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \caption{Result for the first test.}
+    \label{fig:first-test-subsample}
+\end{figure}
+
+As we can see on \autoref{fig:setup-three-currents-spray-mode}, $T_S = 1 \un{s}$ appears to be the best sample size to 
+differentiate between the intermittent and the cone-jet. Other orders of magnitude of $T_S$ do not allow for a clear distinction
+between spraying mode via the statistical values. The next test is to change $T_S$ around 1 second and compare them, 
+using $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$. \autoref{fig:setup-three-currents-spray-mode} shows the results obtained  
+for this test.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \caption{Result for the second test.}
+    \label{fig:second-test-subsample}
+\end{figure}
+
+As seen on \autoref{fig:second-test-subsample},  $T_S$ appears to be the smallest sample size that can differentiate the spraying modes.
+
+Now we need to find the minimum sampling frequency that can distinguish the spraying modes. We'll fix $T_S = 0.5 \un{s}$ and compare the calculated 
+statistical parameters for the following values of $f_s$: $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$. \autoref{fig:third-test-subsample}
+shows the result obtained for this test.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \caption{Result for the second test.}
+    \label{fig:third-test-subsample}
+\end{figure}
+
+As we can see on \autoref{fig:third-test-subsample}, $f_s = 2 \un{kHz}$ appears to the be the smallest sampling frequency that can still distinguish the spraying  
+modes. 
+
+The conclusion we can derive from these tests is that $T_S = 0.5 \un{s}$ and $f_s = 2 \un{kHz}$ are the mininum sample size and sampling frequency that
+can distinguish the spraying modes via statistical parameters. Note that this results in a sample size of $N_s = T_S f_s = 1.000$, which uses 
+significantly less memory than the $N_s = 20.000$ suggested by Verdoold. We'll move forward with these values of $N_s$ and $f_s$, seeking to test the classification
+with parameters that are consistent with Gilbert's requirements.
+
+\subsection{Optimizing the Classification}
+
+\subsubsection{Trying different statistical parameters}
+
+So far, we've only the standard deviation of the signal to differentiate the spraying modes. However, we can also use other statistical parameters 
+to distinguish the waveforms. The first one that we can try is the Relative Standard Deviation (RSD), defined on \autoref{eq:rsd}
+
+
+\begin{equation} \label{eq:rsd}
+    RSD = \left|\frac{\sigma}{\overline{I}}\right|
+\end{equation}
+
+where
 
 \begin{itemize}
-    \item \blindtext % Remove this and write your text!
-    \item \blindtext % Remove this and write your text!
+    \item $\sigma$: standard deviation
+    \item $\overline{I}$: arithmetic mean
 \end{itemize}
 
+\autoref{tab:rsd} shows how the RSD can be a useful metric in the classification. When the spraying mode is intermittent, we 
+expect the signal to display a large $\sigma$ and a small $\overline{I}$, since the potential is lower and therefore also the mean value 
+of the current in the system. This results in an overall value large value of the ratio. 
+
+\begin{table}[h!]
+    \begin{center}
+      \caption{Expected behaviour of RSD for different spraying modes.}
+      \label{tab:rsd}
+      \begin{tabular}{c|c|c}
+        \textbf{} & \textbf{Intermittent} & \textbf{Cone-jet}\\
+        \hline
+        Numerator ($\sigma$) & HIGH & LOW\\
+        Denominator ($\overline{I}$) & LOW& HIGH\\
+        Overall Ratio ($\sigma / \overline{I}$) & LARGE & SMALL\\
+      \end{tabular}
+    \end{center}
+  \end{table}
+
+On the other hand, when we have a cone-jet, we expect the signal to display a small $\sigma$ - as the signal is much more stable -
+and a larger $\overline{I}$, given the larger potential. This results in an overall value small value of the ratio.
+
+Therefore, both components of the fraction contribute in opposite directions to change the overall value of the ratio between the spraying modes.
+\hl{IMPROVE THIS}.
+
+\autoref{fig:rsd-subsample} shows the the same result of \autoref{fig:third-test-subsample} using the RSD instead of the standard deviation.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \caption{Result for the second test.}
+    \label{fig:rsd-subsample}
+\end{figure}
+
+As we can see on \autoref{fig:rsd-subsample}, we can achieve a good distinction between the spraying modes with the RSD. However, the 
+order of magnitude of the value is very small, which can be inconvenient. A simple to resolve this is take the inverse of the RSD, that 
+we can define as the Signal-to-Noise Ratio (SNR), shown on \autoref{eq:snr}
+
+\begin{equation} \label{eq:snr}
+    SNR = \frac{1}{RSD} = \left|\frac{\overline{I}}{\sigma}\right|
+\end{equation}
+
+In \autoref{eq:snr}, we call the standard deviation as the "noise", and the mean as the "signal". \autoref{fig:snr-subsample} shows the
+same result of \autoref{fig:third-test-subsample} using the SNR.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \caption{Result for the second test.}
+    \label{fig:snr-subsample}
+\end{figure}
+
+\hl{WRITE CONCLUSION OF THIS SECTION}
+
+\subsubsection{Classification via small Neural Networks}
+
+\hl{ASK BEN}
+
+\subsection{Proof-of-Concept Real-time EHDA Classification}
+
+\begin{landscape}
+    \begin{figure}[tb] 
+        \centering
+         \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/lorem-picsum.jpg}}
+        \caption{The SAP data model based on an UML class diagram: classes and relationships.}
+        \label{fig:Fig5}
+    \end{figure}
+\end{landscape}
+
+
+
+TODO
+\begin{itemize}
+    \item try to reduce sample window
+    \item use subsequent windows
+    \item show commmon issues (step in the current value, etc)
+    \item add pseudocode + complexity
+\end{itemize}
+
+\subsection{Proof-of-Concept Real-Time EHDA Control}
+TODO
+
+\begin{itemize}
+    \item problem wth subsequent window: how will it take into account the adjusts we're making:
+    \item is it fast enough? if it even works at all!
+    \item add pseudocode + complexity
+\end{itemize}
 
 % ==============================================
 \newpage    \pagestyle{plain}
