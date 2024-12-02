@@ -86,11 +86,25 @@ Limitação da quantidade a ser produzida com base na demanda
 
 \newpage
 
-\centering
+\LARGE
 
 Custo de preparar o item $i$ recebe a média dos custos das trocas do processo de $i$ para $j$
 
-\[ s_i \leftarrow \sum_{j = 1}^{n} c_{ij} \quad , \quad \forall i = {1, 2, \dots, n} \]
+\[ \sum_{i = 1}^{n} \left(sp_i \, y_{it} + b_i \, x_{it}\right) \leq C_t \quad , \quad \forall t = {1, 2, \dots, T} \]
+
+\Large
+
+\[ I_{12} = I_{11} + x_{12} - d_{12} \Longrightarrow 0x_{11} - 1x_{12} + 0x_{13} + \dots - 1 I_{11} + 1 I_{12} + \dots = - d_{12} \]
+
+
+
+onde
+
+\begin{itemize}
+  \item $sp_i$: tempo gasto para preparar a máquina para produzir o item $i$ (em minutos)
+  \item $b_i$: tempo gasto para produzir o item $i$ (em minutos)
+  \item $C_t$: capacidade total da instalação no período $t$ (em minutos)
+  \end{itemize}
 
 Custo de produzir uma unidade do item $i$ em $t$ recebe uma distriuição uniforme entre R\$ 1,00 e R\$ 3,00 
 
