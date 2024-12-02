@@ -133,7 +133,8 @@ Gilbert.
 
 The first test done was to measure the current on all three lines of the sprayhead and 
 verify if we see a pattern in the shape of current that can be used to classify the spray mode.
-\autoref{fig:setup-three-currents-spray-mode} shows the setup used for this test.
+\autoref{fig:setup-three-currents-spray-mode} shows the setup used for this test. $V_-$ was fixed on 
+$V_- = - 4.5 kV$.
 
 \begin{figure}[h!]
     \centering
@@ -147,27 +148,42 @@ Using three oscilloscopes, all three currents were sampled at 5 kHz, collecting 
 we cannot use the same oscilloscope as the channels are interconnected internally: the high voltage 
 differences would damage the instrument. Therefore, we use one oscilloscope for each line. 
 
-\autoref{fig:three-currents-spray-mode} shows the waveforms obtained for $\phi = 20 \un{mL/h}$.
+\autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms} show the waveforms 
+obtained for $\phi = 20 \un{mL/h}; \phi = 30 \un{mL/h}; \phi = 50 \un{mL/h}$ for two different time windows: 50ms 
+and 500ms.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{$i_N$, $i_{GND}$ and $i_C$ by different spray modes.}
-    \label{fig:three-currents-spray-mode}
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-50ms.png}
+    \caption{$i_N$, $i_{GND}$ and $i_C$ over time by different spray modes - 50 ms time window.}
+    \label{fig:three-currents-spray-mode-50ms}
 \end{figure}
-
-As we can see in \autoref{fig:three-currents-spray-mode}, we don't see a clear distinction in the shape of the current 
-by different spray modes, in both time windows. We repeated the test for $\phi = 30 \un{mL/h}$ and $\phi = 50 \un{mL/h}$,
-obtaining the same result, as shown in \autoref{fig:three-currents-spray-mode-all-flows}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{$i_N$, $i_{GND}$ and $i_C$ by different spray modes for all $\phi$.}
-    \label{fig:three-currents-spray-mode-all-flows}
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-500ms.png}
+    \caption{$i_N$, $i_{GND}$ and $i_C$ over time by different spray modes - 500 ms time window.}
+    \label{fig:three-currents-spray-mode-500ms}
 \end{figure}
 
-Without a clear distinction in the current waveforms it is not possible to continue with this approach.
+As we can see in \autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms}, 
+we don't see a clear distinction in the shape of the current 
+by different spray modes, in both time windows. The sharp peaks we see on the waveforms are most likely caused
+by a high-frequency noise in signal, especially since we use banana adapters for the oscilloscope in this test, instead
+of coaxial cables, which pick up less noise.
+
+Attempting to see a distinction on \autoref{fig:three-currents-spray-mode-500ms} via the standard deviation also
+fails, as shown on \autoref{fig:three-currents-spray-mode-sd}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-sd.png}
+    \caption{Standard deviation on \autoref{fig:three-currents-spray-mode-500ms} of $i_N$, $i_{GND}$ and $i_C$
+    by spray mode.}
+    \label{fig:three-currents-spray-mode-sd}
+\end{figure}
+
+Without a clear distinction in the current waveforms it would not possible to continue with this approach.
 Therefore, we need to first understand why we are not seing distinctions in the shape 
 of the current, particularly between the intermittent and cone-jet spray modes, as it is clear in the 
 literature that there should be a difference.
@@ -182,7 +198,7 @@ We used a sampling frequency of 5 kHz and $\phi = 1 \un{mL/h}$.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-setup.png}
     \caption{Setup used to reproduce Verdoold's classification method.}
     \label{fig:verdoold-reproduce-setup}
 \end{figure}
@@ -191,8 +207,8 @@ The results obtained are shown in \autoref{fig:verdoold-reproduce-results}.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{Setup used to reproduce Verdoold's classification method.}
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-results.png}
+    \caption{Results from the attempt to reproduce Verdoold's results on our setup.}
     \label{fig:verdoold-reproduce-results}
 \end{figure}
 
@@ -202,7 +218,7 @@ reproduce the results, therefore it must be something in the multinozzle that is
 signal.
 
 Comparing the single nozzle setup on \autoref{fig:verdoold-reproduce-setup} and the multinozzle on \autoref{fig:setup-three-currents-spray-mode}, 
-the most significant difference is indeed the presence of the crown. Therefore, let's begin by understand the influence 
+the most significant difference is indeed the presence of the crown. Therefore, let's begin by understanding the influence 
 of the crown on $i_{GND}$, which is the current that we know is capable of showing a distinction of spraying 
 modes. 
 
@@ -212,44 +228,36 @@ To understad the influence of the crown on the ground current, we'll use the sam
 \autoref{fig:setup-three-currents-spray-mode}, but we'll make $V_+ = 0 \un{V}$, $\phi = 0 \un{mL / h}$ and measure $i_{GND}$ for different
 crown voltages. Since there is no flow 
 and no positive voltage, we'll be measuring the current on the groung ring introduced by the crown only.
+In addition, we'll use coaxial cables during the measurements.
 
-\autoref{fig:ignd-by-crown} shows the shape of $i_{GND}$ for different values of $V_-$.
+\autoref{fig:ignd-by-crown-no-filters} shows the shape of $i_{GND}$ for different values of $V_-$.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-no-filters.png}
     \caption{$i_{GND}$ for different values of $V_-$. (a) Waveform and (b) standard deviation}
-    \label{fig:ignd-by-crown}
+    \label{fig:ignd-by-crown-no-filters}
 \end{figure}
 
-As seen of \autoref{fig:ignd-by-crown} (a), the crown alone introduces a signal on $i_{GND}$ starting
+As seen of \autoref{fig:ignd-by-crown-no-filters} (a), the crown alone introduces a signal on $i_{GND}$ starting
 from $V_- = - 4 \un{kV}$, which increases in both average value and standard deviation as $V_-$ increases.
-This is consistent with was happens at the crown: from $V_- = 4 \un{kV}$ the sharp needles 
-of the crown begin to ionize the air, which produces that ions that can be 
+This is consistent with was happens at the crown: from $V_- = - 4 \un{kV}$ onwards the sharp needles 
+of the crown begin to ionize the air, producing ions that can be 
 directed to ground ring. This results in a current $i_{GND} > 0$ induced by the crown.
 
-In addition, on \autoref{fig:ignd-by-crown} (b) we see that the standard deviation introduces by the crown
+In addition, on \autoref{fig:ignd-by-crown-no-filters} (b) we see that the standard deviation introduced by the crown
 is significant. As we saw on \autoref{fig:verdoold-reproduce-results}, the intermittent spray mode 
-presents peaks in the current signal in order of 100 nA, but the "noise" introduced by the 
-crown alone is already over 50 nA. Therefore, it is reasonable to assuem that the reason we are
-not seing a good distinction between the spray modes on \autoref{fig:three-currents-spray-mode} is 
-because of this signal introduced by the crown.
+presents peaks in the current signal in order of 50 nA, but the "noise" introduced by the 
+crown alone is already over 50 nA when $V_- = -4.5 \un{kV}$, which is voltage used on the results 
+of \autoref{fig:three-currents-spray-mode-500ms}. Therefore, it is reasonable to assume that the reason we are
+not seing a good distinction between the spray modes on \autoref{fig:three-currents-spray-mode-500ms} is 
+because of this signal introduced by the crown alone.
 
 \subsubsection{Atenuating Crown Influences on $i_{GND}$}
 
 In order to verify the above hypothesis, we can try to reduce the influence of the crown
-in the signal and verify if the intermittent signal becomes distinguishable. We can achieve this in two ways:
-
-\begin{itemize}
-    \item Reduce crown voltage
-    \item Add filters in the signal
-\end{itemize}
-
-As we saw in \autoref{fig:ignd-by-crown} (a), the smaller $V_-$, the smaller the introduced 
-noise in $i_{GND}$. Then, we can redo the measurements with a smaller crown voltage.
-
-In addition, we can add digital filters in the oscilloscope to remove the following unwanted
-frequencies:
+in the signal and verify if the intermittent signal becomes distinguishable. We can achieve this adding digital filters 
+in the oscilloscope software to remove the following frequencies:
 
 \begin{itemize}
     \item 50 Hz frequency from the electric grid: use a stop band in the range 48 - 52 Hz
@@ -259,9 +267,67 @@ frequencies:
 Note that, as shown by Verdoold, the intermittent peaks are usually under 100 Hz. Therefore, we can remove 
 anything above this frequency from the signal as it is not what we wish to measure.
 
-Using this, we get ...
+Using this, we once again collect the signals of \autoref{fig:ignd-by-crown-no-filters}, obtaining the signal 
+on \autoref{fig:ignd-by-crown-with-filters}.
 
-\subsubsection{8 vs 16 Needle in the Crown}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-with-filters.png}
+    \caption{$i_{GND}$ for different values of $V_-$ with digital filters. (a) Waveform and (b) standard deviation}
+    \label{fig:ignd-by-crown-with-filters}
+\end{figure}
+
+Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-no-filters}, we see that the filters significantly 
+reduce the standard deviation (i.e. the "noise") in $i_{GND}$. For $V_- = - 4.5 \un{kV}$, the standard deviation is already almost 
+three times smaller. However, it remais above 50 nA, so it could still make it difficult to see the intermittent peaks in the signal.
+Ideally, we would use the $V_- = - 4 \un{kV}$ to get the smallest amount of noise introduced, but it is not clear if it possible
+to achieve a good neutralization with such a small $V_-$.
+
+\subsubsection{8 vs 16 Needles in the Crown}
+
+Around this time, Gilbert request us to test the crown with 8 needles for the WP2, as opposed to the 16 needles we had always used until 
+this point. Difficulties to reinsert removed needles meant that from this point onwards we would always use a needle with 8 needles. 
+
+Therefore, before we continue with this analysis, we need to understand how the signal introduces on $i_{GND}$ has changed. We've re-done 
+the test of \autoref{fig:ignd-by-crown-with-filters}, obtaining the results shown on \autoref{fig:ignd-by-crown-8-needles}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-8-needles.png}
+    \caption{$i_{GND}$ for different values of $V_-$ with digital filters - Crown with 8 needles. (a) Waveform and (b) standard deviation}
+    \label{fig:ignd-by-crown-8-needles}
+\end{figure}
+
+Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-8-needles}, we see that the 8 needles introduce 
+a much smaller signal on the $i_GND$, both in terms of average value as in standard deviation. This will be helpful to make  
+the intermittent peaks on the signal more visible, as for $V_- = - 4.5 \un{kV}$ the introduced standard deviation is only 10 nA.
+
+\subsection{Distinguishing the Signal via the Current Signal}
+
+With everything that we've now learned about the influence of the crown and the necessity of filters, we can now repeat the experiment 
+of \autoref{fig:setup-three-currents-spray-mode}, using the same setup of \autoref{fig:setup-three-currents-spray-mode}, but again only
+measuring $i_GND$. The oscilloscope was configured with $f_s = 5 \un{kHz}$ and a sample size of $N_s = 20.000$. The crown had 8 needles 
+and was fixed with $V_- = - 4 \un{kV}$ to reduce as far as possible the influence of the crown on $i_GND$.
+
+\autoref{fig:ignd-good-signal} shows the result obtained. The intermittent is clearly distinguishable from the cone-jet mode. However, 
+expected, we cannot distinguish the elongated cone-jet and the multi-jet from the cone-jet.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-good-signal.png}
+    \caption{$i_{GND}$ for different spray modes.}
+    \label{fig:ignd-good-signal}
+\end{figure}
+
+Calculating the standard deviation on \autoref{fig:ignd-good-signal} also allows for a good distinction between the spraying modes,
+as shown in \autoref{fig:ignd-good-sd}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-good-sd.png}
+    \caption{Standard deviation of $i_{GND}$ for different spray modes.}
+    \label{fig:ignd-good-sd}
+\end{figure}
 
 
 \subsection{Optimizing the Signal Acquisition}
@@ -420,7 +486,7 @@ same result of \autoref{fig:third-test-subsample} using the SNR.
 \begin{landscape}
     \begin{figure}[tb] 
         \centering
-         \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/lorem-picsum.jpg}}
+         \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/three-currents-spray-mode.png}}
         \caption{The SAP data model based on an UML class diagram: classes and relationships.}
         \label{fig:Fig5}
     \end{figure}
