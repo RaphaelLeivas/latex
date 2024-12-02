@@ -61,7 +61,7 @@ EXAMPLE CITATION
 
 \subsection{Objectives}
 
-Bases on the signed proposal, ... 
+Based on the signed proposal, ... 
 
 \subsection{Timeline of Executed Tasks}
 
@@ -302,7 +302,7 @@ Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crow
 a much smaller signal on the $i_GND$, both in terms of average value as in standard deviation. This will be helpful to make  
 the intermittent peaks on the signal more visible, as for $V_- = - 4.5 \un{kV}$ the introduced standard deviation is only 10 nA.
 
-\subsection{Distinguishing the Signal via the Current Signal}
+\subsection{Classifying the Spraying Mode}
 
 With everything that we've now learned about the influence of the crown and the necessity of filters, we can now repeat the experiment 
 of \autoref{fig:setup-three-currents-spray-mode}, using the same setup of \autoref{fig:setup-three-currents-spray-mode}, but again only
@@ -328,6 +328,11 @@ as shown in \autoref{fig:ignd-good-sd}.
     \caption{Standard deviation of $i_{GND}$ for different spray modes.}
     \label{fig:ignd-good-sd}
 \end{figure}
+
+Based on \autoref{fig:ignd-good-sd}, we could use a simple if-else classification algorithm based on the standard deviation, 
+defining a threshold for what is classified as intermittent or cone-jet. For example, we could say that if $\sigma > 60 \un{nA}$
+then it is intermittent, else it is cone-jet (once inside the stable region defined by the mapping of the WP1).
+An algorithm for this will be further explored on \autoref{sec:classification-algorithm}.
 
 
 \subsection{Optimizing the Signal Acquisition}
@@ -366,25 +371,26 @@ The result obtained is shown on \autoref{fig:first-test-subsample}.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{Result for the first test.}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/first-test-subsample.png}
+    \caption{Calculated standard deviation for $f_s = 5 \un{kHz}$, with $T_S = 0.01 \un{s}; 0.1 \un{s}; 1 \un{s}; 10 \un{s}$}
     \label{fig:first-test-subsample}
 \end{figure}
 
-As we can see on \autoref{fig:setup-three-currents-spray-mode}, $T_S = 1 \un{s}$ appears to be the best sample size to 
+As we can see on \autoref{fig:first-test-subsample}, $T_S = 1 \un{s}$ appears to be the best sample size to 
 differentiate between the intermittent and the cone-jet. Other orders of magnitude of $T_S$ do not allow for a clear distinction
 between spraying mode via the statistical values. The next test is to change $T_S$ around 1 second and compare them, 
-using $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$. \autoref{fig:setup-three-currents-spray-mode} shows the results obtained  
+using $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$. \autoref{fig:second-test-subsample} shows the results obtained  
 for this test.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{Result for the second test.}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/second-test-subsample.png}
+    \caption{Calculated standard deviation for $f_s = 5 \un{kHz}$, with $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$}
     \label{fig:second-test-subsample}
 \end{figure}
 
-As seen on \autoref{fig:second-test-subsample},  $T_S$ appears to be the smallest sample size that can differentiate the spraying modes.
+As seen on \autoref{fig:second-test-subsample}, $T_S = 0.5 \un{s}$ appears to be the smallest sample size that can differentiate the spraying modes.
+$T_S = 0.5 \un{s}$ may still be feasible, but it presents significant overlapping between the two modes around $\sigma = 50 \un{nA}$.
 
 Now we need to find the minimum sampling frequency that can distinguish the spraying modes. We'll fix $T_S = 0.5 \un{s}$ and compare the calculated 
 statistical parameters for the following values of $f_s$: $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$. \autoref{fig:third-test-subsample}
@@ -392,8 +398,8 @@ shows the result obtained for this test.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{Result for the second test.}
+    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/third-test-subsample.png}
+    \caption{Calculated standard deviation for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
     \label{fig:third-test-subsample}
 \end{figure}
 
@@ -452,8 +458,8 @@ Therefore, both components of the fraction contribute in opposite directions to 
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{Result for the second test.}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/rsd-subsample.png}
+    \caption{Calculated RSD for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
     \label{fig:rsd-subsample}
 \end{figure}
 
@@ -470,8 +476,8 @@ same result of \autoref{fig:third-test-subsample} using the SNR.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/lorem-picsum.jpg}
-    \caption{Result for the second test.}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/snr-subsample.png}
+    \caption{Calculated SNR for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
     \label{fig:snr-subsample}
 \end{figure}
 
@@ -481,18 +487,7 @@ same result of \autoref{fig:third-test-subsample} using the SNR.
 
 \hl{ASK BEN}
 
-\subsection{Proof-of-Concept Real-time EHDA Classification}
-
-\begin{landscape}
-    \begin{figure}[tb] 
-        \centering
-         \makebox[\textwidth]{\includegraphics[width=.9\paperwidth]{figures/three-currents-spray-mode.png}}
-        \caption{The SAP data model based on an UML class diagram: classes and relationships.}
-        \label{fig:Fig5}
-    \end{figure}
-\end{landscape}
-
-
+\subsection{Proof-of-Concept Real-time EHDA Classification}\label{sec:classification-algorithm}
 
 TODO
 \begin{itemize}
