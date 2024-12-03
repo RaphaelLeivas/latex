@@ -56,13 +56,42 @@
 
 \subsection{Objectives}
 
-Based on the signed proposal, ... 
+As stated on the proposal, we have two main goals in the WP3:
+
+\begin{enumerate}
+    \item Investigate methods to identify the electrospray mode during operation by reading current values
+    \item Investigate methods to perform corrective actions to restore the electrospray operation by sending 
+    commands to the pump and/or power supply
+\end{enumerate}
+
+We have explored two approaches that could achieve these goals, and they are detailed on Sections \ref{sec:pid} and 
+\ref{sec:current-based}. For each approach, we discuss how they can be implemented in the system developed by Gilbert,
+their advantadges and disadvantages, and how well they perform in achieve the above goals.
+
+Section \ref{sec:utils} shows some results obtained during the control investigations that were not directly used to achieve
+the goals of this Work Package, but we believe they could still prove useful to Gilbert and provide inputs to how the
+multinozzle prototype operates.
+
 
 \subsection{Timeline of Executed Tasks}
 
+\autoref{fig:timeline} shows a timeline of executed tasks for Work Package 3.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/timeline.png}
+    \caption{Timeline of executed tasks.}
+    \label{fig:timeline}
+\end{figure}
+
+The tasks on \autoref{fig:timeline} relate directly to the sections of this report in the table of contents. 
+The gap between August and September 
+corresponds to the holiday period of several members of the project. Tasks executed of other Work Packages are not included in 
+the timeline.
+
 \subsection{Conventions}
 
-Throughout this section, we'll refer multiple times to physical variables of the system. \autoref{fig:setup-conventions}
+Throughout this report, we'll refer multiple times to physical variables of the system. \autoref{fig:setup-conventions}
 shows the variable conventions we'll use in this text.
 
 \begin{figure}[h!]
@@ -79,8 +108,8 @@ As shown in \autoref{fig:setup-conventions}, we have
     \item $i_C$: current flowing from the crown to the negative high voltage source
     \item $i_{GND}$: current flowing from the ground to the ring
     \item $\phi$: flow rate of the syringe pump
-    \item $V_+$: voltage of the positive high voltage
-    \item $V_-$: voltage of the negative high voltage
+    \item $V_+$: voltage of the positive high voltage source
+    \item $V_-$: voltage of the negative high voltage source
 \end{itemize}
 
 The direction of the currents was chosen as shown in \autoref{fig:setup-conventions} to ensure they are always positve 
@@ -89,27 +118,15 @@ in the measurements, faciliting the analysis.
 
 % ==============================================
 % \newpage
-\section{First Approach: PID Controller}
+\section{First Approach: PID Controller}\label{sec:pid}
 
 \subsection{Time Response Analysis}
 
-Before developing a proof-of-concept PID controller for the multinozzle, we first 
-need to understad the time resonse of system to changes in the input.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/inrush-current.png}
-    \caption{Inrush current on the positive HV+ line.}
-    \label{fig:inrush-current}
-\end{figure}
-
-\subsubsection{Subsubsection}
-
-\blindtext % Remove this and write your text!
+\subsection{Pump Disturbances}
 
 % ==============================================
 % \newpage
-\section{Second Approach: Current-based Classification and Control} 
+\section{Second Approach: Current-based Classification and Control}\label{sec:current-based}
 
 Once identified the issues with the first approach, we attempted to design a 
 controller based on the classification suggested by \cite{Verdoold2013}.
@@ -294,15 +311,15 @@ the test of \autoref{fig:ignd-by-crown-with-filters}, obtaining the results show
 \end{figure}
 
 Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-8-needles}, we see that the 8 needles introduce 
-a much smaller signal on the $i_GND$, both in terms of average value as in standard deviation. This will be helpful to make  
+a much smaller signal on the $i_{GND}$, both in terms of average value as in standard deviation. This will be helpful to make  
 the intermittent peaks on the signal more visible, as for $V_- = - 4.5 \un{kV}$ the introduced standard deviation is only 10 nA.
 
 \subsection{Classifying the Spraying Mode}
 
 With everything that we've now learned about the influence of the crown and the necessity of filters, we can now repeat the experiment 
 of \autoref{fig:setup-three-currents-spray-mode}, using the same setup of \autoref{fig:setup-three-currents-spray-mode}, but again only
-measuring $i_GND$. The oscilloscope was configured with $f_s = 5 \un{kHz}$ and a sample size of $N_s = 20.000$. The crown had 8 needles 
-and was fixed with $V_- = - 4 \un{kV}$ to reduce as far as possible the influence of the crown on $i_GND$.
+measuring $i_{GND}$. The oscilloscope was configured with $f_s = 5 \un{kHz}$ and a sample size of $N_s = 20.000$. The crown had 8 needles 
+and was fixed with $V_- = - 4 \un{kV}$ to reduce as far as possible the influence of the crown on $i_{GND}$.
 
 \autoref{fig:ignd-good-signal} shows the result obtained. The intermittent is clearly distinguishable from the cone-jet mode. However, 
 expected, we cannot distinguish the elongated cone-jet and the multi-jet from the cone-jet.
@@ -502,6 +519,100 @@ TODO
     \item is it fast enough? if it even works at all!
     \item add pseudocode + complexity
 \end{itemize}
+
+\section{Other Results}\label{sec:utils}
+
+\subsection{Relation between $i_N$, $i_{GND}$ and $i_C$}
+
+During the experiments of \autoref{fig:three-currents-spray-mode-50ms}, where the three currents of the system
+were measured, we found a relation between the values of
+$i_N$, $i_{GND}$ and $i_C$. It appeared that $i_C$ was the sum of $i_{GND}$ and $i_N$, in the direction defined at
+\autoref{fig:setup-conventions}. In this case, we'd find that
+
+\begin{equation} \label{eq:sum-ic}
+    i_c = i_N + i_{GND}
+\end{equation}
+
+In other to experimentally verify \autoref{eq:sum-ic}, we defined two parameters:
+
+\begin{equation} \label{eq:diff}
+    DIFF = i_- - \left(i_{GND} + i_N\right)
+\end{equation}
+
+\begin{equation} \label{eq:diff-percent}
+    DIFF = \frac{i_- - \left(i_{GND} + i_N\right)}{i_-} \cdot 100\%
+\end{equation}
+
+Both parameters on Equations \ref{eq:diff} and \ref{eq:diff-percent} measure how close Equation \ref{eq:sum-ic} is to zero,
+which should be case if Equation \ref{eq:sum-ic} is true. Calculating the value of theses parameters on the data of \autoref{fig:three-currents-spray-mode-50ms}
+results in \autoref{tab:table-diff}.
+
+\begin{table}[h!]
+    \begin{center}
+        \caption{Calculated $DIFF$ parameters for the collected data of three currents}
+        \includegraphics[width=.6\textwidth,trim=1 1 1 1,clip]{figures/table-diff.png}
+        \label{tab:table-diff}
+    \end{center}
+  \end{table}
+
+As we can see on \autoref{tab:table-diff}, $i_N + i_{GND}$ is always within $5\%$ of the absolute value of $i_C$, regardless of potential,
+flow rate or EHDA spray mode. We had discussions of whether 
+or not this could be a useful metric for the control or the charge neutralization measurements, but we did not explore it further. We leave it here 
+if it is something that Gilbert wishes to explore in the future. 
+
+\subsection{Inrush Current on $i_N$ Measurements}
+
+During the work, Gilbert requested us to verify the spike of current on $i_+$ when switching on $V_+$. To do this, we used the same setup 
+of \autoref{fig:setup-three-currents-spray-mode}, only measuring the current $i_+$ with the oscilloscope. $V_-$ was fixed on $V_- = - 4.5 \un{kV}$, 
+with $\phi = 30 \un{mL/h}$. The oscilloscope was configured for $f_s = 50 \un{kHz}$ to capture the fast response of the inrush current.
+$V_+$ was switched on from $V_+ = 0$ to $V_+ = 5 kV$, while $V_-$ was already swicthed on. \autoref{fig:inrush-current} shows the result 
+obtained in this test.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current.png}
+    \caption{Inrush current measured on $i_+$ (a) over a 5 second time window and (b) with a zoom on the initial spike.}
+    \label{fig:inrush-current}
+\end{figure}
+
+\autoref{fig:inrush-current} (a) shows that we have a short spike in the current, better viewed on \autoref{fig:inrush-current} (b).
+The initial spike lasts for about 6 ms and has a peak value of $i_+ = 4 \un{uA}$. About 1 second after switching $V_+$ on, the
+current achieves it's peak overshoot value of $i_+ = 4.5 \un{uA}$. 2.5 seconds after switching $V_+$ on the current stabilizes 
+on its final value of $i_+ = 3 \un{uA}$.
+
+Both peaks of current \autoref{fig:inrush-current} (a) are about 50\% higher than the final value of $i_+$, and well below the 
+safety threshold of 10uA given by Gilbert. We did not see a large difference on $i_+$ when switching both $V_+$ and $V_-$ on at the 
+same time. 
+
+Notice that the FUG HV power supply accused a very large inrush current on its display, as shown on \autoref{fig:inrush-current-fug}.
+However, this value contradicts the value given by the oscilloscope, which is a better measurement instrument. In addition, if
+indeed we had $i_+ = 59 \un{uA}$ as the FUG displays, it would have resulted in a voltage drop of $\Delta V = 118 \un{V}$ accross the 
+oscilloscope in series with $V_+$, which would have fried the channel according to instrument's datasheet. This was not the case, 
+and therefore the physical evidence suggests that the inrush current in indeed as low as the oscilloscope suggests. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current-fug.png}
+    \caption{Inrush current displayed by the FUG HV power supply.}
+    \label{fig:inrush-current-fug}
+\end{figure}
+
+\subsection{Switching $i_+$ ON and OFF in a 2-second interval}
+
+Gilbert also requested us to verify the behaviour of $i_+$ over several switches on $V_+$ in an interval of 2 seconds. We used the same 
+setup described for \autoref{fig:inrush-current}, obtaining the result shown on \autoref{fig:on-off-2-seconds}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/on-off-2-seconds.png}
+    \caption{Behaviour of $i_+$ when switching $V_+$ on and off in a 2-second interval.}
+    \label{fig:on-off-2-seconds}
+\end{figure}
+
+As seen on \autoref{fig:on-off-2-seconds}, the inrush current peak is higher for the first time $i_+$ is swicthed on.
+After the first time, it is about 50\% smaller. The overshoot peak, however, increses as the system is switched on and off several times.
+We believe this is caused by the wetness that builds up on the nozzles. 
+
 
 % ==============================================
 \newpage    \pagestyle{plain}

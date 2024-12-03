@@ -1,30 +1,24 @@
-re-do inrush current and ON/OFF 2 seconds measurements so we have the CSV files and can work with them on python and
-standardize the plots and all
-estruturar e fazer a seção do PID inteira	
-	se a current based ficar muito grande, ve com Kelly se podemos exluí-la
-	ou so fala que não funciona no apêndice ou sei lá
+** A FAZER ** 
+
+	falar como o OSC faz a medição na seção do PID, ai n precisa explicar novamente na seção 2
+		se nao falar disso na seção 2, tem que falar na seção 3 do current based
 
 
-fazer timeline das tarefas feitas, idealmente igual elas aparecem no sumatirio
+corrigir a timeline com a nova estrutura de seções que vc fez
+
+** DETALHES **
 
 corrigir referencias no sumario
 
 revisão ortográfica final - usar software online + revisão manual
 
+corrigir cabeçalho das paginas com overflow dos textos
+
+melhorar desenvolvimento das coisas na seção 4
+
+** PROBLEMAS **
 
 figura 3 osc com ruido enorme no GND. isso pode gerar discussão - atacarem a narrativa
 
-falar com o OSC faz a medição na seção do PID, ai n precisa explicar novamente na seção 2
-
-add comentário que os sinais são ignd + iN = iC
-
 falar dos outliers do boxplot, acreditamos que são causados pelos steps de corrente
 	se eu vou incluir eles nas imagens at all
-
-
----------------
-
-org one drive SGH 
-reporte Kelly
-continua avanços reporte
-
