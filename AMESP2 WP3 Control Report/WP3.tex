@@ -1,4 +1,3 @@
-% Project Report Template. Antonio Carrasco-Munoz. Leeuwarden, 2022.
 \documentclass[oneside,12pt]{article}
 \input{packages}
 \begin{document}
@@ -7,7 +6,7 @@
 \setlength{\parskip}{0.7 em}    % Space between paragraph and preceding text
 \renewcommand{\baselinestretch}{1.5}    % Line spacing
 
-\newcommand{\ProjectTitle}{GETEC project} % <---Write here the project title!!!
+\newcommand{\ProjectTitle}{AMESP - Phase 2 WP3} % <---Write here the project title!!!
 
 \begin{titlepage}
     \begin{center}
@@ -15,7 +14,7 @@
     \Huge
     \textbf{Report} \\
     \vspace{1 cm}    
-    \textbf{\ProjectTitle} % Do not write here! Go higher, line 10.
+    \textbf{\ProjectTitle}
     \\
     \vspace{1 cm}
     \vfill      % Automatically add in the amount of vertical space needed for the content to fill the page
@@ -23,9 +22,9 @@
     \end{center}
     \vspace{2 cm}
     \normalsize
-    Title : \ProjectTitle % Do not write here! Go higher, line 10.
+    Title : \ProjectTitle
     \\
-    Authors : Juliana G. R. de Carvalho, Luewton L F Agostinho, Alexander Finnegan, Janneke Dickhout
+    Authors : K. S. Moreira, Luewton L F Agostinho, R.H. Braga Leivas
     \\
     Date : \today 
     \\
@@ -55,10 +54,6 @@
 % \newpage
 \section{WP3 Overview}
 
-EXAMPLE CITATION
-
- \citep{Carrasco-Munoz2022}. % Citation
-
 \subsection{Objectives}
 
 Based on the signed proposal, ... 
@@ -73,7 +68,7 @@ shows the variable conventions we'll use in this text.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=.9\textwidth,trim=1 1 1 1,clip]{figures/setup-conventions.png}
-    \caption{Variable conventions and nomenclature. \hl{SOURCE - ADAPTED FROM VERDOOLD}}
+    \caption{Variable conventions and nomenclature. Source: adapted from \cite{Verdoold2013}.}
     \label{fig:setup-conventions}
 \end{figure}
 
@@ -117,7 +112,7 @@ need to understad the time resonse of system to changes in the input.
 \section{Second Approach: Current-based Classification and Control} 
 
 Once identified the issues with the first approach, we attempted to design a 
-controller based on the classification suggested by \hl{Verdoold (add reference)}.
+controller based on the classification suggested by \cite{Verdoold2013}.
 
 The strategy adopted will be to first classify the electrospray mode by looking a current values 
 on the system, and then experimentally design a controller that can move from an intermittent
@@ -125,7 +120,7 @@ to a cone-jet spray mode.
 
 However, Verdoold's method was designed for the single nozzle, and it is not clear if we can 
 extend his classification to a multinozzle configuration. Therefore, part of this work 
-includes an attempt to extend his classification to the system developd by 
+includes an attempt to extend his classification to the system developed by 
 Gilbert.
 
 
@@ -139,7 +134,7 @@ $V_- = - 4.5 kV$.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/setup-three-currents-spray-mode.png}
-    \caption{Setup to measure all three currents on the sprayhead.}
+    \caption{Setup to measure all three currents on the sprayhead. Source: adapted from \cite{Verdoold2013}.}
     \label{fig:setup-three-currents-spray-mode}
 \end{figure}
 
@@ -188,18 +183,18 @@ Therefore, we need to first understand why we are not seing distinctions in the 
 of the current, particularly between the intermittent and cone-jet spray modes, as it is clear in the 
 literature that there should be a difference.
 
-To do this, we'll begin by attempting to reproduce Verdoolds results, with the goal of isolating 
+To do this, we'll begin by attempting to reproduce \cite{Verdoold2013}'s results, with the goal of isolating 
 if the problem is our measurement strategy or if it is something related to the sprayhead itself.
 
-\subsection{Reproducing Verdoold's Results}
+\subsection{Reproducing Results from \cite{Verdoold2013}}
 
-\autoref{fig:verdoold-reproduce-setup} shows the setup used to reproduce Verdoolds approach.
+\autoref{fig:verdoold-reproduce-setup} shows the setup used to reproduce \cite{Verdoold2013}'s approach.
 We used a sampling frequency of 5 kHz and $\phi = 1 \un{mL/h}$. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-setup.png}
-    \caption{Setup used to reproduce Verdoold's classification method.}
+    \caption{Setup used to reproduce Verdoold's classification method. Source: adapted from \cite{Verdoold2013}.}
     \label{fig:verdoold-reproduce-setup}
 \end{figure}
 
@@ -264,7 +259,7 @@ in the oscilloscope software to remove the following frequencies:
     \item All frequencies above 100 Hz: use low pass filter with cut-off frequency 100 Hz.
 \end{itemize}
 
-Note that, as shown by Verdoold, the intermittent peaks are usually under 100 Hz. Therefore, we can remove 
+Since the intermittent peaks are usually under 100 Hz \citep{Verdoold2013}, we can remove 
 anything above this frequency from the signal as it is not what we wish to measure.
 
 Using this, we once again collect the signals of \autoref{fig:ignd-by-crown-no-filters}, obtaining the signal 
@@ -338,7 +333,7 @@ An algorithm for this will be further explored on \autoref{sec:classification-al
 \subsection{Optimizing the Signal Acquisition}
 
 In the previous sections, the signal was acquired using the minimum sampling frequency
-suggested by the Verdoold of $f_s = 5 \un{kHz}$. A sample size of $N_s = 20.000$ was used to obtain a spectral resolution of 0.25 Hz
+suggested by the \cite{Verdoold2013} of $f_s = 5 \un{kHz}$. A sample size of $N_s = 20.000$ was used to obtain a spectral resolution of 0.25 Hz
 for frequency domain anaysis, also suggested by Verdoold as the minimum. However, talks with Gilbert showed that the sampling frequency was too
 computationally expensive and the sample size was too slow, as it resulted in a sampling time window of 4 seconds, which is too large.
 
@@ -408,7 +403,7 @@ modes.
 
 The conclusion we can derive from these tests is that $T_S = 0.5 \un{s}$ and $f_s = 2 \un{kHz}$ are the mininum sample size and sampling frequency that
 can distinguish the spraying modes via statistical parameters. Note that this results in a sample size of $N_s = T_S f_s = 1.000$, which uses 
-significantly less memory than the $N_s = 20.000$ suggested by Verdoold. We'll move forward with these values of $N_s$ and $f_s$, seeking to test the classification
+significantly less memory than the $N_s = 20.000$. We'll move forward with these values of $N_s$ and $f_s$, seeking to test the classification
 with parameters that are consistent with Gilbert's requirements.
 
 \subsection{Optimizing the Classification}
@@ -451,8 +446,8 @@ of the current in the system. This results in an overall value large value of th
 On the other hand, when we have a cone-jet, we expect the signal to display a small $\sigma$ - as the signal is much more stable -
 and a larger $\overline{I}$, given the larger potential. This results in an overall value small value of the ratio.
 
-Therefore, both components of the fraction contribute in opposite directions to change the overall value of the ratio between the spraying modes.
-\hl{IMPROVE THIS}.
+Therefore, both components of the fraction contribute in opposite directions to change the overall value of the ratio between the spraying modes,
+making this metric a potentially good classification parameter.
 
 \autoref{fig:rsd-subsample} shows the the same result of \autoref{fig:third-test-subsample} using the RSD instead of the standard deviation.
 
@@ -481,7 +476,9 @@ same result of \autoref{fig:third-test-subsample} using the SNR.
     \label{fig:snr-subsample}
 \end{figure}
 
-\hl{WRITE CONCLUSION OF THIS SECTION}
+As seen on \autoref{fig:snr-subsample}, the SNR is also a good metric to distinguish the intermittent and cone-jet modes.
+Unlike the RSD, the SNR spreads from the range 0 - 50, making it more convenient that the RSD and showing less outliers. 
+Therefore, the RSD will be used from this point on, using $f_s = 2 \un{kHz}$ and $N_s = 1.000 \quad (T_S = 0.5 \un{s})$. 
 
 \subsubsection{Classification via small Neural Networks}
 
