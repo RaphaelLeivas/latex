@@ -64,14 +64,13 @@ As stated on the proposal, we have two main goals in the WP3:
     commands to the pump and/or power supply
 \end{enumerate}
 
-We have explored two approaches that could achieve these goals, and they are detailed on Sections \ref{sec:pid} and 
-\ref{sec:current-based}. For each approach, we discuss how they can be implemented in the system developed by Gilbert,
-their advantadges and disadvantages, and how well they perform in achieve the above goals.
+We have explored two approaches that could achieve these goals, and they are detailed on Sections \ref{sec:current-based} and
+\ref{sec:pid}. For each approach, we discuss how they can be implemented in the system developed by Gilbert,
+their advantadges and disadvantages, and how well they perform in achieving the above goals. 
 
 Section \ref{sec:utils} shows some results obtained during the control investigations that were not directly used to achieve
 the goals of this Work Package, but we believe they could still prove useful to Gilbert and provide inputs to how the
 multinozzle prototype operates.
-
 
 \subsection{Timeline of Executed Tasks}
 
@@ -113,33 +112,21 @@ As shown in \autoref{fig:setup-conventions}, we have
 \end{itemize}
 
 The direction of the currents was chosen as shown in \autoref{fig:setup-conventions} to ensure they are always positve 
-in the measurements, faciliting the analysis.
-
-
-% ==============================================
-% \newpage
-\section{First Approach: PID Controller}\label{sec:pid}
-
-\subsection{Time Response Analysis}
-
-\subsection{Pump Disturbances}
+in the measurements, facilitating the analysis.
 
 % ==============================================
 % \newpage
-\section{Second Approach: Current-based Classification and Control}\label{sec:current-based}
+\section{Current-based Classification and Control}\label{sec:current-based}
 
-Once identified the issues with the first approach, we attempted to design a 
-controller based on the classification suggested by \cite{Verdoold2013}.
-
-The strategy adopted will be to first classify the electrospray mode by looking a current values 
+The general strategy adopted in this approach is to first classify the electrospray mode by measuring the current values 
 on the system, and then experimentally design a controller that can move from an intermittent
-to a cone-jet spray mode.
+to a cone-jet spray mode. 
 
-However, Verdoold's method was designed for the single nozzle, and it is not clear if we can 
+The classification method is based on the analysis made by \cite{Verdoold2013}. However, Verdoold's method was designed for the 
+single nozzle, and it is not clear if we can 
 extend his classification to a multinozzle configuration. Therefore, part of this work 
-includes an attempt to extend his classification to the system developed by 
+includes an attempt to extend his classification method to the system developed by 
 Gilbert.
-
 
 \subsection{Measuring the currents by spray mode}
 
@@ -150,7 +137,7 @@ $V_- = - 4.5 kV$.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/setup-three-currents-spray-mode.png}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/setup-three-currents-spray-mode.png}
     \caption{Setup to measure all three currents on the sprayhead. Source: adapted from \cite{Verdoold2013}.}
     \label{fig:setup-three-currents-spray-mode}
 \end{figure}
@@ -160,6 +147,20 @@ Using three oscilloscopes, all three currents were sampled at 5 kHz, collecting 
 we cannot use the same oscilloscope as the channels are interconnected internally: the high voltage 
 differences would damage the instrument. Therefore, we use one oscilloscope for each line. 
 
+Since the oscilloscopes are in series, they will measure the voltage accross the instrument. We know from the manufacturer's 
+datasheet that the impedance of the oscilloscope is $Z_{in} = 2 \un{M} \Omega$. Threfore, using Ohm's Law, we can measure the 
+current flowing through the oscilloscope with $i = \frac{\Delta V}{Z_{in}}$. 
+
+Furthermore, the addition of the oscilloscope in series does not cause a significant impact on the operation of the sprayhead.
+For instance, when we have a cone-jet at $i_N = 3 \un{uA}$ and $V_+ = 5 \un{kV}$, the impedance of the sprayhead $Z_{sh}$ is
+
+\[  Z_{sh} = \frac{V_+}{i_N} = \frac{5 \un{kV}}{3 \un{uA}} = 1.6 \un{G} \Omega \]
+
+Therefore, $Z_{sh}$ at least 3 orders of magnitude larger than $Z_{in}$, making the addition of the oscilloscope in series
+have a negligible impact on the operation of the sprayhead.
+
+We use the HS camera to identify the EHDA spray mode of the nozzles.
+ 
 \autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms} show the waveforms 
 obtained for $\phi = 20 \un{mL/h}; \phi = 30 \un{mL/h}; \phi = 50 \un{mL/h}$ for two different time windows: 50ms 
 and 500ms.
@@ -520,9 +521,111 @@ TODO
     \item add pseudocode + complexity
 \end{itemize}
 
+\section{PID Controller Investigations}\label{sec:pid}
+
+Based on the mappings done for the Work Package 1, given certain boundaries of $V_+$, we can know if the spraying mode of the nozzles
+is a cone-jet if the mean value of $i_N$ is in a certain range. Therefore, a first and simple attempt that we make to control the EHDA
+spray mode of the nozzles is ensure that $i_N$ is always within this this stable zone.
+
+To achieve this, we can use a PID controller to ensure $i_N$ is always in the center of the stable zone. The designed control loop 
+is shown on \autoref{fig:block-diagram-pid}. The control system is provided a setpoint, which is value of $i_N$ that it will attempt
+to keep fixed. In this sense, the controller will reject disturbances in order to keep $i_N$ always equal to the setpoint.
+Therefore, it would ensure that the sprayhead is operating the in stable region mapped on WP1. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/block-diagram-pid.png}
+    \caption{Block diagram of control loop designed.}
+    \label{fig:block-diagram-pid}
+\end{figure}
+
+In \autoref{fig:block-diagram-pid}, the input of the system is the mean value of $i_{N_{act}}$, the actual value $i_N$ currently
+in the system, sampled at $f_s = 5 \un{kHz}$ over a time window
+$T_S = 0.5 \un{s}$. The input $i_{N_{act}}$ is subtracted from the previous value of $i_{N_{prev}}$, producing the error signal $e$. 
+The error in the input to the controller block $C$, which receives the error as input and outputs a control voltage $V_+$ that the 
+power supply must apply to restore $i_N$ to the setpoint. This voltage is applied to the sprayhead - block $SH$ - , producing a new mean value 
+of $i_{N_{act}}$ which is provided again as input to the system, repeating the process.
+
+How fast the controller behaves depends greatly of value chosen for its gains: the proportional gain $k_p$, the derivative gain $k_d$
+and the integral gain $k_i$. For initial tests, we'll attempt to find the best value for these parameters via simple trial and error,
+in order to get a general idea if this controller would work for this application. 
+
+The setup used in this test is shown on \autoref{fig:setup-pid}. We read the current from the power supplies connected 
+to the computer running the algorithm, and therefore no oscilloscopes are necessary. We use the HS camera with microscopic lens to verify 
+visually the EHDA spraying mode of the nozzles.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/setup-pid.png}
+    \caption{Setup used for PID controller tests.}
+    \label{fig:setup-pid}
+\end{figure}
+
+The result obatined is shown on \autoref{fig:result-pid}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/result-pid.png}
+    \caption{Results of PID controller tests.}
+    \label{fig:result-pid}
+\end{figure}
+
+As we can see on \autoref{fig:result-pid}, this initial version of the PID controller is able to autonosmoly adjust $V_+$ in order
+for $i_N$ to reach the setpoint, which in this case was the center of stable region.
+However, we can see it took about 8 seconds for the current and voltage levels to stabilize.
+The response time can be improved - i.e. make the controller faster - by changing the gains of the controller, 
+but doing this by trial and
+error is not feasible. The correct method is to experimentally model the transfer function of the sprayhead in terms 
+of its inputs and outputs, and use this function to obtain the ideal gains based on the time-response requirements. 
+
+This method is very time-consuming and complex, and largely falls outside our area of expertise. Therefore, we focused
+more on the current-based classification and control method discussed on Section \ref{sec:current-based}. Nevertheless, 
+given more time to properly model the transfer function of the sprayhead, the PID controller could be a good candidate 
+for ensuring $i_N$ is always at the stable region.
+
 \section{Other Results}\label{sec:utils}
 
-\subsection{Relation between $i_N$, $i_{GND}$ and $i_C$}
+\subsection{Flow Rate disturbances}
+
+During the PID Controller investigations, we had to analyse possible disturbances that the controller would have to reject.
+One possible disturbance would be disturbances in $\phi$, which Gilbert told us could be in the range of $\pm 10\%$ in the
+final device. Therefore, using the same setup of \autoref{fig:setup-pid}, we would begin with $\phi = 20 \un{mL/h}$, and then 
+change the flow rate of the syringe pump mid-operation in two cases:
+
+\begin{enumerate}
+    \item $+ 100\% \,\, \phi$: this is an extreme case do verify the general behaviour of the nozzles with a large change in $\phi$
+    \item $\pm 10\%  \,\,\phi$: the case given by Gilbert
+\end{enumerate}
+
+We used the HS Camera to record and visualize the spraying mode of the nozzles before and after the introduction of the disturbance.
+The results obtained are shown on Figures \ref{fig:100-disturbance-start} and \ref{fig:100-disturbance-end}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/100-disturbance-start.png}
+    \caption{Behaviour of $i_N$ and cone-jets during introduction of $\phi$ disturbance.}
+    \label{fig:100-disturbance-start}
+\end{figure}
+
+On \autoref{fig:100-disturbance-start} (a), the flow rate is $\phi = 30 \un{mL/h}$ and $i_N = 2 \un{uA}$. On $t = 5 \un{s}$, 
+we change the flow rate to $\phi = 60 \un{mL/h}$, corresponding to an $+ 100\%$ change in $\phi$. As we can see on 
+\autoref{fig:100-disturbance-start} (b), the current increases to $i_N = 3 \un{uA}$, the cone-jet become visibliy more elongated 
+but they are still stable, as well as the mist. The current remains stable in this new value until we return $\phi$ back to its
+original value on $t = 20 \un{s}$, as shown on \autoref{fig:100-disturbance-end} (a).
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/100-disturbance-end.png}
+    \caption{Behaviour of $i_N$ and cone-jets during removal of $\phi$ disturbance.}
+    \label{fig:100-disturbance-end}
+\end{figure}
+
+On \autoref{fig:100-disturbance-end} (b), both the cone-jets and $i_N$ return to as they were on \autoref{fig:100-disturbance-start} (a).
+
+These results show that the sprayhead is very robust when it comes to flow rate disturbances. We repeated the tests for $\pm 10 \%$ changes
+in $\phi$ and both $i_N$ and the cone-jets barely change at all.
+
+\subsection{Relations between $i_N$, $i_{GND}$ and $i_C$}
 
 During the experiments of \autoref{fig:three-currents-spray-mode-50ms}, where the three currents of the system
 were measured, we found a relation between the values of
@@ -543,7 +646,8 @@ In other to experimentally verify \autoref{eq:sum-ic}, we defined two parameters
     DIFF = \frac{i_- - \left(i_{GND} + i_N\right)}{i_-} \cdot 100\%
 \end{equation}
 
-Both parameters on Equations \ref{eq:diff} and \ref{eq:diff-percent} measure how close Equation \ref{eq:sum-ic} is to zero,
+Both parameters on Equations \ref{eq:diff} and \ref{eq:diff-percent} measure how close the difference of both
+sides of Equation \ref{eq:sum-ic} is to zero,
 which should be case if Equation \ref{eq:sum-ic} is true. Calculating the value of theses parameters on the data of \autoref{fig:three-currents-spray-mode-50ms}
 results in \autoref{tab:table-diff}.
 
@@ -562,8 +666,8 @@ if it is something that Gilbert wishes to explore in the future.
 
 \subsection{Inrush Current on $i_N$ Measurements}
 
-During the work, Gilbert requested us to verify the spike of current on $i_+$ when switching on $V_+$. To do this, we used the same setup 
-of \autoref{fig:setup-three-currents-spray-mode}, only measuring the current $i_+$ with the oscilloscope. $V_-$ was fixed on $V_- = - 4.5 \un{kV}$, 
+During the work, Gilbert requested us to verify the spike of current on $i_N$ when switching on $V_+$. To do this, we used the same setup 
+of \autoref{fig:setup-three-currents-spray-mode}, only measuring the current $i_N$ with the oscilloscope. $V_-$ was fixed on $V_- = - 4.5 \un{kV}$, 
 with $\phi = 30 \un{mL/h}$. The oscilloscope was configured for $f_s = 50 \un{kHz}$ to capture the fast response of the inrush current.
 $V_+$ was switched on from $V_+ = 0$ to $V_+ = 5 kV$, while $V_-$ was already swicthed on. \autoref{fig:inrush-current} shows the result 
 obtained in this test.
@@ -571,22 +675,22 @@ obtained in this test.
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current.png}
-    \caption{Inrush current measured on $i_+$ (a) over a 5 second time window and (b) with a zoom on the initial spike.}
+    \caption{Inrush current measured on $i_N$ (a) over a 5 second time window and (b) with a zoom on the initial spike.}
     \label{fig:inrush-current}
 \end{figure}
 
 \autoref{fig:inrush-current} (a) shows that we have a short spike in the current, better viewed on \autoref{fig:inrush-current} (b).
-The initial spike lasts for about 6 ms and has a peak value of $i_+ = 4 \un{uA}$. About 1 second after switching $V_+$ on, the
-current achieves it's peak overshoot value of $i_+ = 4.5 \un{uA}$. 2.5 seconds after switching $V_+$ on the current stabilizes 
-on its final value of $i_+ = 3 \un{uA}$.
+The initial spike lasts for about 6 ms and has a peak value of $i_N = 4 \un{uA}$. About 1 second after switching $V_+$ on, the
+current achieves it's peak overshoot value of $i_N = 4.5 \un{uA}$. 2.5 seconds after switching $V_+$ on the current stabilizes 
+on its final value of $i_N = 3 \un{uA}$.
 
-Both peaks of current \autoref{fig:inrush-current} (a) are about 50\% higher than the final value of $i_+$, and well below the 
-safety threshold of 10uA given by Gilbert. We did not see a large difference on $i_+$ when switching both $V_+$ and $V_-$ on at the 
+Both peaks of current \autoref{fig:inrush-current} (a) are about 50\% higher than the final value of $i_N$, and well below the 
+safety threshold of 10uA given by Gilbert. We did not see a large difference on $i_N$ when switching both $V_+$ and $V_-$ on at the 
 same time. 
 
 Notice that the FUG HV power supply accused a very large inrush current on its display, as shown on \autoref{fig:inrush-current-fug}.
 However, this value contradicts the value given by the oscilloscope, which is a better measurement instrument. In addition, if
-indeed we had $i_+ = 59 \un{uA}$ as the FUG displays, it would have resulted in a voltage drop of $\Delta V = 118 \un{V}$ accross the 
+indeed we had $i_N = 59 \un{uA}$ as the FUG displays, it would have resulted in a voltage drop of $\Delta V = 118 \un{V}$ accross the 
 oscilloscope in series with $V_+$, which would have fried the channel according to instrument's datasheet. This was not the case, 
 and therefore the physical evidence suggests that the inrush current in indeed as low as the oscilloscope suggests. 
 
@@ -597,19 +701,19 @@ and therefore the physical evidence suggests that the inrush current in indeed a
     \label{fig:inrush-current-fug}
 \end{figure}
 
-\subsection{Switching $i_+$ ON and OFF in a 2-second interval}
+\subsection{Switching $i_N$ ON and OFF in a 2-second interval}
 
-Gilbert also requested us to verify the behaviour of $i_+$ over several switches on $V_+$ in an interval of 2 seconds. We used the same 
+Gilbert also requested us to verify the behaviour of $i_N$ over several switches on $V_+$ in an interval of 2 seconds. We used the same 
 setup described for \autoref{fig:inrush-current}, obtaining the result shown on \autoref{fig:on-off-2-seconds}.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/on-off-2-seconds.png}
-    \caption{Behaviour of $i_+$ when switching $V_+$ on and off in a 2-second interval.}
+    \caption{Behaviour of $i_N$ when switching $V_+$ on and off in a 2-second interval.}
     \label{fig:on-off-2-seconds}
 \end{figure}
 
-As seen on \autoref{fig:on-off-2-seconds}, the inrush current peak is higher for the first time $i_+$ is swicthed on.
+As seen on \autoref{fig:on-off-2-seconds}, the inrush current peak is higher for the first time $i_N$ is swicthed on.
 After the first time, it is about 50\% smaller. The overshoot peak, however, increses as the system is switched on and off several times.
 We believe this is caused by the wetness that builds up on the nozzles. 
 

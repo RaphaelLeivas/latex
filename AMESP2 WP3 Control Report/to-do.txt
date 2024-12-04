@@ -1,7 +1,8 @@
 ** A FAZER ** 
 
-	falar como o OSC faz a medição na seção do PID, ai n precisa explicar novamente na seção 2
-		se nao falar disso na seção 2, tem que falar na seção 3 do current based
+	finalizar real time EHDA classification and control (faz isso na ultima semana)
+
+	alinhar com Kelly
 
 
 corrigir a timeline com a nova estrutura de seções que vc fez
@@ -10,11 +11,14 @@ corrigir a timeline com a nova estrutura de seções que vc fez
 
 corrigir referencias no sumario
 
-revisão ortográfica final - usar software online + revisão manual
+revisão ortográfica final - revisao manual + software online seguro (cuidado)
 
 corrigir cabeçalho das paginas com overflow dos textos
 
 melhorar desenvolvimento das coisas na seção 4
+
+salvar imagens como bitmap, ai elas nao perder qualidade no zoom
+	testa uma delas e ve como fica
 
 ** PROBLEMAS **
 
@@ -22,3 +26,14 @@ figura 3 osc com ruido enorme no GND. isso pode gerar discussão - atacarem a na
 
 falar dos outliers do boxplot, acreditamos que são causados pelos steps de corrente
 	se eu vou incluir eles nas imagens at all
+
+usei online spell checker
+	- wp3 report is now publicly available, breaking confidentiality
+	- could pose problems for us
+	- there is nothing sensible on the pdf file, relax. and its untraceable
+	there are no design files, no source codes. no gilbert names, no financial details. no signatures
+	relax ffs
+	stop catastrophizing -> nobody will read this and nobody cares
+
+	just be more careful next step. it was a good learning time
+
