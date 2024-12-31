@@ -118,604 +118,758 @@ in the measurements, facilitating the analysis.
 % \newpage
 \section{Current-based Classification and Control}\label{sec:current-based}
 
-The general strategy adopted in this approach is to first classify the electrospray mode by measuring the current values 
-on the system, and then experimentally design a controller that can move from an intermittent
-to a cone-jet spray mode. 
+% The general strategy adopted in this approach is to first classify the electrospray mode by measuring the current values 
+% on the system, and then experimentally design a controller that can move from an intermittent
+% to a cone-jet spray mode. 
 
-The classification method is based on the analysis made by \cite{Verdoold2013}. However, Verdoold's method was designed for the 
-single nozzle, and it is not clear if we can 
-extend his classification to a multinozzle configuration. Therefore, part of this work 
-includes an attempt to extend his classification method to the system developed by 
-Gilbert.
+% The classification method is based on the analysis made by \cite{Verdoold2013}. However, Verdoold's method was designed for the 
+% single nozzle, and it is not clear if we can 
+% extend his classification to a multinozzle configuration. Therefore, part of this work 
+% includes an attempt to extend his classification method to the system developed by 
+% Gilbert.
 
-\subsection{Measuring the currents by spray mode}
+% \subsection{Measuring the currents by spray mode}
 
-The first test done was to measure the current on all three lines of the sprayhead and 
-verify if we see a pattern in the shape of current that can be used to classify the spray mode.
-\autoref{fig:setup-three-currents-spray-mode} shows the setup used for this test. $V_-$ was fixed on 
-$V_- = - 4.5 kV$.
+% The first test done was to measure the current on all three lines of the sprayhead and 
+% verify if we see a pattern in the shape of current that can be used to classify the spray mode.
+% \autoref{fig:setup-three-currents-spray-mode} shows the setup used for this test. $V_-$ was fixed on 
+% $V_- = - 4.5 kV$.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/setup-three-currents-spray-mode.png}
-    \caption{Setup to measure all three currents on the sprayhead. Source: adapted from \cite{Verdoold2013}.}
-    \label{fig:setup-three-currents-spray-mode}
-\end{figure}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/setup-three-currents-spray-mode.png}
+%     \caption{Setup to measure all three currents on the sprayhead. Source: adapted from \cite{Verdoold2013}.}
+%     \label{fig:setup-three-currents-spray-mode}
+% \end{figure}
 
-Using three oscilloscopes, all three currents were sampled at 5 kHz, collecting 20.000 samples of each
-(totalling a 4 seconds time window). Notice that, although the oscilloscope has multiple channels, 
-we cannot use the same oscilloscope as the channels are interconnected internally: the high voltage 
-differences would damage the instrument. Therefore, we use one oscilloscope for each line. 
+% Using three oscilloscopes, all three currents were sampled at 5 kHz, collecting 20.000 samples of each
+% (totalling a 4 seconds time window). Notice that, although the oscilloscope has multiple channels, 
+% we cannot use the same oscilloscope as the channels are interconnected internally: the high voltage 
+% differences would damage the instrument. Therefore, we use one oscilloscope for each line. 
 
-Since the oscilloscopes are in series, they will measure the voltage accross the instrument. We know from the manufacturer's 
-datasheet that the impedance of the oscilloscope is $Z_{in} = 2 \un{M} \Omega$. Threfore, using Ohm's Law, we can measure the 
-current flowing through the oscilloscope with $i = \frac{\Delta V}{Z_{in}}$. 
+% Since the oscilloscopes are in series, they will measure the voltage accross the instrument. We know from the manufacturer's 
+% datasheet that the impedance of the oscilloscope is $Z_{in} = 2 \un{M} \Omega$. Threfore, using Ohm's Law, we can measure the 
+% current flowing through the oscilloscope with $i = \frac{\Delta V}{Z_{in}}$. 
 
-Furthermore, the addition of the oscilloscope in series does not cause a significant impact on the operation of the sprayhead.
-For instance, when we have a cone-jet at $i_N = 3 \un{uA}$ and $V_+ = 5 \un{kV}$, the impedance of the sprayhead $Z_{sh}$ is
+% Furthermore, the addition of the oscilloscope in series does not cause a significant impact on the operation of the sprayhead.
+% For instance, when we have a cone-jet at $i_N = 3 \un{uA}$ and $V_+ = 5 \un{kV}$, the impedance of the sprayhead $Z_{sh}$ is
 
-\[  Z_{sh} = \frac{V_+}{i_N} = \frac{5 \un{kV}}{3 \un{uA}} = 1.6 \un{G} \Omega \]
+% \[  Z_{sh} = \frac{V_+}{i_N} = \frac{5 \un{kV}}{3 \un{uA}} = 1.6 \un{G} \Omega \]
 
-Therefore, $Z_{sh}$ at least 3 orders of magnitude larger than $Z_{in}$, making the addition of the oscilloscope in series
-have a negligible impact on the operation of the sprayhead.
+% Therefore, $Z_{sh}$ at least 3 orders of magnitude larger than $Z_{in}$, making the addition of the oscilloscope in series
+% have a negligible impact on the operation of the sprayhead.
 
-We use the HS camera to identify the EHDA spray mode of the nozzles.
+% We use the HS camera to identify the EHDA spray mode of the nozzles.
  
-\autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms} show the waveforms 
-obtained for $\phi = 20 \un{mL/h}; \phi = 30 \un{mL/h}; \phi = 50 \un{mL/h}$ for two different time windows: 50ms 
-and 500ms.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-50ms.png}
-    \caption{$i_N$, $i_{GND}$ and $i_C$ over time by different spray modes - 50 ms time window.}
-    \label{fig:three-currents-spray-mode-50ms}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-500ms.png}
-    \caption{$i_N$, $i_{GND}$ and $i_C$ over time by different spray modes - 500 ms time window.}
-    \label{fig:three-currents-spray-mode-500ms}
-\end{figure}
-
-As we can see in \autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms}, 
-we don't see a clear distinction in the shape of the current 
-by different spray modes, in both time windows. The sharp peaks we see on the waveforms are most likely caused
-by a high-frequency noise in signal, especially since we use banana adapters for the oscilloscope in this test, instead
-of coaxial cables, which pick up less noise.
-
-Attempting to see a distinction on \autoref{fig:three-currents-spray-mode-500ms} via the standard deviation also
-fails, as shown on \autoref{fig:three-currents-spray-mode-sd}.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-sd.png}
-    \caption{Standard deviation on \autoref{fig:three-currents-spray-mode-500ms} of $i_N$, $i_{GND}$ and $i_C$
-    by spray mode.}
-    \label{fig:three-currents-spray-mode-sd}
-\end{figure}
-
-Without a clear distinction in the current waveforms it would not possible to continue with this approach.
-Therefore, we need to first understand why we are not seing distinctions in the shape 
-of the current, particularly between the intermittent and cone-jet spray modes, as it is clear in the 
-literature that there should be a difference.
-
-To do this, we'll begin by attempting to reproduce \cite{Verdoold2013}'s results, with the goal of isolating 
-if the problem is our measurement strategy or if it is something related to the sprayhead itself.
-
-\subsection{Reproducing Results from \cite{Verdoold2013}}
-
-\autoref{fig:verdoold-reproduce-setup} shows the setup used to reproduce \cite{Verdoold2013}'s approach.
-We used a sampling frequency of 5 kHz and $\phi = 1 \un{mL/h}$. 
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-setup.png}
-    \caption{Setup used to reproduce Verdoold's classification method. Source: adapted from \cite{Verdoold2013}.}
-    \label{fig:verdoold-reproduce-setup}
-\end{figure}
-
-The results obtained are shown in \autoref{fig:verdoold-reproduce-results}. 
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-results.png}
-    \caption{Results from the attempt to reproduce Verdoold's results on our setup.}
-    \label{fig:verdoold-reproduce-results}
-\end{figure}
-
-As we can see in \autoref{fig:verdoold-reproduce-results}, we see a clear distinction between the spray modes, 
-which is what we wish to see in the multinozzle. We can conclude that our measurement methodology can 
-reproduce the results, therefore it must be something in the multinozzle that is "hiding" the intermittent spray 
-signal.
-
-Comparing the single nozzle setup on \autoref{fig:verdoold-reproduce-setup} and the multinozzle on \autoref{fig:setup-three-currents-spray-mode}, 
-the most significant difference is indeed the presence of the crown. Therefore, let's begin by understanding the influence 
-of the crown on $i_{GND}$, which is the current that we know is capable of showing a distinction of spraying 
-modes. 
-
-\subsection{Crown influences on $i_{GND}$}
-
-To understad the influence of the crown on the ground current, we'll use the same setup shown on 
-\autoref{fig:setup-three-currents-spray-mode}, but we'll make $V_+ = 0 \un{V}$, $\phi = 0 \un{mL / h}$ and measure $i_{GND}$ for different
-crown voltages. Since there is no flow 
-and no positive voltage, we'll be measuring the current on the groung ring introduced by the crown only.
-In addition, we'll use coaxial cables during the measurements.
-
-\autoref{fig:ignd-by-crown-no-filters} shows the shape of $i_{GND}$ for different values of $V_-$.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-no-filters.png}
-    \caption{$i_{GND}$ for different values of $V_-$. (a) Waveform and (b) standard deviation}
-    \label{fig:ignd-by-crown-no-filters}
-\end{figure}
-
-As seen of \autoref{fig:ignd-by-crown-no-filters} (a), the crown alone introduces a signal on $i_{GND}$ starting
-from $V_- = - 4 \un{kV}$, which increases in both average value and standard deviation as $V_-$ increases.
-This is consistent with was happens at the crown: from $V_- = - 4 \un{kV}$ onwards the sharp needles 
-of the crown begin to ionize the air, producing ions that can be 
-directed to ground ring. This results in a current $i_{GND} > 0$ induced by the crown.
-
-In addition, on \autoref{fig:ignd-by-crown-no-filters} (b) we see that the standard deviation introduced by the crown
-is significant. As we saw on \autoref{fig:verdoold-reproduce-results}, the intermittent spray mode 
-presents peaks in the current signal in order of 50 nA, but the "noise" introduced by the 
-crown alone is already over 50 nA when $V_- = -4.5 \un{kV}$, which is voltage used on the results 
-of \autoref{fig:three-currents-spray-mode-500ms}. Therefore, it is reasonable to assume that the reason we are
-not seing a good distinction between the spray modes on \autoref{fig:three-currents-spray-mode-500ms} is 
-because of this signal introduced by the crown alone.
-
-\subsubsection{Atenuating Crown Influences on $i_{GND}$}
-
-In order to verify the above hypothesis, we can try to reduce the influence of the crown
-in the signal and verify if the intermittent signal becomes distinguishable. We can achieve this adding digital filters 
-in the oscilloscope software to remove the following frequencies:
-
-\begin{itemize}
-    \item 50 Hz frequency from the electric grid: use a stop band in the range 48 - 52 Hz
-    \item All frequencies above 100 Hz: use low pass filter with cut-off frequency 100 Hz.
-\end{itemize}
-
-Since the intermittent peaks are usually under 100 Hz \citep{Verdoold2013}, we can remove 
-anything above this frequency from the signal as it is not what we wish to measure.
-
-Using this, we once again collect the signals of \autoref{fig:ignd-by-crown-no-filters}, obtaining the signal 
-on \autoref{fig:ignd-by-crown-with-filters}.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-with-filters.png}
-    \caption{$i_{GND}$ for different values of $V_-$ with digital filters. (a) Waveform and (b) standard deviation}
-    \label{fig:ignd-by-crown-with-filters}
-\end{figure}
-
-Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-no-filters}, we see that the filters significantly 
-reduce the standard deviation (i.e. the "noise") in $i_{GND}$. For $V_- = - 4.5 \un{kV}$, the standard deviation is already almost 
-three times smaller. However, it remais above 50 nA, so it could still make it difficult to see the intermittent peaks in the signal.
-Ideally, we would use the $V_- = - 4 \un{kV}$ to get the smallest amount of noise introduced, but it is not clear if it possible
-to achieve a good neutralization with such a small $V_-$.
-
-\subsubsection{8 vs 16 Needles in the Crown}
-
-Around this time, Gilbert request us to test the crown with 8 needles for the WP2, as opposed to the 16 needles we had always used until 
-this point. Difficulties to reinsert removed needles meant that from this point onwards we would always use a needle with 8 needles. 
-
-Therefore, before we continue with this analysis, we need to understand how the signal introduces on $i_{GND}$ has changed. We've re-done 
-the test of \autoref{fig:ignd-by-crown-with-filters}, obtaining the results shown on \autoref{fig:ignd-by-crown-8-needles}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-8-needles.png}
-    \caption{$i_{GND}$ for different values of $V_-$ with digital filters - Crown with 8 needles. (a) Waveform and (b) standard deviation}
-    \label{fig:ignd-by-crown-8-needles}
-\end{figure}
-
-Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-8-needles}, we see that the 8 needles introduce 
-a much smaller signal on the $i_{GND}$, both in terms of average value as in standard deviation. This will be helpful to make  
-the intermittent peaks on the signal more visible, as for $V_- = - 4.5 \un{kV}$ the introduced standard deviation is only 10 nA.
-
-\subsection{Classifying the Spraying Mode}
-
-With everything that we've now learned about the influence of the crown and the necessity of filters, we can now repeat the experiment 
-of \autoref{fig:setup-three-currents-spray-mode}, using the same setup of \autoref{fig:setup-three-currents-spray-mode}, but again only
-measuring $i_{GND}$. The oscilloscope was configured with $f_s = 5 \un{kHz}$ and a sample size of $N_s = 20.000$. The crown had 8 needles 
-and was fixed with $V_- = - 4 \un{kV}$ to reduce as far as possible the influence of the crown on $i_{GND}$.
-
-\autoref{fig:ignd-good-signal} shows the result obtained. The intermittent is clearly distinguishable from the cone-jet mode. However, 
-expected, we cannot distinguish the elongated cone-jet and the multi-jet from the cone-jet.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-good-signal.png}
-    \caption{$i_{GND}$ for different spray modes.}
-    \label{fig:ignd-good-signal}
-\end{figure}
-
-Calculating the standard deviation on \autoref{fig:ignd-good-signal} also allows for a good distinction between the spraying modes,
-as shown in \autoref{fig:ignd-good-sd}.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-good-sd.png}
-    \caption{Standard deviation of $i_{GND}$ for different spray modes.}
-    \label{fig:ignd-good-sd}
-\end{figure}
-
-Based on \autoref{fig:ignd-good-sd}, we could use a simple if-else classification algorithm based on the standard deviation, 
-defining a threshold for what is classified as intermittent or cone-jet. For example, we could say that if $\sigma > 60 \un{nA}$
-then it is intermittent, else it is cone-jet (once inside the stable region defined by the mapping of the WP1).
-An algorithm for this will be further explored on \autoref{sec:classification-algorithm}.
-
-
-\subsection{Optimizing the Signal Acquisition}
-
-In the previous sections, the signal was acquired using the minimum sampling frequency
-suggested by the \cite{Verdoold2013} of $f_s = 5 \un{kHz}$. A sample size of $N_s = 20.000$ was used to obtain a spectral resolution of 0.25 Hz
-for frequency domain anaysis, also suggested by Verdoold as the minimum. However, talks with Gilbert showed that the sampling frequency was too
-computationally expensive and the sample size was too slow, as it resulted in a sampling time window of 4 seconds, which is too large.
-
-Therefore, to attempt to meet these requirements, we need to find the minimum sampling frequency and
-minimum sample size that can still reliably distinguish the signal of the intermittent from the cone-jet.
-
-To do this, we'll use the following method:
-
-\begin{itemize}
-    \item Collect a time window of $T = 100$ seconds for different values of $f_s$, resulting in a sample size of $N_s = T \cdot f_s$
-    \item Break the $T = 100$ seconds into smaller time windows - denoted as $S_i$ - of size $T_S$. 
-    \item Calculate the relevant statistical parameters in each $S_i$ and store these values in an array of size $T / T_S$
-    \item Plot a boxplot of the calculated statistical parameters
-\end{itemize}
-
-\autoref{fig:subsample-size-strategy} further explains the method above visually. $T_S$ will be chosen for different values for the result to be verified. 
-Note that $i = 1, 2, ..., T / T_S$, and the goal is to find the minimum $T_S$.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/subsample-size-strategy.png}
-    \caption{Method to find the minimum sample size that can still classify the EHDA mode via the current.}
-    \label{fig:subsample-size-strategy}
-\end{figure}
-
-We'll use the same setup shown in \autoref{fig:setup-three-currents-spray-mode}, using only the oscilloscope for $i_{GND}$.
-We begin with $f_s = 5 \un{kHz}$, with $T_S = 0.01 \un{s}; 0.1 \un{s}; 1 \un{s}; 10 \un{s}$. Note that we are first changing
-$T_S$ over four orders of magnitude to understand the general influence of $T_S$ on the calcualated standard deviation.
-The result obtained is shown on \autoref{fig:first-test-subsample}.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/first-test-subsample.png}
-    \caption{Calculated standard deviation for $f_s = 5 \un{kHz}$, with $T_S = 0.01 \un{s}; 0.1 \un{s}; 1 \un{s}; 10 \un{s}$}
-    \label{fig:first-test-subsample}
-\end{figure}
-
-As we can see on \autoref{fig:first-test-subsample}, $T_S = 1 \un{s}$ appears to be the best sample size to 
-differentiate between the intermittent and the cone-jet. Other orders of magnitude of $T_S$ do not allow for a clear distinction
-between spraying mode via the statistical values. The next test is to change $T_S$ around 1 second and compare them, 
-using $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$. \autoref{fig:second-test-subsample} shows the results obtained  
-for this test.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/second-test-subsample.png}
-    \caption{Calculated standard deviation for $f_s = 5 \un{kHz}$, with $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$}
-    \label{fig:second-test-subsample}
-\end{figure}
-
-As seen on \autoref{fig:second-test-subsample}, $T_S = 0.5 \un{s}$ appears to be the smallest sample size that can differentiate the spraying modes.
-$T_S = 0.5 \un{s}$ may still be feasible, but it presents significant overlapping between the two modes around $\sigma = 50 \un{nA}$.
-
-Now we need to find the minimum sampling frequency that can distinguish the spraying modes. We'll fix $T_S = 0.5 \un{s}$ and compare the calculated 
-statistical parameters for the following values of $f_s$: $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$. \autoref{fig:third-test-subsample}
-shows the result obtained for this test.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/third-test-subsample.png}
-    \caption{Calculated standard deviation for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
-    \label{fig:third-test-subsample}
-\end{figure}
-
-As we can see on \autoref{fig:third-test-subsample}, $f_s = 2 \un{kHz}$ appears to the be the smallest sampling frequency that can still distinguish the spraying  
-modes. 
-
-The conclusion we can derive from these tests is that $T_S = 0.5 \un{s}$ and $f_s = 2 \un{kHz}$ are the mininum sample size and sampling frequency that
-can distinguish the spraying modes via statistical parameters. Note that this results in a sample size of $N_s = T_S f_s = 1.000$, which uses 
-significantly less memory than the $N_s = 20.000$. We'll move forward with these values of $N_s$ and $f_s$, seeking to test the classification
-with parameters that are consistent with Gilbert's requirements.
-
-\subsection{Optimizing the Classification}
-
-\subsubsection{Trying different statistical parameters}
-
-So far, we've only the standard deviation of the signal to differentiate the spraying modes. However, we can also use other statistical parameters 
-to distinguish the waveforms. The first one that we can try is the Relative Standard Deviation (RSD), defined on \autoref{eq:rsd}
-
-
-\begin{equation} \label{eq:rsd}
-    RSD = \left|\frac{\sigma}{\overline{I}}\right|
-\end{equation}
-
-where
-
-\begin{itemize}
-    \item $\sigma$: standard deviation
-    \item $\overline{I}$: arithmetic mean
-\end{itemize}
-
-\autoref{tab:rsd} shows how the RSD can be a useful metric in the classification. When the spraying mode is intermittent, we 
-expect the signal to display a large $\sigma$ and a small $\overline{I}$, since the potential is lower and therefore also the mean value 
-of the current in the system. This results in an overall value large value of the ratio. 
-
-\begin{table}[h!]
-    \begin{center}
-      \caption{Expected behaviour of RSD for different spraying modes.}
-      \label{tab:rsd}
-      \begin{tabular}{c|c|c}
-        \textbf{} & \textbf{Intermittent} & \textbf{Cone-jet}\\
-        \hline
-        Numerator ($\sigma$) & HIGH & LOW\\
-        Denominator ($\overline{I}$) & LOW& HIGH\\
-        Overall Ratio ($\sigma / \overline{I}$) & LARGE & SMALL\\
-      \end{tabular}
-    \end{center}
-  \end{table}
-
-On the other hand, when we have a cone-jet, we expect the signal to display a small $\sigma$ - as the signal is much more stable -
-and a larger $\overline{I}$, given the larger potential. This results in an overall value small value of the ratio.
-
-Therefore, both components of the fraction contribute in opposite directions to change the overall value of the ratio between the spraying modes,
-making this metric a potentially good classification parameter.
-
-\autoref{fig:rsd-subsample} shows the the same result of \autoref{fig:third-test-subsample} using the RSD instead of the standard deviation.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/rsd-subsample.png}
-    \caption{Calculated RSD for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
-    \label{fig:rsd-subsample}
-\end{figure}
-
-As we can see on \autoref{fig:rsd-subsample}, we can achieve a good distinction between the spraying modes with the RSD. However, the 
-order of magnitude of the value is very small, which can be inconvenient. A simple to resolve this is take the inverse of the RSD, that 
-we can define as the Signal-to-Noise Ratio (SNR), shown on \autoref{eq:snr}
-
-\begin{equation} \label{eq:snr}
-    SNR = \frac{1}{RSD} = \left|\frac{\overline{I}}{\sigma}\right|
-\end{equation}
-
-In \autoref{eq:snr}, we call the standard deviation as the "noise", and the mean as the "signal". \autoref{fig:snr-subsample} shows the
-same result of \autoref{fig:third-test-subsample} using the SNR.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/snr-subsample.png}
-    \caption{Calculated SNR for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
-    \label{fig:snr-subsample}
-\end{figure}
-
-As seen on \autoref{fig:snr-subsample}, the SNR is also a good metric to distinguish the intermittent and cone-jet modes.
-Unlike the RSD, the SNR spreads from the range 0 - 50, making it more convenient that the RSD and showing less outliers. 
-Therefore, the RSD will be used from this point on, using $f_s = 2 \un{kHz}$ and $N_s = 1.000 \quad (T_S = 0.5 \un{s})$. 
-
-\subsubsection{Classification via small Neural Networks}
-
-\hl{ASK BEN}
+% \autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms} show the waveforms 
+% obtained for $\phi = 20 \un{mL/h}; \phi = 30 \un{mL/h}; \phi = 50 \un{mL/h}$ for two different time windows: 50ms 
+% and 500ms.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-50ms.png}
+%     \caption{$i_N$, $i_{GND}$ and $i_C$ over time by different spray modes - 50 ms time window.}
+%     \label{fig:three-currents-spray-mode-50ms}
+% \end{figure}
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-500ms.png}
+%     \caption{$i_N$, $i_{GND}$ and $i_C$ over time by different spray modes - 500 ms time window.}
+%     \label{fig:three-currents-spray-mode-500ms}
+% \end{figure}
+
+% As we can see in \autoref{fig:three-currents-spray-mode-50ms} and \autoref{fig:three-currents-spray-mode-500ms}, 
+% we don't see a clear distinction in the shape of the current 
+% by different spray modes, in both time windows. The sharp peaks we see on the waveforms are most likely caused
+% by a high-frequency noise in signal, especially since we use banana adapters for the oscilloscope in this test, instead
+% of coaxial cables, which pick up less noise.
+
+% Attempting to see a distinction on \autoref{fig:three-currents-spray-mode-500ms} via the standard deviation also
+% fails, as shown on \autoref{fig:three-currents-spray-mode-sd}.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/three-currents-spray-mode-sd.png}
+%     \caption{Standard deviation on \autoref{fig:three-currents-spray-mode-500ms} of $i_N$, $i_{GND}$ and $i_C$
+%     by spray mode.}
+%     \label{fig:three-currents-spray-mode-sd}
+% \end{figure}
+
+% Without a clear distinction in the current waveforms it would not possible to continue with this approach.
+% Therefore, we need to first understand why we are not seing distinctions in the shape 
+% of the current, particularly between the intermittent and cone-jet spray modes, as it is clear in the 
+% literature that there should be a difference.
+
+% To do this, we'll begin by attempting to reproduce \cite{Verdoold2013}'s results, with the goal of isolating 
+% if the problem is our measurement strategy or if it is something related to the sprayhead itself.
+
+% \subsection{Reproducing Results from \cite{Verdoold2013}}
+
+% \autoref{fig:verdoold-reproduce-setup} shows the setup used to reproduce \cite{Verdoold2013}'s approach.
+% We used a sampling frequency of 5 kHz and $\phi = 1 \un{mL/h}$. 
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-setup.png}
+%     \caption{Setup used to reproduce Verdoold's classification method. Source: adapted from \cite{Verdoold2013}.}
+%     \label{fig:verdoold-reproduce-setup}
+% \end{figure}
+
+% The results obtained are shown in \autoref{fig:verdoold-reproduce-results}. 
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/verdoold-reproduce-results.png}
+%     \caption{Results from the attempt to reproduce Verdoold's results on our setup.}
+%     \label{fig:verdoold-reproduce-results}
+% \end{figure}
+
+% As we can see in \autoref{fig:verdoold-reproduce-results}, we see a clear distinction between the spray modes, 
+% which is what we wish to see in the multinozzle. We can conclude that our measurement methodology can 
+% reproduce the results, therefore it must be something in the multinozzle that is "hiding" the intermittent spray 
+% signal.
+
+% Comparing the single nozzle setup on \autoref{fig:verdoold-reproduce-setup} and the multinozzle on \autoref{fig:setup-three-currents-spray-mode}, 
+% the most significant difference is indeed the presence of the crown. Therefore, let's begin by understanding the influence 
+% of the crown on $i_{GND}$, which is the current that we know is capable of showing a distinction of spraying 
+% modes. 
+
+% \subsection{Crown influences on $i_{GND}$}
+
+% To understad the influence of the crown on the ground current, we'll use the same setup shown on 
+% \autoref{fig:setup-three-currents-spray-mode}, but we'll make $V_+ = 0 \un{V}$, $\phi = 0 \un{mL / h}$ and measure $i_{GND}$ for different
+% crown voltages. Since there is no flow 
+% and no positive voltage, we'll be measuring the current on the groung ring introduced by the crown only.
+% In addition, we'll use coaxial cables during the measurements.
+
+% \autoref{fig:ignd-by-crown-no-filters} shows the shape of $i_{GND}$ for different values of $V_-$.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-no-filters.png}
+%     \caption{$i_{GND}$ for different values of $V_-$. (a) Waveform and (b) standard deviation}
+%     \label{fig:ignd-by-crown-no-filters}
+% \end{figure}
+
+% As seen of \autoref{fig:ignd-by-crown-no-filters} (a), the crown alone introduces a signal on $i_{GND}$ starting
+% from $V_- = - 4 \un{kV}$, which increases in both average value and standard deviation as $V_-$ increases.
+% This is consistent with was happens at the crown: from $V_- = - 4 \un{kV}$ onwards the sharp needles 
+% of the crown begin to ionize the air, producing ions that can be 
+% directed to ground ring. This results in a current $i_{GND} > 0$ induced by the crown.
+
+% In addition, on \autoref{fig:ignd-by-crown-no-filters} (b) we see that the standard deviation introduced by the crown
+% is significant. As we saw on \autoref{fig:verdoold-reproduce-results}, the intermittent spray mode 
+% presents peaks in the current signal in order of 50 nA, but the "noise" introduced by the 
+% crown alone is already over 50 nA when $V_- = -4.5 \un{kV}$, which is voltage used on the results 
+% of \autoref{fig:three-currents-spray-mode-500ms}. Therefore, it is reasonable to assume that the reason we are
+% not seing a good distinction between the spray modes on \autoref{fig:three-currents-spray-mode-500ms} is 
+% because of this signal introduced by the crown alone.
+
+% \subsubsection{Atenuating Crown Influences on $i_{GND}$}
+
+% In order to verify the above hypothesis, we can try to reduce the influence of the crown
+% in the signal and verify if the intermittent signal becomes distinguishable. We can achieve this adding digital filters 
+% in the oscilloscope software to remove the following frequencies:
+
+% \begin{itemize}
+%     \item 50 Hz frequency from the electric grid: use a stop band in the range 48 - 52 Hz
+%     \item All frequencies above 100 Hz: use low pass filter with cut-off frequency 100 Hz.
+% \end{itemize}
+
+% Since the intermittent peaks are usually under 100 Hz \citep{Verdoold2013}, we can remove 
+% anything above this frequency from the signal as it is not what we wish to measure.
+
+% Using this, we once again collect the signals of \autoref{fig:ignd-by-crown-no-filters}, obtaining the signal 
+% on \autoref{fig:ignd-by-crown-with-filters}.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-with-filters.png}
+%     \caption{$i_{GND}$ for different values of $V_-$ with digital filters. (a) Waveform and (b) standard deviation}
+%     \label{fig:ignd-by-crown-with-filters}
+% \end{figure}
+
+% Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-no-filters}, we see that the filters significantly 
+% reduce the standard deviation (i.e. the "noise") in $i_{GND}$. For $V_- = - 4.5 \un{kV}$, the standard deviation is already almost 
+% three times smaller. However, it remais above 50 nA, so it could still make it difficult to see the intermittent peaks in the signal.
+% Ideally, we would use the $V_- = - 4 \un{kV}$ to get the smallest amount of noise introduced, but it is not clear if it possible
+% to achieve a good neutralization with such a small $V_-$.
+
+% \subsubsection{8 vs 16 Needles in the Crown}
+
+% Around this time, Gilbert request us to test the crown with 8 needles for the WP2, as opposed to the 16 needles we had always used until 
+% this point. Difficulties to reinsert removed needles meant that from this point onwards we would always use a needle with 8 needles. 
+
+% Therefore, before we continue with this analysis, we need to understand how the signal introduces on $i_{GND}$ has changed. We've re-done 
+% the test of \autoref{fig:ignd-by-crown-with-filters}, obtaining the results shown on \autoref{fig:ignd-by-crown-8-needles}
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-by-crown-8-needles.png}
+%     \caption{$i_{GND}$ for different values of $V_-$ with digital filters - Crown with 8 needles. (a) Waveform and (b) standard deviation}
+%     \label{fig:ignd-by-crown-8-needles}
+% \end{figure}
+
+% Comparing \autoref{fig:ignd-by-crown-with-filters} and \autoref{fig:ignd-by-crown-8-needles}, we see that the 8 needles introduce 
+% a much smaller signal on the $i_{GND}$, both in terms of average value as in standard deviation. This will be helpful to make  
+% the intermittent peaks on the signal more visible, as for $V_- = - 4.5 \un{kV}$ the introduced standard deviation is only 10 nA.
+
+% \subsection{Classifying the Spraying Mode}
+
+% With everything that we've now learned about the influence of the crown and the necessity of filters, we can now repeat the experiment 
+% of \autoref{fig:setup-three-currents-spray-mode}, using the same setup of \autoref{fig:setup-three-currents-spray-mode}, but again only
+% measuring $i_{GND}$. The oscilloscope was configured with $f_s = 5 \un{kHz}$ and a sample size of $N_s = 20.000$. The crown had 8 needles 
+% and was fixed with $V_- = - 4 \un{kV}$ to reduce as far as possible the influence of the crown on $i_{GND}$.
+
+% \autoref{fig:ignd-good-signal} shows the result obtained. The intermittent is clearly distinguishable from the cone-jet mode. However, 
+% expected, we cannot distinguish the elongated cone-jet and the multi-jet from the cone-jet.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-good-signal.png}
+%     \caption{$i_{GND}$ for different spray modes.}
+%     \label{fig:ignd-good-signal}
+% \end{figure}
+
+% Calculating the standard deviation on \autoref{fig:ignd-good-signal} also allows for a good distinction between the spraying modes,
+% as shown in \autoref{fig:ignd-good-sd}.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/ignd-good-sd.png}
+%     \caption{Standard deviation of $i_{GND}$ for different spray modes.}
+%     \label{fig:ignd-good-sd}
+% \end{figure}
+
+% Based on \autoref{fig:ignd-good-sd}, we could use a simple if-else classification algorithm based on the standard deviation, 
+% defining a threshold for what is classified as intermittent or cone-jet. For example, we could say that if $\sigma > 60 \un{nA}$
+% then it is intermittent, else it is cone-jet (once inside the stable region defined by the mapping of the WP1).
+% An algorithm for this will be further explored on \autoref{sec:classification-algorithm}.
+
+
+% \subsection{Optimizing the Signal Acquisition}
+
+% In the previous sections, the signal was acquired using the minimum sampling frequency
+% suggested by the \cite{Verdoold2013} of $f_s = 5 \un{kHz}$. A sample size of $N_s = 20.000$ was used to obtain a spectral resolution of 0.25 Hz
+% for frequency domain anaysis, also suggested by Verdoold as the minimum. However, talks with Gilbert showed that the sampling frequency was too
+% computationally expensive and the sample size was too slow, as it resulted in a sampling time window of 4 seconds, which is too large.
+
+% Therefore, to attempt to meet these requirements, we need to find the minimum sampling frequency and
+% minimum sample size that can still reliably distinguish the signal of the intermittent from the cone-jet.
+
+% To do this, we'll use the following method:
+
+% \begin{itemize}
+%     \item Collect a time window of $T = 100$ seconds for different values of $f_s$, resulting in a sample size of $N_s = T \cdot f_s$
+%     \item Break the $T = 100$ seconds into smaller time windows - denoted as $S_i$ - of size $T_S$. 
+%     \item Calculate the relevant statistical parameters in each $S_i$ and store these values in an array of size $T / T_S$
+%     \item Plot a boxplot of the calculated statistical parameters
+% \end{itemize}
+
+% \autoref{fig:subsample-size-strategy} further explains the method above visually. $T_S$ will be chosen for different values for the result to be verified. 
+% Note that $i = 1, 2, ..., T / T_S$, and the goal is to find the minimum $T_S$.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/subsample-size-strategy.png}
+%     \caption{Method to find the minimum sample size that can still classify the EHDA mode via the current.}
+%     \label{fig:subsample-size-strategy}
+% \end{figure}
+
+% We'll use the same setup shown in \autoref{fig:setup-three-currents-spray-mode}, using only the oscilloscope for $i_{GND}$.
+% We begin with $f_s = 5 \un{kHz}$, with $T_S = 0.01 \un{s}; 0.1 \un{s}; 1 \un{s}; 10 \un{s}$. Note that we are first changing
+% $T_S$ over four orders of magnitude to understand the general influence of $T_S$ on the calcualated standard deviation.
+% The result obtained is shown on \autoref{fig:first-test-subsample}.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/first-test-subsample.png}
+%     \caption{Calculated standard deviation for $f_s = 5 \un{kHz}$, with $T_S = 0.01 \un{s}; 0.1 \un{s}; 1 \un{s}; 10 \un{s}$}
+%     \label{fig:first-test-subsample}
+% \end{figure}
+
+% As we can see on \autoref{fig:first-test-subsample}, $T_S = 1 \un{s}$ appears to be the best sample size to 
+% differentiate between the intermittent and the cone-jet. Other orders of magnitude of $T_S$ do not allow for a clear distinction
+% between spraying mode via the statistical values. The next test is to change $T_S$ around 1 second and compare them, 
+% using $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$. \autoref{fig:second-test-subsample} shows the results obtained  
+% for this test.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/second-test-subsample.png}
+%     \caption{Calculated standard deviation for $f_s = 5 \un{kHz}$, with $T_S = 0.25 \un{s}; 0.5 \un{s}; 0.75 \un{s}; 1 \un{s}$}
+%     \label{fig:second-test-subsample}
+% \end{figure}
+
+% As seen on \autoref{fig:second-test-subsample}, $T_S = 0.5 \un{s}$ appears to be the smallest sample size that can differentiate the spraying modes.
+% $T_S = 0.5 \un{s}$ may still be feasible, but it presents significant overlapping between the two modes around $\sigma = 50 \un{nA}$.
+
+% Now we need to find the minimum sampling frequency that can distinguish the spraying modes. We'll fix $T_S = 0.5 \un{s}$ and compare the calculated 
+% statistical parameters for the following values of $f_s$: $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$. \autoref{fig:third-test-subsample}
+% shows the result obtained for this test.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=1\textwidth,trim=1 1 1 1,clip]{figures/third-test-subsample.png}
+%     \caption{Calculated standard deviation for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
+%     \label{fig:third-test-subsample}
+% \end{figure}
+
+% As we can see on \autoref{fig:third-test-subsample}, $f_s = 2 \un{kHz}$ appears to the be the smallest sampling frequency that can still distinguish the spraying  
+% modes. 
+
+% The conclusion we can derive from these tests is that $T_S = 0.5 \un{s}$ and $f_s = 2 \un{kHz}$ are the mininum sample size and sampling frequency that
+% can distinguish the spraying modes via statistical parameters. Note that this results in a sample size of $N_s = T_S f_s = 1.000$, which uses 
+% significantly less memory than the $N_s = 20.000$. We'll move forward with these values of $N_s$ and $f_s$, seeking to test the classification
+% with parameters that are consistent with Gilbert's requirements.
+
+% \subsection{Optimizing the Classification}
+
+% \subsubsection{Trying different statistical parameters}
+
+% So far, we've only the standard deviation of the signal to differentiate the spraying modes. However, we can also use other statistical parameters 
+% to distinguish the waveforms. The first one that we can try is the Relative Standard Deviation (RSD), defined on \autoref{eq:rsd}
+
+
+% \begin{equation} \label{eq:rsd}
+%     RSD = \left|\frac{\sigma}{\overline{I}}\right|
+% \end{equation}
+
+% where
+
+% \begin{itemize}
+%     \item $\sigma$: standard deviation
+%     \item $\overline{I}$: arithmetic mean
+% \end{itemize}
+
+% \autoref{tab:rsd} shows how the RSD can be a useful metric in the classification. When the spraying mode is intermittent, we 
+% expect the signal to display a large $\sigma$ and a small $\overline{I}$, since the potential is lower and therefore also the mean value 
+% of the current in the system. This results in an overall value large value of the ratio. 
+
+% \begin{table}[h!]
+%     \begin{center}
+%       \caption{Expected behaviour of RSD for different spraying modes.}
+%       \label{tab:rsd}
+%       \begin{tabular}{c|c|c}
+%         \textbf{} & \textbf{Intermittent} & \textbf{Cone-jet}\\
+%         \hline
+%         Numerator ($\sigma$) & HIGH & LOW\\
+%         Denominator ($\overline{I}$) & LOW& HIGH\\
+%         Overall Ratio ($\sigma / \overline{I}$) & LARGE & SMALL\\
+%       \end{tabular}
+%     \end{center}
+%   \end{table}
+
+% On the other hand, when we have a cone-jet, we expect the signal to display a small $\sigma$ - as the signal is much more stable -
+% and a larger $\overline{I}$, given the larger potential. This results in an overall value small value of the ratio.
+
+% Therefore, both components of the fraction contribute in opposite directions to change the overall value of the ratio between the spraying modes,
+% making this metric a potentially good classification parameter.
+
+% \autoref{fig:rsd-subsample} shows the the same result of \autoref{fig:third-test-subsample} using the RSD instead of the standard deviation.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/rsd-subsample.png}
+%     \caption{Calculated RSD for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
+%     \label{fig:rsd-subsample}
+% \end{figure}
+
+% As we can see on \autoref{fig:rsd-subsample}, we can achieve a good distinction between the spraying modes with the RSD. However, the 
+% order of magnitude of the value is very small, which can be inconvenient. A simple to resolve this is take the inverse of the RSD, that 
+% we can define as the Signal-to-Noise Ratio (SNR), shown on \autoref{eq:snr}
+
+% \begin{equation} \label{eq:snr}
+%     SNR = \frac{1}{RSD} = \left|\frac{\overline{I}}{\sigma}\right|
+% \end{equation}
+
+% In \autoref{eq:snr}, we call the standard deviation as the "noise", and the mean as the "signal". \autoref{fig:snr-subsample} shows the
+% same result of \autoref{fig:third-test-subsample} using the SNR.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/snr-subsample.png}
+%     \caption{Calculated SNR for $T_s = 0.5 \un{s}$, with $f_s = 0.5 \un{kHz}; 1 \un{kHz}; 2 \un{kHz}; 5 \un{kHz}$}
+%     \label{fig:snr-subsample}
+% \end{figure}
+
+% As seen on \autoref{fig:snr-subsample}, the SNR is also a good metric to distinguish the intermittent and cone-jet modes.
+% Unlike the RSD, the SNR spreads from the range 0 - 50, making it more convenient that the RSD and showing less outliers. 
+% Therefore, the RSD will be used from this point on, using $f_s = 2 \un{kHz}$ and $N_s = 1.000 \quad (T_S = 0.5 \un{s})$. 
+
+% \subsubsection{Classification via small Neural Networks}
+
+% \hl{ASK BEN}
 
 \subsection{Proof-of-Concept Real-time EHDA Classification}\label{sec:classification-algorithm}
 
-TODO
-\begin{itemize}
-    \item try to reduce sample window
-    \item use subsequent windows
-    \item show commmon issues (step in the current value, etc)
-    \item add pseudocode + complexity
-\end{itemize}
+Now that we know how to acquire the signal, we can develop a Proof-of-Concept (POC)
+algorithm that classifies the spraying mode in real-time by looking at the current signal.
+Algorithm \ref{alg:classification} shows a pseudocode for the algorithm developed.
+
+\begin{algorithm}[htb!]
+    \caption{Real-time EHDA Classification.}\label{alg:classification}
+    \begin{algorithmic}[1]
+    \LineComment{This procedure obtains the raw data fom the oscilloscope and filters it, returning it to the caller}
+    \Procedure{GetOscilloscopeMeasurement}{\null}
+        \State raw\_data $\gets$ Array[$n$] \Comment{$n$ is the sample size, defined as $n = T_S \cdot f_s$.}
+        \State raw\_data $\gets$ \Call{GetOscilloscopeData}{\null} \Comment{$\bigO (n)$}
+        \Statex
+        \LineComment{FFT - Fast Fourier Transform. $\bigO (n\log{}n)$}
+        \State fft\_result $\gets$ \Call{GetFFT}{raw\_data} 
+
+        \LineComment{Remove unwanted frequencies from the frequency spectrum.}
+        \State low\_pass\_cutoff $\gets$ $100$
+        \State bandstop\_center $\gets$ $50$
+        \State bandstop\_width $\gets$ $2$
+        \State bandstop\_start $\gets$ bandstop\_center - bandstop\_width
+        \State bandstop\_end $\gets$ bandstop\_center + bandstop\_width
+
+        \ForAll {f \textbf{in} fft\_result}
+            \If{$f \ge$ low\_pass\_cutoff}
+                \State $f \gets 0$ 
+            \EndIf
+            \If{$f >$ bandstop\_start \textbf{or} $f <$ bandstop\_endt}
+                \State $f \gets 0$ 
+            \EndIf
+        \EndFor
+        \Statex
+
+        \LineComment{Rebuild signal using IFFT - Inverse FFT. $\bigO (n\log{}n)$}
+        \State recovered\_signal $\gets$ \Call{GetIFFT}{fft\_result} 
+        \State \textbf{return} recovered\_signal
+
+    \EndProcedure 
+    \Statex
+
+    \Procedure{ClassifyEHDA}{filtered\_data}
+        \State sd\_threshold $\gets 70 \cdot 10^{-9}$ \Comment{Threshold for the standard deviation}
+        \State calculated\_sd $\gets$ \Call{CalcStdDeviation}{filtered\_data} \Comment{$\bigO (n)$}
+        \If{calculated\_sd $>$ sd\_threshold}
+            \State \textbf{return} INTERMITTENT
+        \Else
+            \State \textbf{return} CONE\_JET
+        \EndIf
+    \EndProcedure 
+    \Statex
+
+    \While{$1$}
+        \State filtered\_data $\gets$ \Call{GetOscilloscopeMeasurement}{\null} \Comment{$\bigO (n\log{}n)$}
+        \State classification $\gets$ \Call{ClassifyEHDA}{filtered\_data} \Comment{$\bigO (n)$}
+
+        \If{classification $==$ CONE\_JET}
+            \State print(CONE\_JET)
+        \Else
+            \State print(INTERMITTENT)
+        \EndIf
+    \EndWhile
+    \end{algorithmic}
+\end{algorithm}
+
+Algorithm \ref{alg:classification} consists of two helper functions - \codeword{GetOscilloscopeMeasurement}
+and \codeword{ClassifyEHDA}. The former is responsible for acquiring and filtering the signal of $i_{GND}$ read,
+while the latter classifies the filtered data based on the standard deviation.
+For simplicity, we used only the standard deviation to classify the spray mode, 
+but the RSD can also be used as discussed previously. 
+The main loop continuouly acquires the data and classifies it.
+
+Do notice that the function that acquires the raw data is highly dependant on the language and hardware 
+used, therefore it was not detailed in the pseudocode. We used a TiePie oscilloscope, which
+provides an API in Python.
+
+For the complexity of the algorithm, the slowest operations are the Fast Fourier
+Transform algorithms, with complexity $\bigO (n\log{}n)$. Therefore, the complexity 
+of the entire algorithm is $\bigO (n\log{}n)$, where $n = T_S \cdot f_s$ i.e. $n$ is the 
+sample size of the measurement.
+
+\autoref{fig:real-time-ehda-classification}
+shows the result of Algorithm \ref{alg:classification} implemented in Python.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/real-time-ehda-classification.png}
+    \caption{Result of Algorithm \ref{alg:classification} implemented in Python.}
+    \label{fig:real-time-ehda-classification}
+\end{figure}
+
+As we can see on \autoref{fig:real-time-ehda-classification}, when all the nozzles operate in
+the cone-jet mode, the acquired signal is stable and displays a small standard deviation.
+On the other hand, when the nozzles are intermittent, the acquired signal displays a 
+large standard deviation, which is used for the classification.
+
+\autoref{fig:real-time-ehda-classification-issues} shows some issues identified, that we need to keep 
+in mind during the classification.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/real-time-ehda-classification-issues.png}
+    \caption{Issues identified on Algorithm \ref{alg:classification} implemented in Python.}
+    \label{fig:real-time-ehda-classification-issues}
+\end{figure}
+
+Firstly, we see that the signal can display "steps", going from one average value of current to another 
+as we see on \autoref{fig:real-time-ehda-classification-issues}. This leads to a large calculated standard 
+deviation, causing the classification to be intermittent despite all the nozzles operating in a
+cone-jet mode. This can be solved by discarding measurements where the mean value of the current 
+is different on the start and end of the window.
+
+Secondly, it was observed that signal occasionally did not bahave as expected. There were several instances 
+where the acquired signal would display a much larger standard deviation than expected, and then immediately 
+return to the expected pattern. To reduce the impact of these unexpected instances, we can use a classification 
+based on subsequent windows: instead of looking at only the signal acquired on the current time window, 
+we look at the previous 5 classifications as well. If the majority of the previous classifications is also cone-jet,
+then we continue to classify the current time window as cone-jet.
+
+This stategy has the main drawback of being significantly slower than looking at just the current time window. When the spray 
+mode indeed changes from intermittent to cone-jet, we need to wait for the previous time windows to update as well.
+We attempted to reduce the time window to $T_S = 250 \un{ms}$ to make this option viable, but with such small time
+windows the calculated standard deviation did not allow for a reliable classification, 
+like we had seen in \autoref{fig:first-test-subsample}. $T_S = 500 \un{ms}$ was the minimum $T_S$ that the algorithm still worked
+reliably.
+
+During this time, we faced significant challenges to reproduce the results on 
+\autoref{fig:real-time-ehda-classification} with the sprayhead. We believe this could have 
+been caused by degradation of the sprayhead and its needles. From now on we used
+a new sprayhead, with which we spray upside down, and used $f_s = 5 \un{kHz}$ with a time
+window of $T_S = 1 \un{s}$, since we saw we could reproduce the results more easily 
+with this configuration.
 
 \subsection{Proof-of-Concept Real-Time EHDA Control}
-TODO
 
-\begin{itemize}
-    \item problem wth subsequent window: how will it take into account the adjusts we're making:
-    \item is it fast enough? if it even works at all!
-    \item add pseudocode + complexity
-\end{itemize}
+We can make a small change on Algorithm \ref{alg:classification} to implement small corrections on $V_+$ if the signal 
+is classified as intermittent, as shown on Algorithm \ref{alg:control} below. Note that we have not shown all procedures ass
+we did on Algorithm \ref{alg:classification}, since they've remained unchanged.
 
-\section{PID Controller Investigations}\label{sec:pid}
+\begin{algorithm}[h!]
+    \caption{Real-time EHDA Control.}\label{alg:control}
+    \begin{algorithmic}[1]
+        \State voltage\_step $\gets 400$  
+        \While{$1$}
+            \State filtered\_data $\gets$ \Call{GetOscilloscopeMeasurement}{\null}
+            \State classification $\gets$ \Call{ClassifyEHDA}{filtered\_data}
+            \State applied\_voltage $\gets$ \Call{GetAppliedVoltage}{\null}
 
-Based on the mappings done for the Work Package 1, given certain boundaries of $V_+$, we can know if the spraying mode of the nozzles
-is a cone-jet if the mean value of $i_N$ is in a certain range. Therefore, a first and simple attempt that we make to control the EHDA
-spray mode of the nozzles is ensure that $i_N$ is always within this this stable zone.
+            \If{classification $==$ INTERMITTENT}
+                \State \Call{SetAppliedVoltage}{applied\_voltage + voltage\_step}
+            \EndIf
+        \EndWhile
+    \end{algorithmic}
+\end{algorithm}
 
-To achieve this, we can use a PID controller to ensure $i_N$ is always in the center of the stable zone. The designed control loop 
-is shown on \autoref{fig:block-diagram-pid}. The control system is provided a setpoint, which is value of $i_N$ that it will attempt
-to keep fixed. In this sense, the controller will reject disturbances in order to keep $i_N$ always equal to the setpoint.
-Therefore, it would ensure that the sprayhead is operating the in stable region mapped on WP1. 
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/block-diagram-pid.png}
-    \caption{Block diagram of control loop designed.}
-    \label{fig:block-diagram-pid}
-\end{figure}
-
-In \autoref{fig:block-diagram-pid}, the input of the system is the mean value of $i_{N_{act}}$, the actual value $i_N$ currently
-in the system, sampled at $f_s = 5 \un{kHz}$ over a time window
-$T_S = 0.5 \un{s}$. The input $i_{N_{act}}$ is subtracted from the previous value of $i_{N_{prev}}$, producing the error signal $e$. 
-The error in the input to the controller block $C$, which receives the error as input and outputs a control voltage $V_+$ that the 
-power supply must apply to restore $i_N$ to the setpoint. This voltage is applied to the sprayhead - block $SH$ - , producing a new mean value 
-of $i_{N_{act}}$ which is provided again as input to the system, repeating the process.
-
-How fast the controller behaves depends greatly of value chosen for its gains: the proportional gain $k_p$, the derivative gain $k_d$
-and the integral gain $k_i$. For initial tests, we'll attempt to find the best value for these parameters via simple trial and error,
-in order to get a general idea if this controller would work for this application. 
-
-The setup used in this test is shown on \autoref{fig:setup-pid}. We read the current from the power supplies connected 
-to the computer running the algorithm, and therefore no oscilloscopes are necessary. We use the HS camera with microscopic lens to verify 
-visually the EHDA spraying mode of the nozzles.
+The voltage step of $400 \un{V}$ was determined experimentally. Note that we only did simple tests for this POC, more 
+tests are necessary to find the ideal value the voltage step. \autoref{fig:real-time-ehda-control} shows the result 
+obtained of Algorithm \ref{alg:control} implemented in Python.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/setup-pid.png}
-    \caption{Setup used for PID controller tests.}
-    \label{fig:setup-pid}
+    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/real-time-ehda-control.png}
+    \caption{Result of Algorithm \ref{alg:control} implemented in Python.}
+    \label{fig:real-time-ehda-control}
 \end{figure}
 
-The result obatined is shown on \autoref{fig:result-pid}.
+On \autoref{fig:real-time-ehda-control}, for the first 10 seconds we keep $V_+ = 5500 \un{V}$ to stabilize the system.
+On $t = 10 \un{s}$ we drop the voltage by 1 kV to cause an intermittent spraying mode and then we activate the control algorithm. 
+As we see on the first image on the top, once the nozzles are intermittent the calculated standard deviation is above the threshold of
+70 nA. This causes the control algorithm to increase $V_+$ by steps of 400 V until the standard deviation is below the threshold - which
+corresponds to a cone-jet spraying mode seen on the bottom image.
+Once this is achieved, the controller stops to increase the voltage, keeping it fixed.  
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/result-pid.png}
-    \caption{Results of PID controller tests.}
-    \label{fig:result-pid}
-\end{figure}
+% \section{PID Controller Investigations}\label{sec:pid}
 
-As we can see on \autoref{fig:result-pid}, this initial version of the PID controller is able to autonosmoly adjust $V_+$ in order
-for $i_N$ to reach the setpoint, which in this case was the center of stable region.
-However, we can see it took about 8 seconds for the current and voltage levels to stabilize.
-The response time can be improved - i.e. make the controller faster - by changing the gains of the controller, 
-but doing this by trial and
-error is not feasible. The correct method is to experimentally model the transfer function of the sprayhead in terms 
-of its inputs and outputs, and use this function to obtain the ideal gains based on the time-response requirements. 
+% Based on the mappings done for the Work Package 1, given certain boundaries of $V_+$, we can know if the spraying mode of the nozzles
+% is a cone-jet if the mean value of $i_N$ is in a certain range. Therefore, a first and simple attempt that we make to control the EHDA
+% spray mode of the nozzles is ensure that $i_N$ is always within this this stable zone.
 
-This method is very time-consuming and complex, and largely falls outside our area of expertise. Therefore, we focused
-more on the current-based classification and control method discussed on Section \ref{sec:current-based}. Nevertheless, 
-given more time to properly model the transfer function of the sprayhead, the PID controller could be a good candidate 
-for ensuring $i_N$ is always at the stable region.
+% To achieve this, we can use a PID controller to ensure $i_N$ is always in the center of the stable zone. The designed control loop 
+% is shown on \autoref{fig:block-diagram-pid}. The control system is provided a setpoint, which is value of $i_N$ that it will attempt
+% to keep fixed. In this sense, the controller will reject disturbances in order to keep $i_N$ always equal to the setpoint.
+% Therefore, it would ensure that the sprayhead is operating the in stable region mapped on WP1. 
 
-\section{Other Results}\label{sec:utils}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=.8\textwidth,trim=1 1 1 1,clip]{figures/block-diagram-pid.png}
+%     \caption{Block diagram of control loop designed.}
+%     \label{fig:block-diagram-pid}
+% \end{figure}
 
-\subsection{Flow Rate disturbances}
+% In \autoref{fig:block-diagram-pid}, the input of the system is the mean value of $i_{N_{act}}$, the actual value $i_N$ currently
+% in the system, sampled at $f_s = 5 \un{kHz}$ over a time window
+% $T_S = 0.5 \un{s}$. The input $i_{N_{act}}$ is subtracted from the previous value of $i_{N_{prev}}$, producing the error signal $e$. 
+% The error in the input to the controller block $C$, which receives the error as input and outputs a control voltage $V_+$ that the 
+% power supply must apply to restore $i_N$ to the setpoint. This voltage is applied to the sprayhead - block $SH$ - , producing a new mean value 
+% of $i_{N_{act}}$ which is provided again as input to the system, repeating the process.
 
-During the PID Controller investigations, we had to analyse possible disturbances that the controller would have to reject.
-One possible disturbance would be disturbances in $\phi$, which Gilbert told us could be in the range of $\pm 10\%$ in the
-final device. Therefore, using the same setup of \autoref{fig:setup-pid}, we would begin with $\phi = 20 \un{mL/h}$, and then 
-change the flow rate of the syringe pump mid-operation in two cases:
+% How fast the controller behaves depends greatly of value chosen for its gains: the proportional gain $k_p$, the derivative gain $k_d$
+% and the integral gain $k_i$. For initial tests, we'll attempt to find the best value for these parameters via simple trial and error,
+% in order to get a general idea if this controller would work for this application. 
 
-\begin{enumerate}
-    \item $+ 100\% \,\, \phi$: this is an extreme case do verify the general behaviour of the nozzles with a large change in $\phi$
-    \item $\pm 10\%  \,\,\phi$: the case given by Gilbert
-\end{enumerate}
+% The setup used in this test is shown on \autoref{fig:setup-pid}. We read the current from the power supplies connected 
+% to the computer running the algorithm, and therefore no oscilloscopes are necessary. We use the HS camera with microscopic lens to verify 
+% visually the EHDA spraying mode of the nozzles.
 
-We used the HS Camera to record and visualize the spraying mode of the nozzles before and after the introduction of the disturbance.
-The results obtained are shown on Figures \ref{fig:100-disturbance-start} and \ref{fig:100-disturbance-end}.
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/setup-pid.png}
+%     \caption{Setup used for PID controller tests.}
+%     \label{fig:setup-pid}
+% \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/100-disturbance-start.png}
-    \caption{Behaviour of $i_N$ and cone-jets during introduction of $\phi$ disturbance.}
-    \label{fig:100-disturbance-start}
-\end{figure}
+% The result obatined is shown on \autoref{fig:result-pid}.
 
-On \autoref{fig:100-disturbance-start} (a), the flow rate is $\phi = 30 \un{mL/h}$ and $i_N = 2 \un{uA}$. On $t = 5 \un{s}$, 
-we change the flow rate to $\phi = 60 \un{mL/h}$, corresponding to an $+ 100\%$ change in $\phi$. As we can see on 
-\autoref{fig:100-disturbance-start} (b), the current increases to $i_N = 3 \un{uA}$, the cone-jet become visibliy more elongated 
-but they are still stable, as well as the mist. The current remains stable in this new value until we return $\phi$ back to its
-original value on $t = 20 \un{s}$, as shown on \autoref{fig:100-disturbance-end} (a).
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/result-pid.png}
+%     \caption{Results of PID controller tests.}
+%     \label{fig:result-pid}
+% \end{figure}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/100-disturbance-end.png}
-    \caption{Behaviour of $i_N$ and cone-jets during removal of $\phi$ disturbance.}
-    \label{fig:100-disturbance-end}
-\end{figure}
+% As we can see on \autoref{fig:result-pid}, this initial version of the PID controller is able to autonosmoly adjust $V_+$ in order
+% for $i_N$ to reach the setpoint, which in this case was the center of stable region.
+% However, we can see it took about 8 seconds for the current and voltage levels to stabilize.
+% The response time can be improved - i.e. make the controller faster - by changing the gains of the controller, 
+% but doing this by trial and
+% error is not feasible. The correct method is to experimentally model the transfer function of the sprayhead in terms 
+% of its inputs and outputs, and use this function to obtain the ideal gains based on the time-response requirements. 
 
-On \autoref{fig:100-disturbance-end} (b), both the cone-jets and $i_N$ return to as they were on \autoref{fig:100-disturbance-start} (a).
+% This method is very time-consuming and complex, and largely falls outside our area of expertise. Therefore, we focused
+% more on the current-based classification and control method discussed on Section \ref{sec:current-based}. Nevertheless, 
+% given more time to properly model the transfer function of the sprayhead, the PID controller could be a good candidate 
+% for ensuring $i_N$ is always at the stable region.
 
-These results show that the sprayhead is very robust when it comes to flow rate disturbances. We repeated the tests for $\pm 10 \%$ changes
-in $\phi$ and both $i_N$ and the cone-jets barely change at all.
+% \section{Other Results}\label{sec:utils}
 
-\subsection{Relations between $i_N$, $i_{GND}$ and $i_C$}
+% \subsection{Flow Rate disturbances}
 
-During the experiments of \autoref{fig:three-currents-spray-mode-50ms}, where the three currents of the system
-were measured, we found a relation between the values of
-$i_N$, $i_{GND}$ and $i_C$. It appeared that $i_C$ was the sum of $i_{GND}$ and $i_N$, in the direction defined at
-\autoref{fig:setup-conventions}. In this case, we'd find that
+% During the PID Controller investigations, we had to analyse possible disturbances that the controller would have to reject.
+% One possible disturbance would be disturbances in $\phi$, which Gilbert told us could be in the range of $\pm 10\%$ in the
+% final device. Therefore, using the same setup of \autoref{fig:setup-pid}, we would begin with $\phi = 20 \un{mL/h}$, and then 
+% change the flow rate of the syringe pump mid-operation in two cases:
 
-\begin{equation} \label{eq:sum-ic}
-    i_c = i_N + i_{GND}
-\end{equation}
+% \begin{enumerate}
+%     \item $+ 100\% \,\, \phi$: this is an extreme case do verify the general behaviour of the nozzles with a large change in $\phi$
+%     \item $\pm 10\%  \,\,\phi$: the case given by Gilbert
+% \end{enumerate}
 
-In other to experimentally verify \autoref{eq:sum-ic}, we defined two parameters:
+% We used the HS Camera to record and visualize the spraying mode of the nozzles before and after the introduction of the disturbance.
+% The results obtained are shown on Figures \ref{fig:100-disturbance-start} and \ref{fig:100-disturbance-end}.
 
-\begin{equation} \label{eq:diff}
-    DIFF = i_- - \left(i_{GND} + i_N\right)
-\end{equation}
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/100-disturbance-start.png}
+%     \caption{Behaviour of $i_N$ and cone-jets during introduction of $\phi$ disturbance.}
+%     \label{fig:100-disturbance-start}
+% \end{figure}
 
-\begin{equation} \label{eq:diff-percent}
-    DIFF = \frac{i_- - \left(i_{GND} + i_N\right)}{i_-} \cdot 100\%
-\end{equation}
+% On \autoref{fig:100-disturbance-start} (a), the flow rate is $\phi = 30 \un{mL/h}$ and $i_N = 2 \un{uA}$. On $t = 5 \un{s}$, 
+% we change the flow rate to $\phi = 60 \un{mL/h}$, corresponding to an $+ 100\%$ change in $\phi$. As we can see on 
+% \autoref{fig:100-disturbance-start} (b), the current increases to $i_N = 3 \un{uA}$, the cone-jet become visibliy more elongated 
+% but they are still stable, as well as the mist. The current remains stable in this new value until we return $\phi$ back to its
+% original value on $t = 20 \un{s}$, as shown on \autoref{fig:100-disturbance-end} (a).
 
-Both parameters on Equations \ref{eq:diff} and \ref{eq:diff-percent} measure how close the difference of both
-sides of Equation \ref{eq:sum-ic} is to zero,
-which should be case if Equation \ref{eq:sum-ic} is true. Calculating the value of theses parameters on the data of \autoref{fig:three-currents-spray-mode-50ms}
-results in \autoref{tab:table-diff}.
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/100-disturbance-end.png}
+%     \caption{Behaviour of $i_N$ and cone-jets during removal of $\phi$ disturbance.}
+%     \label{fig:100-disturbance-end}
+% \end{figure}
 
-\begin{table}[h!]
-    \begin{center}
-        \caption{Calculated $DIFF$ parameters for the collected data of three currents}
-        \includegraphics[width=.6\textwidth,trim=1 1 1 1,clip]{figures/table-diff.png}
-        \label{tab:table-diff}
-    \end{center}
-  \end{table}
+% On \autoref{fig:100-disturbance-end} (b), both the cone-jets and $i_N$ return to as they were on \autoref{fig:100-disturbance-start} (a).
 
-As we can see on \autoref{tab:table-diff}, $i_N + i_{GND}$ is always within $5\%$ of the absolute value of $i_C$, regardless of potential,
-flow rate or EHDA spray mode. We had discussions of whether 
-or not this could be a useful metric for the control or the charge neutralization measurements, but we did not explore it further. We leave it here 
-if it is something that Gilbert wishes to explore in the future. 
+% These results show that the sprayhead is very robust when it comes to flow rate disturbances. We repeated the tests for $\pm 10 \%$ changes
+% in $\phi$ and both $i_N$ and the cone-jets barely change at all.
 
-\subsection{Inrush Current on $i_N$ Measurements}
+% \subsection{Relations between $i_N$, $i_{GND}$ and $i_C$}
 
-During the work, Gilbert requested us to verify the spike of current on $i_N$ when switching on $V_+$. To do this, we used the same setup 
-of \autoref{fig:setup-three-currents-spray-mode}, only measuring the current $i_N$ with the oscilloscope. $V_-$ was fixed on $V_- = - 4.5 \un{kV}$, 
-with $\phi = 30 \un{mL/h}$. The oscilloscope was configured for $f_s = 50 \un{kHz}$ to capture the fast response of the inrush current.
-$V_+$ was switched on from $V_+ = 0$ to $V_+ = 5 kV$, while $V_-$ was already swicthed on. \autoref{fig:inrush-current} shows the result 
-obtained in this test.
+% During the experiments of \autoref{fig:three-currents-spray-mode-50ms}, where the three currents of the system
+% were measured, we found a relation between the values of
+% $i_N$, $i_{GND}$ and $i_C$. It appeared that $i_C$ was the sum of $i_{GND}$ and $i_N$, in the direction defined at
+% \autoref{fig:setup-conventions}. In this case, we'd find that
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current.png}
-    \caption{Inrush current measured on $i_N$ (a) over a 5 second time window and (b) with a zoom on the initial spike.}
-    \label{fig:inrush-current}
-\end{figure}
+% \begin{equation} \label{eq:sum-ic}
+%     i_c = i_N + i_{GND}
+% \end{equation}
 
-\autoref{fig:inrush-current} (a) shows that we have a short spike in the current, better viewed on \autoref{fig:inrush-current} (b).
-The initial spike lasts for about 6 ms and has a peak value of $i_N = 4 \un{uA}$. About 1 second after switching $V_+$ on, the
-current achieves it's peak overshoot value of $i_N = 4.5 \un{uA}$. 2.5 seconds after switching $V_+$ on the current stabilizes 
-on its final value of $i_N = 3 \un{uA}$.
+% In other to experimentally verify \autoref{eq:sum-ic}, we defined two parameters:
 
-Both peaks of current \autoref{fig:inrush-current} (a) are about 50\% higher than the final value of $i_N$, and well below the 
-safety threshold of 10uA given by Gilbert. We did not see a large difference on $i_N$ when switching both $V_+$ and $V_-$ on at the 
-same time. 
+% \begin{equation} \label{eq:diff}
+%     DIFF = i_- - \left(i_{GND} + i_N\right)
+% \end{equation}
 
-Notice that the FUG HV power supply accused a very large inrush current on its display, as shown on \autoref{fig:inrush-current-fug}.
-However, this value contradicts the value given by the oscilloscope, which is a better measurement instrument. In addition, if
-indeed we had $i_N = 59 \un{uA}$ as the FUG displays, it would have resulted in a voltage drop of $\Delta V = 118 \un{V}$ accross the 
-oscilloscope in series with $V_+$, which would have fried the channel according to instrument's datasheet. This was not the case, 
-and therefore the physical evidence suggests that the inrush current in indeed as low as the oscilloscope suggests. 
+% \begin{equation} \label{eq:diff-percent}
+%     DIFF = \frac{i_- - \left(i_{GND} + i_N\right)}{i_-} \cdot 100\%
+% \end{equation}
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current-fug.png}
-    \caption{Inrush current displayed by the FUG HV power supply.}
-    \label{fig:inrush-current-fug}
-\end{figure}
+% Both parameters on Equations \ref{eq:diff} and \ref{eq:diff-percent} measure how close the difference of both
+% sides of Equation \ref{eq:sum-ic} is to zero,
+% which should be case if Equation \ref{eq:sum-ic} is true. Calculating the value of theses parameters on the data of \autoref{fig:three-currents-spray-mode-50ms}
+% results in \autoref{tab:table-diff}.
 
-\subsection{Switching $i_N$ ON and OFF in a 2-second interval}
+% \begin{table}[h!]
+%     \begin{center}
+%         \caption{Calculated $DIFF$ parameters for the collected data of three currents}
+%         \includegraphics[width=.6\textwidth,trim=1 1 1 1,clip]{figures/table-diff.png}
+%         \label{tab:table-diff}
+%     \end{center}
+%   \end{table}
 
-Gilbert also requested us to verify the behaviour of $i_N$ over several switches on $V_+$ in an interval of 2 seconds. We used the same 
-setup described for \autoref{fig:inrush-current}, obtaining the result shown on \autoref{fig:on-off-2-seconds}.
+% As we can see on \autoref{tab:table-diff}, $i_N + i_{GND}$ is always within $5\%$ of the absolute value of $i_C$, regardless of potential,
+% flow rate or EHDA spray mode. We had discussions of whether 
+% or not this could be a useful metric for the control or the charge neutralization measurements, but we did not explore it further. We leave it here 
+% if it is something that Gilbert wishes to explore in the future. 
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/on-off-2-seconds.png}
-    \caption{Behaviour of $i_N$ when switching $V_+$ on and off in a 2-second interval.}
-    \label{fig:on-off-2-seconds}
-\end{figure}
+% \subsection{Inrush Current on $i_N$ Measurements}
 
-As seen on \autoref{fig:on-off-2-seconds}, the inrush current peak is higher for the first time $i_N$ is swicthed on.
-After the first time, it is about 50\% smaller. The overshoot peak, however, increses as the system is switched on and off several times.
-We believe this is caused by the wetness that builds up on the nozzles. 
+% During the work, Gilbert requested us to verify the spike of current on $i_N$ when switching on $V_+$. To do this, we used the same setup 
+% of \autoref{fig:setup-three-currents-spray-mode}, only measuring the current $i_N$ with the oscilloscope. $V_-$ was fixed on $V_- = - 4.5 \un{kV}$, 
+% with $\phi = 30 \un{mL/h}$. The oscilloscope was configured for $f_s = 50 \un{kHz}$ to capture the fast response of the inrush current.
+% $V_+$ was switched on from $V_+ = 0$ to $V_+ = 5 kV$, while $V_-$ was already swicthed on. \autoref{fig:inrush-current} shows the result 
+% obtained in this test.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current.png}
+%     \caption{Inrush current measured on $i_N$ (a) over a 5 second time window and (b) with a zoom on the initial spike.}
+%     \label{fig:inrush-current}
+% \end{figure}
+
+% \autoref{fig:inrush-current} (a) shows that we have a short spike in the current, better viewed on \autoref{fig:inrush-current} (b).
+% The initial spike lasts for about 6 ms and has a peak value of $i_N = 4 \un{uA}$. About 1 second after switching $V_+$ on, the
+% current achieves it's peak overshoot value of $i_N = 4.5 \un{uA}$. 2.5 seconds after switching $V_+$ on the current stabilizes 
+% on its final value of $i_N = 3 \un{uA}$.
+
+% Both peaks of current \autoref{fig:inrush-current} (a) are about 50\% higher than the final value of $i_N$, and well below the 
+% safety threshold of 10uA given by Gilbert. We did not see a large difference on $i_N$ when switching both $V_+$ and $V_-$ on at the 
+% same time. 
+
+% Notice that the FUG HV power supply accused a very large inrush current on its display, as shown on \autoref{fig:inrush-current-fug}.
+% However, this value contradicts the value given by the oscilloscope, which is a better measurement instrument. In addition, if
+% indeed we had $i_N = 59 \un{uA}$ as the FUG displays, it would have resulted in a voltage drop of $\Delta V = 118 \un{V}$ accross the 
+% oscilloscope in series with $V_+$, which would have fried the channel according to instrument's datasheet. This was not the case, 
+% and therefore the physical evidence suggests that the inrush current in indeed as low as the oscilloscope suggests. 
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/inrush-current-fug.png}
+%     \caption{Inrush current displayed by the FUG HV power supply.}
+%     \label{fig:inrush-current-fug}
+% \end{figure}
+
+% \subsection{Switching $i_N$ ON and OFF in a 2-second interval}
+
+% Gilbert also requested us to verify the behaviour of $i_N$ over several switches on $V_+$ in an interval of 2 seconds. We used the same 
+% setup described for \autoref{fig:inrush-current}, obtaining the result shown on \autoref{fig:on-off-2-seconds}.
+
+% \begin{figure}[h!]
+%     \centering
+%     \includegraphics[width=\textwidth,trim=1 1 1 1,clip]{figures/on-off-2-seconds.png}
+%     \caption{Behaviour of $i_N$ when switching $V_+$ on and off in a 2-second interval.}
+%     \label{fig:on-off-2-seconds}
+% \end{figure}
+
+% As seen on \autoref{fig:on-off-2-seconds}, the inrush current peak is higher for the first time $i_N$ is swicthed on.
+% After the first time, it is about 50\% smaller. The overshoot peak, however, increses as the system is switched on and off several times.
+% We believe this is caused by the wetness that builds up on the nozzles. 
 
 
 % ==============================================
