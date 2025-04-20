@@ -20,7 +20,7 @@
 \renewcommand{\familydefault}{\sfdefault}			% Usa a fonte Arial			
 \usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
 \usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
-\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+\usepackage{indentfirst}		% Indenta $V_{in}$o primeiro parágrafo de cada seção.
 \usepackage{color}				% Controle das cores
 \usepackage{graphicx}			% Inclusão de gráficos
 \usepackage{microtype} 			% para melhorias de justificação
@@ -261,20 +261,101 @@ A \autoref{tab:minhaTabela} é um exemplo de tabela referenciável.
 
 \chapter{Desenvolvimento}
 
-\section{Experimento 1}
+\section{Experimento 4}
 
 \subsection{Descrição}
 
 \subsection{Resultados Obtidos}
 
+A \autoref{tab:result-exp4} mostra os resultados obtidos no experimento.
+
+\begin{table}[htb]
+	\caption{Parâmetros elétricos obtidos no Experimento 4.}
+	\centering
+	\begin{tabular}{c|c|c|c|c}
+		\hline
+		\textbf{$R_L$ [$\Omega]$} & \textbf{$V_{o}$} & \textbf{$V_{in}$} & \textbf{$I_L$ [mA]} & \textbf{$P_L$ [mW]} \\
+		\hline
+		100\,k & 15.02 & 5.03 & 0.15 & 2.25 \\
+		10\,k  & 15.02 & 5.02 & 1.5 & 22.53 \\
+		1\,k   & 14.85 & 5.03 & 14.85 & 220.5 \\
+		470    & 14.87 & 5.03 & 31.6 & 469.9 \\
+		270    & 10.5 & 5.03 & 38.88 & 408.2 \\
+		\hline
+	\end{tabular}
+	\label{tab:result-exp4}
+\end{table}
+
+
+Usando $R_L = 10 \un{k $\Omega$}$, temos que a tensão $V_o$ varia no intervalo
+$0.15 \leq V_o \leq 17.7 \un{V}$ quando variamos o trimpot em toda a sua faixa de operação.
+Para entender por que isso acontece, seja $V_x$ o nó entre os resistores $R_1$ e $R_2$ na 
+malha de realimentação do AmpOp U4. Por análise nodal, temos  
+
+
+\[ \frac{V_x - V_o}{R_2} + \frac{V_x - 0}{R_1} + 0 = 0 \]
+
+Pelo curto-circuito virtual do AmpOp, temos $V_x = V_{in}$ do trimpot. Logo,  
+
+\[ \frac{V_{in} - V_o}{R_2} + \frac{V_{in}}{R_1} = 0 \]
+
+\[ V_o = V_{in} \left( 1 + \frac{R_2}{R_1} \right) \]
+
+Assim, quando trimpot está na configuração mínima, temos $V_{in} = 0$ e portanto 
+$V_o$ tende a zero. Quando o trimpot está no máximo, $V_{in} = V_z = 5.8 \un{V} $.
+Assim, 
+
+\[ V_o = 5.8 \left( 1 + 2 \right) = 17.4 \un{V} \]
+
+
+
 \subsection{Discussão}
 
-\lipsum[1-2]
+\hl{explicar o 4.4}
+
+\section{Experimento 5}
+
+\subsection{Descrição}
+
+\subsection{Resultados Obtidos}
+
+A \autoref{tab:result-exp5} mostra os resultados obtidos no experimento.
+
+\begin{table}[htb]
+	\caption{Parâmetros elétricos obtidos no Experimento 5.}
+	\centering
+	\begin{tabular}{c|c|c|c|c|c}
+		\hline
+		\textbf{$R_L$ [$\Omega]$} & \textbf{$V_o$ [mA]} & \textbf{$I_L$ [mA]} & \textbf{$I_E$ [mA]} & \textbf{$P_{L}$ [mW]} & \textbf{$P_{TBJ}$ [mW]} \\
+		\hline
+		100\,k & 15.00 & 0.15 & 0.55 & 2.25 & 5.5 \\
+		10\,k  & 14.98 & 1.5 & 2.05 & 22.47 & 20.5 \\
+		1\,k   & 14.98 & 14.98 & 15.5 & 224.4 & 155 \\
+		470    & 14.97 & 31.85 & 32.35 & 476.8 & 323.5 \\
+		270    & 14.96 & 55.4 & 55.9 & 581.7 & 559 \\
+		\hline
+	\end{tabular}
+	\label{tab:result-exp5}
+\end{table}
+
+Para o cálculo de $I_E$, somamos a parcela $I_{fb} = V_{in} / R_1$ à $I_L$. Como
+$V_{in}$ é constante em $V_{in} = 5.03 \un{V}$ como vimos no experimento anterior, 
+estamos sempre somando uma parcela de $I_{fb} = 500 \un{$\mu$A}$ à $I_L$.
+
+Além disso, $V_{CE}$ no BJT é dada por $V_{CE} = V_{CC} - V_o$, sendo usada no cálculo 
+de $P_{TBJ}$ via $P_{TBJ} = V_{CE} I_E$. 
+
+\subsection{Discussão}
+
+Podemos agora considerar um caso mais realista em que $V_{CC}$ possui um ripple, simulando
+esse caso no LTSpice.
+
+\hl{completar com o 5.4}
+
 
 \chapter{Conclusão}\label{cap:conclusao} 
 
-\lipsum[1-2]
-
+\hl{add item 6 - problemas aqui na conclusao}
 
 \chapter{Referências}\label{cap:referencias} 
 
