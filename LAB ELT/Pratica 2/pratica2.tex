@@ -265,6 +265,18 @@ A \autoref{tab:minhaTabela} é um exemplo de tabela referenciável.
 
 \subsection{Descrição}
 
+Nesse experimento, vamos adicionar um AmpOp com realimentação no regulador de tensão 
+para tentar atenuar o efeito de carga visto nos experimentos anteriores. 
+O circuito montado está exibido na \autoref{fig:circuito-exp4}.
+
+\begin{figure}[h!]
+	\caption{\label{fig:circuito-exp4}Circuito para o experimento 4.}
+	\begin{center}
+    \includegraphics[width=0.8\textwidth,trim=1 1 1 1,clip]{images/circuito-exp4.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
 \subsection{Resultados Obtidos}
 
 A \autoref{tab:result-exp4} mostra os resultados obtidos no experimento.
@@ -299,7 +311,9 @@ Pelo curto-circuito virtual do AmpOp, temos $V_x = V_{in}$ do trimpot. Logo,
 
 \[ \frac{V_{in} - V_o}{R_2} + \frac{V_{in}}{R_1} = 0 \]
 
-\[ V_o = V_{in} \left( 1 + \frac{R_2}{R_1} \right) \]
+\begin{equation}\label{eq:vo-vin-ampop}
+	V_o = V_{in} \left( 1 + \frac{R_2}{R_1} \right)
+\end{equation}
 
 Assim, quando trimpot está na configuração mínima, temos $V_{in} = 0$ e portanto 
 $V_o$ tende a zero. Quando o trimpot está no máximo, $V_{in} = V_z = 5.8 \un{V} $.
@@ -311,11 +325,29 @@ Assim,
 
 \subsection{Discussão}
 
-\hl{explicar o 4.4}
+Comparando os dados obtidos na \autoref{tab:result-exp4} com os demais experimentos, vemos que a tensão na carga continua 
+a cair quando reduzimos o valor da carga (isto é, quando aumentamos a corrente drenada pela carga).
+Contudo, segundo (\ref{eq:vo-vin-ampop}), isso não deveria acontecer uma vez que $V_{in}$ no diodo zener permanece constante.
+Isso ocorre devido à limitação da corrente de saída máxima do AmpOp, que para o TL071 é de $I_{OS} = 40 \un{mA}$.
+Assim, note que o valor de $V_o$ na \autoref{tab:result-exp4} se reduz de modo que 
+a corrente $I_L$ de saída do AmpOp fica limitada em 40 mA para o resistor de 270 $\Omega$.
 
 \section{Experimento 5}
 
 \subsection{Descrição}
+
+Por fim, nesse experimento vamos adicionar um BJT na saída do AmpOp para reduzir 
+o problema da corrente de saída do AmpOp visto no experimento 4. Assim, a carga drena corrente através do BJT diretamente 
+da fonte de alimentação, de modo que a saída do AmpOp vai na base do BJT, drenando pouca corrente. 
+O circuito montado está exibido na \autoref{fig:circuito-exp5}.
+
+\begin{figure}[h!]
+	\caption{\label{fig:circuito-exp5}Circuito para o experimento 5.}
+	\begin{center}
+    \includegraphics[width=0.8\textwidth,trim=1 1 1 1,clip]{images/circuito-exp5.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
 
 \subsection{Resultados Obtidos}
 
@@ -347,19 +379,60 @@ de $P_{TBJ}$ via $P_{TBJ} = V_{CE} I_E$.
 
 \subsection{Discussão}
 
-Podemos agora considerar um caso mais realista em que $V_{CC}$ possui um ripple, simulando
-esse caso no LTSpice.
+Podemos agora considerar um caso mais realista em que $V_{CC}$ possui um ripple
+senoidal de amplitude 2 V, simulando
+esse caso no LTSpice com o circuito da \autoref{fig:simulacao-exp5},
+obtendo o resultado da \autoref{fig:result-simulacao-exp5}.
 
-\hl{completar com o 5.4}
+\begin{figure}[h!]
+	\caption{\label{fig:simulacao-exp5}Simulação do experimento 5 para Vcc com ripple.}
+	\begin{center}
+    \includegraphics[width=0.8\textwidth,trim=1 1 1 1,clip]{images/simulacao-exp5.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
 
+\begin{figure}[h!]
+	\caption{\label{fig:result-simulacao-exp5}Simulação do experimento 5 para Vcc com ripple.}
+	\begin{center}
+    \includegraphics[width=0.8\textwidth,trim=1 1 1 1,clip]{images/result-simulacao-exp5.png}
+	\end{center}
+	\legend{Fonte: elaboração própria.}
+\end{figure}
+
+Vemos na \autoref{fig:result-simulacao-exp5} que a saída ainda possui um ripple, mas 
+o ripple foi reduzido de uma amplitude de 2 V em Vcc para menos de 0.2 V,
+menos de 10\% do ripple da entrada. Repetindo a simulação para diferentes 
+valores de $R_L$, obtemos os dados da \autoref{tab:result-simulacao-exp5}.
+
+\begin{table}[htb]
+	\caption{Resultados da simulação do caso realista to experimento 5.}
+	\centering
+	\begin{tabular}{c|c|c}
+		\hline
+		\textbf{$R_L$ [$\Omega]$} & \textbf{$V_o$ Médio [V]} & \textbf{Ripple $V_o$ [V]}  \\
+		\hline
+		100\,k & 14.98 & 0.18 \\
+		10\,k & 14.98 & 0.18 \\
+		1\,k   & 14.98 & 0.18  \\
+		470\,k   & 14.98 & 0.18  \\
+		270    & 14.79 & 0.18 \\
+		\hline
+	\end{tabular}
+	\label{tab:result-simulacao-exp5}
+\end{table}
+
+Vemos que os valores de $V_o$ médio e ripple não variam conforme a carga,
+sendo uma característica ideal para uma fonte de tensão.
 
 \chapter{Conclusão}\label{cap:conclusao} 
 
-\hl{add item 6 - problemas aqui na conclusao}
+Tendo em vista os objetivos da prática, foi possível verificar na prática os efeitos que o diodo zener, o BJT e 
+o AmpOp possuem na regulagem na tensão de saída. 
 
-\chapter{Referências}\label{cap:referencias} 
-
-\lipsum[1-2]
+Em particular, vimos como os efeitos indesejados da queda de tensão na carga - causada pelo aumento do dreno de corrente 
+pela carga - pode ser atenuada pela presença do AmpOp com realimentação, de modo que o regulador de tensão a Zener e BJT,
+apesar de simples, possui essa limitação.
 
 
 \end{document}
