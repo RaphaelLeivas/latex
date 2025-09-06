@@ -44,9 +44,22 @@ Minimizar o custo total de preparação, produção e estoque
 
 \LARGE
 
-\[ \un{min} \, \sum_{i=1}^{n} \sum_{t=1}^{T} \left(s_iy_{it} + c_{it}x_{it} + h_iI_{it}\right) \]
+\[ F_{max} = \mu_{esteira} \cdot P_{robo} = 9.8 \cdot \mu_{esteira} \un{N}  \]
+
+\[ F = \frac{\tau}{r} = \frac{0.07 \un{Nm}}{17.5 \un{mm}} = 4 \un{N} \]
+
 
 \Large
+
+\begin{equation}
+    \begin{cases}
+      \mu \geq 0.8 & \text{usamos toda a força do motor}\\
+      0.4 \leq \mu \leq 0.8 & \text{ainda temos mais força que o motor fraco}\\
+      \mu \leq 0.4 & \text{geramos a mesma força que o motor fraco}
+    \end{cases}       
+\end{equation}
+
+
 
 onde
 
