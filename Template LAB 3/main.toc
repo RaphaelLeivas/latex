@@ -1,0 +1,19 @@
+\babel@toc {portuguese}{}\relax 
+\contentsline {section}{\numberline {1}Exemplo Citação}{1}{section.1}%
+\contentsline {section}{\numberline {2}Exercício 12.1}{1}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Objetivo}{1}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Resultados}{1}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Discussão}{2}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Conclusão}{2}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Exercício 12.2}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Objetivo}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Metodologia}{2}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Resultados}{2}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Discussão}{3}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Conclusão}{3}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Exercício 12.3}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Objetivo}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Metodologia}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Resultados}{3}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Discussão}{4}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Conclusão}{4}{subsection.4.5}%

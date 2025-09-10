@@ -1,0 +1,24 @@
+\providecommand{\abntreprintinfo}[1]{%
+ \citeonline{#1}}
+\setlength{\labelsep}{0pt}\begin{thebibliography}{}
+\providecommand{\abntrefinfo}[3]{}
+\providecommand{\abntbstabout}[1]{}
+\abntbstabout{v-1.9.7 }
+
+\bibitem[Agostinho et al. 2018]{Agostinho2018}
+\abntrefinfo{Agostinho et al.}{AGOSTINHO et al.}{2018}
+{AGOSTINHO, L. et al. Simple-jet mode electrosprays with water. description,
+  characterization and application in a single effect evaporation chamber.
+\emph{Journal of Aerosol Science}, Elsevier BV, v.~125, p. 237–250, nov.
+  2018.
+ISSN 0021-8502.
+Dispon{\'\i}vel em: \url{http://dx.doi.org/10.1016/j.jaerosci.2018.04.010}.}
+
+\bibitem[Verdoold et al. 2014]{Verdoold2014}
+\abntrefinfo{Verdoold et al.}{VERDOOLD et al.}{2014}
+{VERDOOLD, S. et al. A generic electrospray classification.
+\emph{Journal of Aerosol Science}, Elsevier BV, v.~67, p. 87–103, jan. 2014.
+ISSN 0021-8502.
+Dispon{\'\i}vel em: \url{http://dx.doi.org/10.1016/j.jaerosci.2013.09.008}.}
+
+\end{thebibliography}

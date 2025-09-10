@@ -23,3 +23,20 @@ Talvez seja necessario fechar o VS Code e abrir de novo para o terminal integrad
 
 - Usado a configuração `latex-workshop.latex.autoClean.run: OnBuilt` da extensão do VS Code que remove os arquivos auxiliares 
 que são gerados após o build.
+
+
+## Compilando localmente via CLI (sem o VS Code)
+
+Compiling with BibTeX requires multiple steps (order matters):
+
+    pdflatex main.tex
+
+    bibtex main.aux
+
+    pdflatex main.tex
+
+    pdflatex main.tex
+
+Ou cria um bash script para rodar isso automático.
+
+Ou usa o VS que já faz tudo isso automático.
